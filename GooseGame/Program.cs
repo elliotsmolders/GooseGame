@@ -1,2 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using GooseGame.Business;
+
+GameEngine engine = new GameEngine();
+
+void NewGame()
+{
+    engine.Init();
+}
+void RestoreGame()
+{
+    engine.Restore();
+}
+engine.Run();
