@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace GooseGame.Business
 {
-    public interface ITile
+    public interface ITileFactory
     {
-
+        public void DrawTile()
+        {
+            Console.WriteLine("tile");
+        }
     }
 }

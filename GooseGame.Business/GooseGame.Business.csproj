@@ -11,4 +11,8 @@
     <ProjectReference Include="..\GooseGame.DAL\GooseGame.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Factory\Products\" />
+  </ItemGroup>
+
 </Project>
