@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GooseGame.Business.Factory;
+using GooseGame.Business.Tiles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,15 @@ namespace GooseGame.Business
             CreatePlayer(AmountOfPlayers);
             PlacePlayers();
         }
+
         public void Run()
         {
-            throw new NotImplementedException();
+            TileFactory factory = new TileFactory();
+            IList<ITile> tileList = factory.CreateTileList();
+            foreach (ITile tile in tileList)
+            {
+                tile.HandlePlayer();
+            }
         }
 
         private void PlacePlayers()
@@ -44,7 +52,5 @@ namespace GooseGame.Business
         {
             throw new NotImplementedException();
         }
-
-
     }
 }

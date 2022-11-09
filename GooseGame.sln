@@ -3,17 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooseGame", "GooseGame\GooseGame.csproj", "{DEB7C97E-B0B4-45BC-B62E-0BE31B1DBD1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GooseGame", "GooseGame\GooseGame.csproj", "{DEB7C97E-B0B4-45BC-B62E-0BE31B1DBD1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooseGame.Common", "GooseGame.Common\GooseGame.Common.csproj", "{AA32670B-417C-4309-BAD0-CAF5F69E843B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GooseGame.Common", "GooseGame.Common\GooseGame.Common.csproj", "{AA32670B-417C-4309-BAD0-CAF5F69E843B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooseGame.Business", "GooseGame.Business\GooseGame.Business.csproj", "{3BFB6E69-FECF-4A1C-BAED-ACC13C24E2CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GooseGame.Business", "GooseGame.Business\GooseGame.Business.csproj", "{3BFB6E69-FECF-4A1C-BAED-ACC13C24E2CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooseGame.DAL", "GooseGame.DAL\GooseGame.DAL.csproj", "{9E10F046-C9E7-4ECC-B535-F05B416DC757}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GooseGame.DAL", "GooseGame.DAL\GooseGame.DAL.csproj", "{9E10F046-C9E7-4ECC-B535-F05B416DC757}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooseGame.Test", "GooseGame.Test\GooseGame.Test.csproj", "{E235B4C9-D284-4C59-9596-31B0535F3950}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooseGame.Entities", "GooseGame.Entities\GooseGame.Entities.csproj", "{B5F5464F-39EE-4F02-B7E7-2A26B13F40E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GooseGame.Test", "GooseGame.Test\GooseGame.Test.csproj", "{E235B4C9-D284-4C59-9596-31B0535F3950}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +39,6 @@ Global
 		{E235B4C9-D284-4C59-9596-31B0535F3950}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E235B4C9-D284-4C59-9596-31B0535F3950}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E235B4C9-D284-4C59-9596-31B0535F3950}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B5F5464F-39EE-4F02-B7E7-2A26B13F40E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B5F5464F-39EE-4F02-B7E7-2A26B13F40E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B5F5464F-39EE-4F02-B7E7-2A26B13F40E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B5F5464F-39EE-4F02-B7E7-2A26B13F40E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
