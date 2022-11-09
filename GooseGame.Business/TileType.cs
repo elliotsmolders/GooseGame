@@ -1,11 +1,15 @@
 ﻿namespace GooseGame.Business
 {
-    internal enum TileType
+    public enum TileType
     {
         Empty,
         Death,
         Goose,
         Prison,
-        Aviator
+        Aviator,
+        Inn,
+        Well,
+        Maze,
+        End
     }
 }
