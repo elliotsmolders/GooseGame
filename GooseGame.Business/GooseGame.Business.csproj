@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GooseGame.Common\GooseGame.Common.csproj" />
-    <ProjectReference Include="..\GooseGame.DAL\GooseGame.DAL.csproj" />
+    <Compile Remove="Factory\Products\**" />
+    <EmbeddedResource Remove="Factory\Products\**" />
+    <None Remove="Factory\Products\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Factory\Products\" />
+    <ProjectReference Include="..\GooseGame.Common\GooseGame.Common.csproj" />
+    <ProjectReference Include="..\GooseGame.DAL\GooseGame.DAL.csproj" />
   </ItemGroup>
 
 </Project>

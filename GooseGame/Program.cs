@@ -1,4 +1,5 @@
 ﻿using GooseGame.Business;
+
 GameEngine engine = new GameEngine();
 
 void NewGame()
@@ -12,4 +13,3 @@ void RestoreGame()
 engine.Run();
 
 var gameBoard = GameBoard.GetGameBoard();
-
