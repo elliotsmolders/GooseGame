@@ -5,6 +5,7 @@
         public void HandlePlayer(Player player)
         {
             player.CurrentPosition = 39;
+            Console.WriteLine("Maze");
         }
     }
 }

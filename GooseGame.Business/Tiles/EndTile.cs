@@ -2,9 +2,10 @@
 {
     internal class EndTile : ITile
     {
-        public void HandlePlayer()
+        public void HandlePlayer(Player player)
         {
-            Console.WriteLine("gg");
+            player.CurrentPosition = 12;
+            Console.WriteLine("End");
         }
     }
 }

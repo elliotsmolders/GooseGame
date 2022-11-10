@@ -12,10 +12,12 @@
             }
             else
             {
-                playerInWell.IsActive = true;
+                playerInWell.IsInWell = true;
                 playerInWell = player;
             }
-            player.IsActive = false;
+            player.IsInWell = false;
+
+            Console.WriteLine("Well");
         }
     }
 }

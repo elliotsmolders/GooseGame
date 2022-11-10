@@ -10,7 +10,8 @@ namespace GooseGame.Business.Tiles
     {
         public void HandlePlayer(Player player)
         {
-            player.CurrentPosition = 39;
+            player.Skips = 1;
+            Console.WriteLine("Inn");
         }
     }
 }

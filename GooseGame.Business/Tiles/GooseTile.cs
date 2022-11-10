@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace GooseGame.Business.Tiles
 {
-    internal class GooseTile : Business.ITile
+    internal class GooseTile : ITile
     {
-        public void HandlePlayer()
+        public void HandlePlayer(Player player)
         {
-            Console.WriteLine("Honk!");
+            player.CurrentPosition += player.CurrentPosition;
+            Console.WriteLine($"Goose by rolling {player.CurrentPosition}");
         }
     }
 }

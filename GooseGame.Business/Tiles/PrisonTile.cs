@@ -2,8 +2,10 @@
 {
     internal class PrisonTile : ITile
     {
-        public void HandlePlayer() {
-            Console.WriteLine("you are stuck in the prison :(");
+        public void HandlePlayer(Player player)
+        {
+            player.Skips = 3;
+            Console.WriteLine("Prison");
         }
     }
 }

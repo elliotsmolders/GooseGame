@@ -8,9 +8,9 @@ NewGame();
 void NewGame()
 {
     engine.Init();
+    engine.Run();
 }
 void RestoreGame()
 {
     engine.Restore();
 }
-engine.Run();

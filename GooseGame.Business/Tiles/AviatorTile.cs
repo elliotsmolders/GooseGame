@@ -2,9 +2,10 @@
 {
     internal class AviatorTile : ITile
     {
-        public void HandlePlayer()
+        public void HandlePlayer(Player player)
         {
-            Console.WriteLine("Broooooooooowwwwwwww");
+            throw new NotImplementedException();
+            Console.WriteLine("Aviator");
         }
     }
 }

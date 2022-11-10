@@ -8,9 +8,9 @@ namespace GooseGame.Business.Tiles
 {
     public class EmptyTile : ITile
     {
-        public void HandlePlayer()
+        public void HandlePlayer(Player player)
         {
-            Console.WriteLine("The voiiiid");
+            Console.WriteLine("Empty");
         }
     }
 }
