@@ -9,7 +9,7 @@ namespace GooseGame.Business.Factory
             switch (type)
             {
                 case TileType.Empty:
-                    return new BridgeTile();
+                    return new EmptyTile();
 
                 case TileType.Death:
                     return new DeathTile();
@@ -19,6 +19,7 @@ namespace GooseGame.Business.Factory
 
                 case TileType.Prison:
                     return new PrisonTile();
+
                 case TileType.Aviator:
                     return new AviatorTile();
 
@@ -33,6 +34,9 @@ namespace GooseGame.Business.Factory
 
                 case TileType.End:
                     return new EndTile();
+
+                case TileType.Bridge:
+                    return new BridgeTile();
             }
             return null!;
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GooseGame.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,12 @@ namespace GooseGame.DAL
 {
     internal class GooseGameDbContext : DbContext
     {
+        public DbSet<Player> Players { get; set; } = null!;
+        public DbSet<Game> Games { get; set; } = null!;
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            ILoggerFactory fakeFactory = new ILoggerProvider();
-            options.UseLoggerFactory(fakeFactory);
+            options.UseSqlServer(@"Server=ZENTOP;Database=GooseGameDatabase;Trusted_Connection=True;");
         }
     }
 }

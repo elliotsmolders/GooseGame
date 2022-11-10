@@ -10,16 +10,20 @@ namespace GooseGame.Business
 {
     public class GameEngine
     {
-        public int AmountOfPlayers { get; set; }
+        public int AmountOfPlayers { get; set; } = 1;
         public int AmountOfTiles { get; set; }
         public Player CurrentPlayer { get; set; }
         public List<Player> ListOfPlayers { get; set; } = new List<Player>();
         public int AmountOfThrows { get; set; }
         public GameBoard Board { get; set; }
 
+        public GameEngine(GameBoard board)
+        {
+            Board = board;
+        }
+
         public void Init()
         {
-            CreateBoard();
             CreatePlayer(AmountOfPlayers);
             PlacePlayers();
         }
@@ -41,11 +45,6 @@ namespace GooseGame.Business
         private void CreatePlayer(int amountOfPlayers)
         {
             throw new NotImplementedException();
-        }
-
-        private void CreateBoard()
-        {
-            GameBoard _board = GameBoard.GetGameBoard();
         }
 
         public void Restore()

@@ -10,9 +10,11 @@ namespace GooseGame.Business
     {
         //public int Id { get; set; }
         public string Name { get; set; }
+
         public int CurrentPosition { get; set; }
-        bool IsNpc { get; set; }
-        int NumberOfThrows { get; set; }
+        private bool IsNpc { get; set; } = false;
+        private int NumberOfThrows { get; set; }
+
         public Player(string name)
         {
             Name = name;

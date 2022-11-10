@@ -10,6 +10,7 @@
         Inn,
         Well,
         Maze,
-        End
+        End,
+        Bridge
     }
 }

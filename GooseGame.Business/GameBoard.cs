@@ -15,7 +15,7 @@ namespace GooseGame.Business
             FillTileList();
         }
 
-        public IList<ITile> listOfTiles { get; set; }
+        public IList<ITile> listOfTiles { get; set; } = new List<ITile>();
         private const int _amountOfTiles = 63;
 
         //int[] EmptyTilePositions = {1,2, 3,4, 7,8,10,11,13,15,16,17,20,21,22,24,25,26,28,29,30,33,34,35,37,38,39,40,43,44,46,47,48,49,51,53,55,56,57,60,61,62};
@@ -56,7 +56,7 @@ namespace GooseGame.Business
                 }
                 else if (BridgeTilePositions.Contains(i))
                 {
-                    listOfTiles.Add(factory.CreateTile(TileType.Prison));
+                    listOfTiles.Add(factory.CreateTile(TileType.Bridge));
                 }
                 else if (InnTilePositions.Contains(i))
                 {
