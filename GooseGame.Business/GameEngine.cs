@@ -15,6 +15,7 @@ namespace GooseGame.Business
         public Player CurrentPlayer { get; set; }
         public List<Player> ListOfPlayers { get; set; } = new List<Player>();
         public int AmountOfThrows { get; set; }
+        public GameBoard Board { get; set; }
 
         public void Init()
         {
@@ -26,8 +27,7 @@ namespace GooseGame.Business
         public void Run()
         {
             TileFactory factory = new TileFactory();
-            IList<ITile> tileList = factory.CreateTileList();
-            foreach (ITile tile in tileList)
+            foreach (ITile tile in Board.listOfTiles)
             {
                 tile.HandlePlayer();
             }
@@ -45,7 +45,7 @@ namespace GooseGame.Business
 
         private void CreateBoard()
         {
-            throw new NotImplementedException();
+            GameBoard _board = GameBoard.GetGameBoard();
         }
 
         public void Restore()

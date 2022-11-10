@@ -1,4 +1,5 @@
 ﻿using GooseGame.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,3 +40,4 @@ namespace GooseGame.DAL.Repositories
             return await _ctx.Set<T>().ToListAsync();
         }
     }
+}
