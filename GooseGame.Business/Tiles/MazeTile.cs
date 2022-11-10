@@ -2,9 +2,9 @@
 {
     internal class MazeTile : ITile
     {
-        public void HandlePlayer()
+        public void HandlePlayer(Player player)
         {
-            Console.WriteLine("you are stuck in the spooky maze");
+            player.CurrentPosition = 39;
         }
     }
 }

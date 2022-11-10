@@ -16,35 +16,35 @@ namespace GooseGame.Business
         public List<Player> ListOfPlayers { get; set; } = new List<Player>();
         public int AmountOfThrows { get; set; }
         public GameBoard Board { get; set; }
+        public Dice Dice { get; set; }
 
-        public GameEngine(GameBoard board)
+        public GameEngine(GameBoard board, Dice dice)
         {
             Board = board;
+            Dice = dice;
         }
 
         public void Init()
         {
-            CreatePlayer(AmountOfPlayers);
-            PlacePlayers();
+            for (int i = 0; i < AmountOfPlayers; i++)
+            {
+                string name = $"Harold {i}";
+                CreatePlayer(name);
+            }
+            foreach (var player in ListOfPlayers)
+            {
+                Console.WriteLine(player.Name);
+            }
         }
 
         public void Run()
         {
-            TileFactory factory = new TileFactory();
-            foreach (ITile tile in Board.listOfTiles)
-            {
-                tile.HandlePlayer();
-            }
+            Console.WriteLine(Dice.RollDice());
         }
 
-        private void PlacePlayers()
+        private void CreatePlayer(string name)
         {
-            throw new NotImplementedException();
-        }
-
-        private void CreatePlayer(int amountOfPlayers)
-        {
-            throw new NotImplementedException();
+            ListOfPlayers.Add(new Player(name));
         }
 
         public void Restore()

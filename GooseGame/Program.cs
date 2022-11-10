@@ -1,7 +1,8 @@
 ﻿using GooseGame.Business;
 
 GameBoard board = GameBoard.GetGameBoard();
-GameEngine engine = new GameEngine(board);
+Dice dice = new Dice();
+GameEngine engine = new GameEngine(board, dice);
 
 NewGame();
 void NewGame()

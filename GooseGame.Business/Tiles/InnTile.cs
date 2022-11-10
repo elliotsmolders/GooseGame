@@ -8,9 +8,9 @@ namespace GooseGame.Business.Tiles
 {
     internal class InnTile : ITile
     {
-        public void HandlePlayer()
+        public void HandlePlayer(Player player)
         {
-            Console.WriteLine("mimiimimimimi");
+            player.CurrentPosition = 39;
         }
     }
 }

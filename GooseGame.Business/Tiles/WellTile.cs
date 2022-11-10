@@ -2,9 +2,20 @@
 {
     internal class WellTile : ITile
     {
-        public void HandlePlayer()
+        public Player playerInWell { get; private set; }
+
+        public void HandlePlayer(Player player)
         {
-            Console.WriteLine("you fall down the well aaaAaaAAAAa");
+            if (playerInWell == null)
+            {
+                playerInWell = player;
+            }
+            else
+            {
+                playerInWell.IsActive = true;
+                playerInWell = player;
+            }
+            player.IsActive = false;
         }
     }
 }

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace GooseGame.Business.Tiles
 {
-    internal class DeathTile : Business.ITile
+    internal class DeathTile : ITile
     {
-        public void HandlePlayer()
+        public void HandlePlayer(Player player)
         {
-            Console.WriteLine("You are dead.");
+            player.CurrentPosition = 0;
         }
     }
 }
