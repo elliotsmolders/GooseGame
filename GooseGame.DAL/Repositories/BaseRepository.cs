@@ -18,7 +18,7 @@ namespace GooseGame.DAL.Repositories
             await _ctx.SaveChangesAsync();
         }
 
-        public async Task<T> GetAsync(int id)
+        public async Task<T?> GetAsync(int id)
         {
             return await _ctx.Set<T>().FindAsync(id);
         }

@@ -31,6 +31,7 @@ namespace GooseGame.Business
             {
                 string name = $"Harold {i}";
                 CreatePlayer(name);
+                CurrentPlayer = ListOfPlayers[0]; // beter voor bij new game :)) en vorige was eigenlijk initialisatie die telkens overlopen werd.
             }
         }
 
@@ -46,10 +47,6 @@ namespace GooseGame.Business
 
         private Player GetNextPlayer()
         {
-            if (CurrentPlayer == null)
-            {
-                return ListOfPlayers[0];
-            }
             int index = ListOfPlayers.IndexOf(CurrentPlayer);
             return index >= ListOfPlayers.Count() - 1 ? ListOfPlayers[0] : ListOfPlayers[index + 1];
         }
@@ -62,14 +59,14 @@ namespace GooseGame.Business
             }
             if (player.Skips > 0)
             {
-                player.Skips -= 1;
+                player.Skips--; //beter
                 return;
             }
 
             int roll1 = Dice.RollDice();
             int roll2 = Dice.RollDice();
             player.CurrentRoll = roll2 + roll1;
-            CurrentPlayer.NumberOfThrows += 1;
+            CurrentPlayer.NumberOfThrows++;
 
             Console.WriteLine($"{roll1} + {roll2}");
 

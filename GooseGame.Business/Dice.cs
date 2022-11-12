@@ -10,9 +10,14 @@ namespace GooseGame.Business
     {
         private Random rnd = new Random();
 
-        public int RollDice(int max = 6, int min = 1)
+        /// <summary>
+        /// rnd initialized with .next to avoid not getting true randomness
+        /// </summary>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public int RollDice()
         {
-            return rnd.Next(min, max);
+            return rnd.Next(1, 6);
         }
     }
 }
