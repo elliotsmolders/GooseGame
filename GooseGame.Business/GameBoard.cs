@@ -1,4 +1,5 @@
 ﻿using GooseGame.Business.Factory;
+using GooseGame.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,8 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GooseGame.Business
-
 {
+    /// <summary>
+    /// Niet meer singleton want: doel singleton is om niet met dependancy injection te moeten werken in ingewikkelde structuren
+    /// stel de vraag: moeten we dikwijls van een speler naar het bord of tile naar het bord?
+    /// Is niet uitbreidbaar/aanpasbaar door inheritance
+    /// + heel belangrijke reden , we komen in problemen bij het bijvoorbeeld restoren van een spel uit de DB
+    ///
+    /// GameBoard mag ook naar DAL als entity als we het board willen opslagen wat wel een goed idee is
+    /// als we meerdere soorten borden zouden maken versies.
+    /// </summary>
     public class GameBoard
     {
         private GameBoard()
@@ -15,7 +24,8 @@ namespace GooseGame.Business
             FillTileList();
         }
 
-        public IList<ITile> listOfTiles { get; set; } = new List<ITile>();
+        public IList<ITile> Tiles { get; set; } = new List<ITile>(); // ListOf doen we niet meer
+
         private const int _amountOfTiles = 63;
 
         //int[] EmptyTilePositions = {1,2, 3,4, 7,8,10,11,13,15,16,17,20,21,22,24,25,26,28,29,30,33,34,35,37,38,39,40,43,44,46,47,48,49,51,53,55,56,57,60,61,62};
@@ -40,7 +50,11 @@ namespace GooseGame.Business
             return _gameBoard;
         }
 
-        private TileFactory factory = new();
+        /// <summary>
+        /// private fields moeten toch met _
+        /// https://stackoverflow.com/questions/450238/to-underscore-or-to-not-to-underscore-that-is-the-question
+        /// </summary>
+        private TileFactory _factory = new();
 
         private void FillTileList()
         {
@@ -48,37 +62,37 @@ namespace GooseGame.Business
             {
                 if (GooseTilePositions.Contains(i))
                 {
-                    listOfTiles.Add(factory.CreateTile(TileType.Goose));
+                    Tiles.Add(_factory.CreateTile(TileType.Goose));
                 }
                 else if (PrisonTilePositions.Contains(i))
                 {
-                    listOfTiles.Add(factory.CreateTile(TileType.Prison));
+                    Tiles.Add(_factory.CreateTile(TileType.Prison));
                 }
                 else if (BridgeTilePositions.Contains(i))
                 {
-                    listOfTiles.Add(factory.CreateTile(TileType.Bridge));
+                    Tiles.Add(_factory.CreateTile(TileType.Bridge));
                 }
                 else if (InnTilePositions.Contains(i))
                 {
-                    listOfTiles.Add(factory.CreateTile(TileType.Inn));
+                    Tiles.Add(_factory.CreateTile(TileType.Inn));
                 }
                 else if (WellTilePositions.Contains(i))
                 {
-                    listOfTiles.Add(factory.CreateTile(TileType.Well));
+                    Tiles.Add(_factory.CreateTile(TileType.Well));
                 }
                 else if (MazeTilePositions.Contains(i))
                 {
-                    listOfTiles.Add(factory.CreateTile(TileType.Maze));
+                    Tiles.Add(_factory.CreateTile(TileType.Maze));
                 }
                 else if (DeathTilePositions.Contains(i))
                 {
-                    listOfTiles.Add(factory.CreateTile(TileType.Death));
+                    Tiles.Add(_factory.CreateTile(TileType.Death));
                 }
                 else if (EndTilePositions.Contains(i))
                 {
-                    listOfTiles.Add(factory.CreateTile(TileType.End));
+                    Tiles.Add(_factory.CreateTile(TileType.End));
                 }
-                else listOfTiles.Add(factory.CreateTile(TileType.Empty));
+                else Tiles.Add(_factory.CreateTile(TileType.Empty));
             }
         }
     }

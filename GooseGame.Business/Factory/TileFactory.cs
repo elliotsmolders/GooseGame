@@ -1,4 +1,5 @@
 ﻿using GooseGame.Business.Tiles;
+using GooseGame.DAL.Entities;
 
 namespace GooseGame.Business.Factory
 {

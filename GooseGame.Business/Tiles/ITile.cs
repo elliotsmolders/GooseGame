@@ -1,6 +1,4 @@
-﻿using GooseGame.Business.Models;
-
-namespace GooseGame.Business
+﻿namespace GooseGame.Business
 {
     public interface ITile
     {

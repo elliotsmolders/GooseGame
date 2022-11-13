@@ -1,4 +1,4 @@
-﻿namespace GooseGame.Business
+﻿namespace GooseGame.DAL.Entities
 {
     public enum TileType
     {

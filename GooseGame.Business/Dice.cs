@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace GooseGame.Business
 {
-    public class Dice
+    public static class Dice
     {
-        private Random rnd = new Random();
+        private static Random rnd = new Random();
 
         /// <summary>
         /// rnd initialized with .next to avoid not getting true randomness
         /// </summary>
         /// <param name="max"></param>
         /// <returns></returns>
-        public int RollDice()
+        public static int RollDice()
         {
             return rnd.Next(1, 6);
         }
