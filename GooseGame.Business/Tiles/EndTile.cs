@@ -1,11 +1,12 @@
-﻿namespace GooseGame.Business.Tiles
+﻿using GooseGame.Business.Interfaces;
+
+namespace GooseGame.Business.Tiles
 {
     internal class EndTile : ITile
     {
         public void HandlePlayer(Player player)
         {
-            player.CurrentPosition = 12;
-            Console.WriteLine("End");
+            Console.WriteLine("U bent gewonnen");
         }
     }
 }

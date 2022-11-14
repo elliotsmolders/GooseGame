@@ -1,18 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GooseGame.Business
+﻿namespace GooseGame.Business
 {
-    public class Dice
+    public static class Dice
     {
-        private Random rnd = new Random();
+        private static readonly Random rnd = new Random();
 
-        public int RollDice(int max = 6, int min = 1)
+        /// <summary>
+        /// rnd initialized with .next to avoid not getting true randomness
+        /// </summary>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public static int RollDice(int max = 6)
         {
-            return rnd.Next(min, max);
+            return rnd.Next(1, max);
         }
     }
 }

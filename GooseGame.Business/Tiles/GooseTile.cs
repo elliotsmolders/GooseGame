@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GooseGame.Business;
+using GooseGame.Business.Interfaces;
 
 namespace GooseGame.Business.Tiles
 {
@@ -10,8 +7,8 @@ namespace GooseGame.Business.Tiles
     {
         public void HandlePlayer(Player player)
         {
-            player.CurrentPosition += player.CurrentPosition;
-            Console.WriteLine($"Goose by rolling {player.CurrentPosition}");
+            player.UpdatePosition();
+            Console.WriteLine($"Goose by rolling {player.CurrentRoll}");
         }
     }
 }

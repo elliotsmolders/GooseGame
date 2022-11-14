@@ -1,4 +1,6 @@
-﻿using GooseGame.Business.Tiles;
+﻿using GooseGame.Business.Interfaces;
+using GooseGame.Business.Tiles;
+using GooseGame.DAL.Entities;
 
 namespace GooseGame.Business.Factory
 {

@@ -1,28 +1,33 @@
-﻿using GooseGame.Business.Factory;
-using GooseGame.Business.Tiles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GooseGame.Business.Tiles;
+using GooseGame.DAL.Models;
+using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 
 namespace GooseGame.Business
 {
+    /// <summary>
+    /// GameEngine mag singleton worden zodat deze zonder Depandancy injection overal oproepbaar is.
+    /// Nog een goede reden, bevat enkel logica en geen save states
+    ///
+    /// Dal rechtstreeks van business aanspreken mag zonder tussenlayer, Frtonend mag er nooit rechtstreeks aankunnen
+    /// Wich brings u to the following, Game als entity moet nog ingeladen worden in de engine zodat we de juiste properties kunnen bijhouden of opvragen.
+    ///
+    /// </summary>
     public class GameEngine
     {
-        public int AmountOfPlayers { get; set; } = 3;
-        public int AmountOfTiles { get; set; }
         public Player CurrentPlayer { get; set; }
-        public List<Player> ListOfPlayers { get; set; } = new List<Player>();
-        public int AmountOfThrows { get; set; }
-        public GameBoard Board { get; set; }
-        public Dice Dice { get; set; }
-        public Player VictoriousPlayer { get; set; } = null!;
+        public List<Player> Players { get; set; } = new List<Player>(); // verhuisd naar Game instance
 
-        public GameEngine(GameBoard board, Dice dice)
+        public int TotalNumberOfRolls { get; set; }
+        public GameBoard Board { get; set; }
+
+        public Player Winner { get; set; } = null!;
+
+        public int AmountOfPlayers { get; set; } = 1;
+
+        public GameEngine(GameBoard board)
         {
             Board = board;
-            Dice = dice;
         }
 
         public void Init()
@@ -31,78 +36,92 @@ namespace GooseGame.Business
             {
                 string name = $"Harold {i}";
                 CreatePlayer(name);
+                CurrentPlayer = Players[0];
             }
         }
 
         public void Run()
         {
-            while (VictoriousPlayer == null)
+            while (Winner == null)
             {
                 CurrentPlayer = GetNextPlayer();
-                Console.ReadLine();
                 PlayTurn(CurrentPlayer);
+                if (CurrentPlayer.CurrentPosition == 63)
+                {
+                    Winner = CurrentPlayer;
+                }
             }
         }
 
         private Player GetNextPlayer()
         {
-            if (CurrentPlayer == null)
-            {
-                return ListOfPlayers[0];
-            }
-            int index = ListOfPlayers.IndexOf(CurrentPlayer);
-            return index >= ListOfPlayers.Count() - 1 ? ListOfPlayers[0] : ListOfPlayers[index + 1];
+            int index = Players.IndexOf(CurrentPlayer);
+            return index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
         }
 
         private void PlayTurn(Player player)
         {
-            if (player.IsInWell)
+            Console.ReadLine();
+            if (!IsPlayerActive(player))
             {
-                return;
-            }
-            if (player.Skips > 0)
-            {
-                player.Skips -= 1;
                 return;
             }
 
             int roll1 = Dice.RollDice();
             int roll2 = Dice.RollDice();
-            player.CurrentRoll = roll2 + roll1;
-            CurrentPlayer.NumberOfThrows += 1;
+            player.CurrentRoll = roll1 + roll2;
 
             Console.WriteLine($"{roll1} + {roll2}");
-
-            if (player.NumberOfThrows == 0)
+            if (player.NumberOfRolls == 0)
             {
-                if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
-                {
-                    player.CurrentPosition = 53;
-                }
-                else if ((roll1 == 6 && roll2 == 3) || (roll1 == 3 && roll2 == 6))
-                {
-                    player.CurrentPosition = 26;
-                }
-                else
-                {
-                    player.CurrentPosition += player.CurrentRoll;
-                }
+                HandleFirstThrow(roll1, roll2, player);
+            }
+            else
+            {
+                player.UpdatePosition();
+            }
+            CurrentPlayer.NumberOfRolls++;
+            do
+            {
+                Console.WriteLine(Board.Tiles[CurrentPlayer.CurrentPosition].GetType());
+                Board.Tiles[CurrentPlayer.CurrentPosition].HandlePlayer(CurrentPlayer);
+            } while (Board.Tiles[CurrentPlayer.CurrentPosition] is GooseTile);
+            Console.WriteLine($"{CurrentPlayer.Name} on position {player.CurrentPosition} \n *********************");
+        }
+
+        private void HandleFirstThrow(int roll1, int roll2, Player player)
+        {
+            if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
+            {
+                player.CurrentPosition = 53;
+            }
+            else if ((roll1 == 6 && roll2 == 3) || (roll1 == 3 && roll2 == 6))
+            {
+                player.CurrentPosition = 26;
             }
             else
             {
                 player.CurrentPosition += player.CurrentRoll;
             }
-            do
+        }
+
+        private bool IsPlayerActive(Player player)
+        {
+            if (player.IsInWell)
             {
-                Console.WriteLine(Board.listOfTiles[CurrentPlayer.CurrentPosition].GetType());
-                Board.listOfTiles[CurrentPlayer.CurrentPosition].HandlePlayer(CurrentPlayer);
-            } while (Board.listOfTiles[CurrentPlayer.CurrentPosition] is GooseTile);
-            Console.WriteLine($"{CurrentPlayer.Name} on position {player.CurrentPosition} \n *********************");
+                return false;
+            }
+            if (player.Skips > 0)
+            {
+                player.Skips--;
+                return false;
+            }
+            return true;
         }
 
         private void CreatePlayer(string name)
         {
-            ListOfPlayers.Add(new Player(name));
+            Players.Add(new Player(name, Board));
         }
 
         public void Restore()

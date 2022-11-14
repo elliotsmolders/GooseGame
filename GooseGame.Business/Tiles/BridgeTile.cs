@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GooseGame.Business.Interfaces;
 
 namespace GooseGame.Business.Tiles
 {
@@ -10,7 +11,7 @@ namespace GooseGame.Business.Tiles
     {
         public void HandlePlayer(Player player)
         {
-            player.CurrentPosition = 12;
+            player.UpdatePosition(12);
             Console.WriteLine("Bridge");
         }
     }
