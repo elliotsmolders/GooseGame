@@ -6,8 +6,7 @@ namespace GooseGame.Business.Tiles
     {
         public void HandlePlayer(Player player)
         {
-            player.CurrentPosition = 12;
-            Console.WriteLine("End");
+            Console.WriteLine("U bent gewonnen");
         }
     }
 }

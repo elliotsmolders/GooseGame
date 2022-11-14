@@ -42,15 +42,6 @@ namespace GooseGame.Business
 
         private static GameBoard _gameBoard;
 
-        public static GameBoard GetGameBoard()
-        {
-            if (_gameBoard == null)
-            {
-                _gameBoard = new GameBoard();
-            }
-            return _gameBoard;
-        }
-
         /// <summary>
         /// private fields moeten toch met _
         /// https://stackoverflow.com/questions/450238/to-underscore-or-to-not-to-underscore-that-is-the-question

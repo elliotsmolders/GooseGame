@@ -11,7 +11,7 @@ namespace GooseGame.Business.Tiles
     {
         public void HandlePlayer(Player player)
         {
-            player.CurrentPosition = 0;
+            player.UpdatePosition(0);
             Console.WriteLine("Death");
         }
     }

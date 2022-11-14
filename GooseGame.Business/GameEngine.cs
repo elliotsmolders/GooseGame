@@ -23,7 +23,7 @@ namespace GooseGame.Business
 
         public Player Winner { get; set; } = null!;
 
-        public int AmountOfPlayers { get; set; } = 3;
+        public int AmountOfPlayers { get; set; } = 1;
 
         public GameEngine(GameBoard board)
         {
@@ -45,8 +45,11 @@ namespace GooseGame.Business
             while (Winner == null)
             {
                 CurrentPlayer = GetNextPlayer();
-                Console.ReadLine();
                 PlayTurn(CurrentPlayer);
+                if (CurrentPlayer.CurrentPosition == 63)
+                {
+                    Winner = CurrentPlayer;
+                }
             }
         }
 
@@ -58,6 +61,7 @@ namespace GooseGame.Business
 
         private void PlayTurn(Player player)
         {
+            Console.ReadLine();
             if (!IsPlayerActive(player))
             {
                 return;
@@ -66,36 +70,23 @@ namespace GooseGame.Business
             int roll1 = Dice.RollDice();
             int roll2 = Dice.RollDice();
             player.CurrentRoll = roll1 + roll2;
-            CurrentPlayer.NumberOfRolls++;
 
             Console.WriteLine($"{roll1} + {roll2}");
-
             if (player.NumberOfRolls == 0)
             {
                 HandleFirstThrow(roll1, roll2, player);
             }
             else
             {
-                UpdatePosition(player);
+                player.UpdatePosition();
             }
+            CurrentPlayer.NumberOfRolls++;
             do
             {
                 Console.WriteLine(Board.Tiles[CurrentPlayer.CurrentPosition].GetType());
                 Board.Tiles[CurrentPlayer.CurrentPosition].HandlePlayer(CurrentPlayer);
             } while (Board.Tiles[CurrentPlayer.CurrentPosition] is GooseTile);
             Console.WriteLine($"{CurrentPlayer.Name} on position {player.CurrentPosition} \n *********************");
-        }
-
-        public void UpdatePosition(Player player)
-        {
-            if (player.CurrentPosition > Board.AmountOfTiles - 1)
-            {
-                player.CurrentPosition += player.CurrentRoll - 63;
-            }
-            else
-            {
-                player.CurrentPosition += player.CurrentRoll;
-            }
         }
 
         private void HandleFirstThrow(int roll1, int roll2, Player player)
@@ -130,7 +121,7 @@ namespace GooseGame.Business
 
         private void CreatePlayer(string name)
         {
-            Players.Add(new Player(name));
+            Players.Add(new Player(name, Board));
         }
 
         public void Restore()
