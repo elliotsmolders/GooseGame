@@ -1,5 +1,6 @@
 ﻿using GooseGame.Business;
 
+GameBoard board = new GameBoard();
 GameEngine engine = new GameEngine(board);
 
 NewGame();

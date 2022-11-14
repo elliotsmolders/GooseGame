@@ -1,4 +1,4 @@
-﻿namespace GooseGame.Business
+﻿namespace GooseGame.Business.Interfaces
 {
     public interface ITile
     {

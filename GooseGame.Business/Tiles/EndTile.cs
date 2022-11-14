@@ -1,4 +1,6 @@
-﻿namespace GooseGame.Business.Tiles
+﻿using GooseGame.Business.Interfaces;
+
+namespace GooseGame.Business.Tiles
 {
     internal class EndTile : ITile
     {

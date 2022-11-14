@@ -1,4 +1,7 @@
 ﻿using GooseGame.Business.Tiles;
+using GooseGame.DAL.Models;
+using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 
 namespace GooseGame.Business
 {
@@ -18,28 +21,28 @@ namespace GooseGame.Business
         public int TotalNumberOfRolls { get; set; }
         public GameBoard Board { get; set; }
 
-        public Player VictoriousPlayer { get; set; } = null!;
+        public Player Winner { get; set; } = null!;
 
-        public int AmountOfPlayers { get; set; }
+        public int AmountOfPlayers { get; set; } = 3;
 
         public GameEngine(GameBoard board)
         {
             Board = board;
         }
 
-        public void Init() // er moet eerst gegooid worden om te weten wie begint
+        public void Init()
         {
             for (int i = 0; i < AmountOfPlayers; i++)
             {
                 string name = $"Harold {i}";
                 CreatePlayer(name);
-                CurrentPlayer = Players[0]; // beter voor bij new game :)) en vorige was eigenlijk initialisatie die telkens overlopen werd.
+                CurrentPlayer = Players[0];
             }
         }
 
         public void Run()
         {
-            while (VictoriousPlayer == null)
+            while (Winner == null)
             {
                 CurrentPlayer = GetNextPlayer();
                 Console.ReadLine();
@@ -55,41 +58,25 @@ namespace GooseGame.Business
 
         private void PlayTurn(Player player)
         {
-            if (player.IsInWell)
+            if (!IsPlayerActive(player))
             {
-                return;
-            }
-            if (player.Skips > 0)
-            {
-                player.Skips--;
                 return;
             }
 
             int roll1 = Dice.RollDice();
             int roll2 = Dice.RollDice();
-            player.CurrentRoll = roll2 + roll1;
+            player.CurrentRoll = roll1 + roll2;
             CurrentPlayer.NumberOfRolls++;
 
             Console.WriteLine($"{roll1} + {roll2}");
 
             if (player.NumberOfRolls == 0)
             {
-                if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
-                {
-                    player.CurrentPosition = 53;
-                }
-                else if ((roll1 == 6 && roll2 == 3) || (roll1 == 3 && roll2 == 6))
-                {
-                    player.CurrentPosition = 26;
-                }
-                else
-                {
-                    player.CurrentPosition += player.CurrentRoll;
-                }
+                HandleFirstThrow(roll1, roll2, player);
             }
             else
             {
-                player.CurrentPosition += player.CurrentRoll;
+                UpdatePosition(player);
             }
             do
             {
@@ -97,6 +84,48 @@ namespace GooseGame.Business
                 Board.Tiles[CurrentPlayer.CurrentPosition].HandlePlayer(CurrentPlayer);
             } while (Board.Tiles[CurrentPlayer.CurrentPosition] is GooseTile);
             Console.WriteLine($"{CurrentPlayer.Name} on position {player.CurrentPosition} \n *********************");
+        }
+
+        public void UpdatePosition(Player player)
+        {
+            if (player.CurrentPosition > Board.AmountOfTiles - 1)
+            {
+                player.CurrentPosition += player.CurrentRoll - 63;
+            }
+            else
+            {
+                player.CurrentPosition += player.CurrentRoll;
+            }
+        }
+
+        private void HandleFirstThrow(int roll1, int roll2, Player player)
+        {
+            if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
+            {
+                player.CurrentPosition = 53;
+            }
+            else if ((roll1 == 6 && roll2 == 3) || (roll1 == 3 && roll2 == 6))
+            {
+                player.CurrentPosition = 26;
+            }
+            else
+            {
+                player.CurrentPosition += player.CurrentRoll;
+            }
+        }
+
+        private bool IsPlayerActive(Player player)
+        {
+            if (player.IsInWell)
+            {
+                return false;
+            }
+            if (player.Skips > 0)
+            {
+                player.Skips--;
+                return false;
+            }
+            return true;
         }
 
         private void CreatePlayer(string name)

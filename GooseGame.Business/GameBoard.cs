@@ -1,4 +1,5 @@
 ﻿using GooseGame.Business.Factory;
+using GooseGame.Business.Interfaces;
 using GooseGame.DAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,14 +20,14 @@ namespace GooseGame.Business
     /// </summary>
     public class GameBoard
     {
-        private GameBoard()
+        public GameBoard()
         {
             FillTileList();
         }
 
         public IList<ITile> Tiles { get; set; } = new List<ITile>(); // ListOf doen we niet meer
 
-        private const int _amountOfTiles = 63;
+        public int AmountOfTiles = 64;
 
         //int[] EmptyTilePositions = {1,2, 3,4, 7,8,10,11,13,15,16,17,20,21,22,24,25,26,28,29,30,33,34,35,37,38,39,40,43,44,46,47,48,49,51,53,55,56,57,60,61,62};
         private int[] GooseTilePositions = { 5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54, 59 };
@@ -58,7 +59,7 @@ namespace GooseGame.Business
 
         private void FillTileList()
         {
-            for (int i = 0; i < _amountOfTiles; i++)
+            for (int i = 0; i < AmountOfTiles; i++)
             {
                 if (GooseTilePositions.Contains(i))
                 {
