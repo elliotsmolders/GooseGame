@@ -10,6 +10,7 @@ namespace GooseGame.DAL.Models
         public string IconPath { get; set; }
         public int Sequence { get; set; } // order is een keyword in mssql vandaar sequence
         public int CurrentPosition { get; set; }
+        public DbSet<Game> Games { get; set; }
         // public bool IsNpc { get; set; } // eerst alle andere implementaties, werkend spel
     }
 }

@@ -14,7 +14,7 @@ namespace GooseGame.Business
 
         public int CurrentPosition { get; set; } // default is al 0
         private bool IsNpc { get; set; } // default is al false
-        public int NumberOfThrows { get; set; }
+        public int NumberOfRolls { get; set; }
         public int CurrentRoll { get; set; }
 
         public bool IsInWell // hoort in methode bij Run - currently = redundant data

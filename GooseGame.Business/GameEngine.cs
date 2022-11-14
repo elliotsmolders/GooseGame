@@ -1,10 +1,4 @@
-﻿using GooseGame.Business.Factory;
-using GooseGame.Business.Tiles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GooseGame.Business.Tiles;
 
 namespace GooseGame.Business
 {
@@ -18,25 +12,21 @@ namespace GooseGame.Business
     /// </summary>
     public class GameEngine
     {
-        public GameBoard GameBoard { get; set; }
-        public int AmountOfTiles { get; set; }
         public Player CurrentPlayer { get; set; }
-        // public List<Player> Players { get; set; } = new List<Player>(); // verhuisd naar Game instance
+        public List<Player> Players { get; set; } = new List<Player>(); // verhuisd naar Game instance
 
-        // public int AmountOfThrows { get; set; } // redundant
+        public int TotalNumberOfRolls { get; set; }
         public GameBoard Board { get; set; }
 
         public Player VictoriousPlayer { get; set; } = null!;
 
-        // public int AmountOfPlayers { get; set; } // redundant
+        public int AmountOfPlayers { get; set; }
+
         public GameEngine(GameBoard board)
         {
             Board = board;
         }
 
-        /// <summary>
-        ///
-        /// </summary>
         public void Init() // er moet eerst gegooid worden om te weten wie begint
         {
             for (int i = 0; i < AmountOfPlayers; i++)
@@ -71,18 +61,18 @@ namespace GooseGame.Business
             }
             if (player.Skips > 0)
             {
-                player.Skips--; //beter
+                player.Skips--;
                 return;
             }
 
             int roll1 = Dice.RollDice();
             int roll2 = Dice.RollDice();
             player.CurrentRoll = roll2 + roll1;
-            CurrentPlayer.NumberOfThrows++;
+            CurrentPlayer.NumberOfRolls++;
 
             Console.WriteLine($"{roll1} + {roll2}");
 
-            if (player.NumberOfThrows == 0)
+            if (player.NumberOfRolls == 0)
             {
                 if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
                 {
