@@ -23,7 +23,10 @@ namespace GooseGame.Business
 
         public Player Winner { get; set; } = null!;
 
-        public int AmountOfPlayers { get; set; } = 1;
+        public int AmountOfPlayers { get; set; } = 4;
+        public Dice Dice1 { get; set; } = new Dice();
+        public Dice Dice2 { get; set; } = new Dice();
+        public IList<Dice> Dices { get; set; }
 
         public GameEngine(GameBoard board)
         {
@@ -42,14 +45,11 @@ namespace GooseGame.Business
 
         public void Run()
         {
-            while (Winner == null)
+            CurrentPlayer = GetNextPlayer();
+            PlayTurn(CurrentPlayer);
+            if (CurrentPlayer.CurrentPosition == 63)
             {
-                CurrentPlayer = GetNextPlayer();
-                PlayTurn(CurrentPlayer);
-                if (CurrentPlayer.CurrentPosition == 63)
-                {
-                    Winner = CurrentPlayer;
-                }
+                Winner = CurrentPlayer;
             }
         }
 
@@ -59,16 +59,16 @@ namespace GooseGame.Business
             return index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
         }
 
-        private void PlayTurn(Player player)
+        public void PlayTurn(Player player)
         {
-            Console.ReadLine();
             if (!IsPlayerActive(player))
             {
                 return;
             }
-
-            int roll1 = Dice.RollDice();
-            int roll2 = Dice.RollDice();
+            Dice1.RollDice();
+            int roll1 = Dice1.Roll;
+            Dice2.RollDice();
+            int roll2 = Dice2.Roll;
             player.CurrentRoll = roll1 + roll2;
 
             Console.WriteLine($"{roll1} + {roll2}");
