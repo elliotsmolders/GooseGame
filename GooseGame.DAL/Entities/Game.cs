@@ -5,12 +5,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GooseGame.DAL.Models
 {
-    public class Game : BaseEntity
+    public class Game
     {
+        [Key]
+        public int GameId { get; set; }
         [Required]
         public GameBoard GameBoard { get; set; }
 
-        public virtual DbSet<Player> Players { get; set; }
+        public virtual IList<PlayerGame> PlayerGames { get; set; }
         public int AmountOfThrows { get; set; }
         public Player? Winner { get; set; }
         public DateTime Start { get; set; }

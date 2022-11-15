@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GooseGame.Business\GooseGame.Business.csproj" />
     <ProjectReference Include="..\GooseGame.Common\GooseGame.Common.csproj" />
     <ProjectReference Include="..\GooseGame.DAL\GooseGame.DAL.csproj" />

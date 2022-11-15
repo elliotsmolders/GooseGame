@@ -1,4 +1,5 @@
-﻿using GooseGame.DAL.Models;
+﻿using GooseGame.DAL.Entities;
+using GooseGame.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,6 +14,15 @@ namespace GooseGame.DAL
     {
         public DbSet<Player> Players { get; set; } = null!;
         public DbSet<Game> Games { get; set; } = null!;
+
+
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PlayerGame>().HasKey(pg => new { pg.PlayerId, pg.GameId });
+        }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
