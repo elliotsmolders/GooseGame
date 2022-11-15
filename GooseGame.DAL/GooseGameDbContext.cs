@@ -26,7 +26,7 @@ namespace GooseGame.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer(@"Server=ZENTOP;Database=GooseGameDatabase;Trusted_Connection=True;");
+            options.UseSqlServer(@"Server=DESKTOP-HCUMO6M\SQLEXPRESS;Database=GooseGameDatabase;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 }
