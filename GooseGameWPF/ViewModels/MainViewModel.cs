@@ -43,7 +43,7 @@ namespace GooseGameWPF.ViewModels
 
         public string GetCurrentPlayerPositionAndName()
         {
-            return $"{_engine.CurrentPlayer.Name} pos:{_engine.CurrentPlayer.CurrentPosition}";
+            return $"{_engine.CurrentPlayer.Name} pos:{_engine.CurrentPlayer.CurrentPosition} coming from {_engine.CurrentPlayer.PreviousPosition}";
         }
 
         public void PlayTurn(int currentRoll)

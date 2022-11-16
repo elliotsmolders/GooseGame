@@ -38,6 +38,6 @@
         <Label x:Name="Roll1" Grid.Column="5" Grid.Row="8" />
         <Label x:Name="Roll2" Grid.Column="5" Grid.Row="9" />
         <Label x:Name="CurrentRoll" Grid.Column="6" Grid.Row="8" Grid.RowSpan="2" />
-        <Label x:Name="Debug" Grid.ColumnSpan="3" Grid.RowSpan="3" Grid.Column="4" Grid.Row="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="45" />
+        <Label x:Name="Debug" Grid.ColumnSpan="3" Grid.RowSpan="3" Grid.Column="4" Grid.Row="4" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="15" />
     </Grid>
 </Window>

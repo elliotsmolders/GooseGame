@@ -42,6 +42,7 @@ namespace GooseGame.Business
                 }
                 else
                 {
+                    PreviousPosition = CurrentPosition;
                     CurrentPosition += CurrentRoll;
                 }
             }
