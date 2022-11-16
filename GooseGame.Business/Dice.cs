@@ -10,9 +10,9 @@
         /// </summary>
         /// <param name="max"></param>
         /// <returns></returns>
-        public void RollDice(int max = 6)
+        public int RollDice(int max = 6)
         {
-            Roll = rnd.Next(1, max);
+            return Roll = rnd.Next(1, max);
         }
     }
 }

@@ -27,6 +27,7 @@ namespace GooseGame.Business
         public Dice Dice1 { get; set; } = new Dice();
         public Dice Dice2 { get; set; } = new Dice();
         public IList<Dice> Dices { get; set; }
+        public int Roll1 { get; set; }
 
         public GameEngine(GameBoard board)
         {
@@ -39,69 +40,58 @@ namespace GooseGame.Business
             {
                 string name = $"Harold {i}";
                 CreatePlayer(name);
-                CurrentPlayer = Players[0];
             }
+            CurrentPlayer = Players[0]; //nog logica achter steken voor speler met hoogste worp
         }
 
-        public void Run()
+        public void GetNextPlayer()
         {
-            CurrentPlayer = GetNextPlayer();
-            PlayTurn(CurrentPlayer);
             if (CurrentPlayer.CurrentPosition == 63)
             {
                 Winner = CurrentPlayer;
+                return;
             }
-        }
-
-        private Player GetNextPlayer()
-        {
             int index = Players.IndexOf(CurrentPlayer);
-            return index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
+            CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
         }
 
-        public void PlayTurn(Player player)
+        public int RollDice()
         {
-            if (!IsPlayerActive(player))
+            return Dice1.RollDice();
+        }
+
+        public void PlayTurn(int currentRoll)
+        {
+            if (!IsPlayerActive(CurrentPlayer))
             {
                 return;
             }
-            Dice1.RollDice();
-            int roll1 = Dice1.Roll;
-            Dice2.RollDice();
-            int roll2 = Dice2.Roll;
-            player.CurrentRoll = roll1 + roll2;
+            CurrentPlayer.CurrentRoll = currentRoll;
 
-            Console.WriteLine($"{roll1} + {roll2}");
-            if (player.NumberOfRolls == 0)
-            {
-                HandleFirstThrow(roll1, roll2, player);
-            }
-            else
-            {
-                player.UpdatePosition();
-            }
+            //Console.WriteLine($"{roll1} + {roll2}");
+            CurrentPlayer.UpdatePosition();
             CurrentPlayer.NumberOfRolls++;
             do
             {
                 Console.WriteLine(Board.Tiles[CurrentPlayer.CurrentPosition].GetType());
                 Board.Tiles[CurrentPlayer.CurrentPosition].HandlePlayer(CurrentPlayer);
             } while (Board.Tiles[CurrentPlayer.CurrentPosition] is GooseTile);
-            Console.WriteLine($"{CurrentPlayer.Name} on position {player.CurrentPosition} \n *********************");
+            //Console.WriteLine($"{CurrentPlayer.Name} on position {CurrentPlayer.CurrentPosition} \n *********************");
         }
 
-        private void HandleFirstThrow(int roll1, int roll2, Player player)
+        public void HandleFirstThrow(int roll1, int roll2)
         {
             if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
             {
-                player.CurrentPosition = 53;
+                CurrentPlayer.CurrentPosition = 53;
             }
             else if ((roll1 == 6 && roll2 == 3) || (roll1 == 3 && roll2 == 6))
             {
-                player.CurrentPosition = 26;
+                CurrentPlayer.CurrentPosition = 26;
             }
             else
             {
-                player.CurrentPosition += player.CurrentRoll;
+                CurrentPlayer.CurrentPosition += CurrentPlayer.CurrentRoll;
             }
         }
 

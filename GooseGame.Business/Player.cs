@@ -16,6 +16,7 @@ namespace GooseGame.Business
 
         public GameBoard Board { get; }
         public int CurrentPosition { get; set; }
+        public int PreviousPosition { get; set; }
         private bool IsNpc { get; set; }
         public int NumberOfRolls { get; set; }
         public int CurrentRoll { get; set; }

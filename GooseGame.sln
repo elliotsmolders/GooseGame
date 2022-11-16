@@ -13,9 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GooseGame.DAL", "GooseGame.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GooseGame.Test", "GooseGame.Test\GooseGame.Test.csproj", "{E235B4C9-D284-4C59-9596-31B0535F3950}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooseGameMAUI", "GooseGameMAUI\GooseGameMAUI.csproj", "{83BC8CA4-596F-4961-94F0-F93AB9042C26}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooseGameWPF", "GooseGameWPF\GooseGameWPF.csproj", "{471EF3A1-CB26-4982-81E9-EA2649A32D7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GooseGameWPF", "GooseGameWPF\GooseGameWPF.csproj", "{471EF3A1-CB26-4982-81E9-EA2649A32D7B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,12 +41,6 @@ Global
 		{E235B4C9-D284-4C59-9596-31B0535F3950}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E235B4C9-D284-4C59-9596-31B0535F3950}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E235B4C9-D284-4C59-9596-31B0535F3950}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83BC8CA4-596F-4961-94F0-F93AB9042C26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83BC8CA4-596F-4961-94F0-F93AB9042C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{83BC8CA4-596F-4961-94F0-F93AB9042C26}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{83BC8CA4-596F-4961-94F0-F93AB9042C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83BC8CA4-596F-4961-94F0-F93AB9042C26}.Release|Any CPU.Build.0 = Release|Any CPU
-		{83BC8CA4-596F-4961-94F0-F93AB9042C26}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{471EF3A1-CB26-4982-81E9-EA2649A32D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{471EF3A1-CB26-4982-81E9-EA2649A32D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{471EF3A1-CB26-4982-81E9-EA2649A32D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU

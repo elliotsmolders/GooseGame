@@ -28,13 +28,17 @@ namespace GooseGameWPF
         {
             InitializeComponent();
             GooseGrid.DataContext = vm;
+            vm.Init();
         }
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-            Roll1.Content =;
-            Roll2.Content =;
-            CurrentRoll.Content = vm.RollDice();
+            vm.GetNextPlayer();
+            Roll1.Content = vm.RollDice();
+            Roll2.Content = vm.RollDice();
+            CurrentRoll.Content = (int)Roll1.Content + (int)Roll2.Content;
+            vm.PlayTurn((int)CurrentRoll.Content);
+            Debug.Content = vm.GetCurrentPlayerPositionAndName();
         }
     }
 }
