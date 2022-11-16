@@ -1,9 +1,4 @@
-﻿using GooseGame.Business.Tiles;
-using GooseGame.DAL.Models;
-using System.Numerics;
-using System.Reflection.Metadata.Ecma335;
-
-namespace GooseGame.Business
+﻿namespace GooseGame.Business
 {
     /// <summary>
     /// GameEngine mag singleton worden zodat deze zonder Depandancy injection overal oproepbaar is.
@@ -19,16 +14,11 @@ namespace GooseGame.Business
         public List<Player> Players { get; set; } = new List<Player>(); // verhuisd naar Game instance
 
         public int TotalNumberOfRolls { get; set; }
-        public GameBoard Board { get; set; }
-
         public Player Winner { get; set; } = null!;
 
-        public int AmountOfPlayers { get; set; } = 1;
-
-        public GameEngine(GameBoard board)
-        {
-            Board = board;
-        }
+        public int AmountOfPlayers { get; set; } = 4;
+        public Dice DiceManager { get; set; } = new Dice(); // todo terug naar lijst idee
+        public int Roll1 { get; set; }
 
         public void Init()
         {
@@ -36,92 +26,59 @@ namespace GooseGame.Business
             {
                 string name = $"Harold {i}";
                 CreatePlayer(name);
-                CurrentPlayer = Players[0];
             }
+            CurrentPlayer = Players[0]; //nog logica achter steken voor speler met hoogste worp
         }
 
-        public void Run()
+        public void SetNextPlayer()
         {
-            while (Winner == null)
+            if (CurrentPlayer.CurrentPosition == 63) //naar aparte methode
             {
-                CurrentPlayer = GetNextPlayer();
-                PlayTurn(CurrentPlayer);
-                if (CurrentPlayer.CurrentPosition == 63)
-                {
-                    Winner = CurrentPlayer;
-                }
-            }
-        }
-
-        private Player GetNextPlayer()
-        {
-            int index = Players.IndexOf(CurrentPlayer);
-            return index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
-        }
-
-        private void PlayTurn(Player player)
-        {
-            Console.ReadLine();
-            if (!IsPlayerActive(player))
-            {
-                return;
-            }
-
-            int roll1 = Dice.RollDice();
-            int roll2 = Dice.RollDice();
-            player.CurrentRoll = roll1 + roll2;
-
-            Console.WriteLine($"{roll1} + {roll2}");
-            if (player.NumberOfRolls == 0)
-            {
-                HandleFirstThrow(roll1, roll2, player);
+                Winner = CurrentPlayer;
             }
             else
             {
-                player.UpdatePosition();
+                int index = Players.IndexOf(CurrentPlayer);
+                CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
             }
-            CurrentPlayer.NumberOfRolls++;
-            do
-            {
-                Console.WriteLine(Board.Tiles[CurrentPlayer.CurrentPosition].GetType());
-                Board.Tiles[CurrentPlayer.CurrentPosition].HandlePlayer(CurrentPlayer);
-            } while (Board.Tiles[CurrentPlayer.CurrentPosition] is GooseTile);
-            Console.WriteLine($"{CurrentPlayer.Name} on position {player.CurrentPosition} \n *********************");
         }
 
-        private void HandleFirstThrow(int roll1, int roll2, Player player)
+        public int RollDice()
+        {
+            return DiceManager.RollDice();
+        }
+
+        public void PlayTurn(int currentRoll)
+        {
+            if (CurrentPlayer.IsPlayerActive())
+            {
+                CurrentPlayer.MovePlayer(currentRoll);
+                CurrentPlayer.NumberOfRolls++;
+
+                Console.WriteLine(CurrentPlayer.CurrentTile.GetType());
+
+            }
+        }
+
+        public void HandleFirstThrow(int roll1, int roll2) // geld enkel op eerste worp of als speler op start staat? + terug implementeren
         {
             if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
             {
-                player.CurrentPosition = 53;
+                CurrentPlayer.CurrentPosition = 53;
             }
             else if ((roll1 == 6 && roll2 == 3) || (roll1 == 3 && roll2 == 6))
             {
-                player.CurrentPosition = 26;
+                CurrentPlayer.CurrentPosition = 26;
             }
             else
             {
-                player.CurrentPosition += player.CurrentRoll;
+                CurrentPlayer.CurrentPosition += CurrentPlayer.CurrentRoll;
             }
-        }
-
-        private bool IsPlayerActive(Player player)
-        {
-            if (player.IsInWell)
-            {
-                return false;
-            }
-            if (player.Skips > 0)
-            {
-                player.Skips--;
-                return false;
-            }
-            return true;
         }
 
         private void CreatePlayer(string name)
         {
-            Players.Add(new Player(name, Board));
+            Players.Add(new Player(name));
         }
 
         public void Restore()

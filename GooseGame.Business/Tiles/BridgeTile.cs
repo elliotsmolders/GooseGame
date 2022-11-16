@@ -11,7 +11,7 @@ namespace GooseGame.Business.Tiles
     {
         public void HandlePlayer(Player player)
         {
-            player.UpdatePosition(12);
+            player.SetPlayerPosition(12);
             Console.WriteLine("Bridge");
         }
     }

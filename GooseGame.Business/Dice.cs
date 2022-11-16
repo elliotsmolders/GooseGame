@@ -1,17 +1,18 @@
 ﻿namespace GooseGame.Business
 {
-    public static class Dice
+    public class Dice
     {
-        private static readonly Random rnd = new Random();
+        private Random rnd = new Random();
+        public int Roll { get; set; }
 
         /// <summary>
         /// rnd initialized with .next to avoid not getting true randomness
         /// </summary>
         /// <param name="max"></param>
         /// <returns></returns>
-        public static int RollDice(int max = 6)
+        public int RollDice(int max = 7)
         {
-            return rnd.Next(1, max);
+            return Roll = rnd.Next(1, max);
         }
     }
 }

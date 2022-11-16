@@ -1,11 +1,5 @@
-﻿using GooseGame.DAL.Models;
-using System;
-using System.Collections.Generic;
+﻿using GooseGame.Business.Interfaces;
 using System.ComponentModel;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GooseGame.Business
 {
@@ -14,40 +8,78 @@ namespace GooseGame.Business
         //public int Id { get; set; }
         public string Name { get; set; }
 
-        public GameBoard Board { get; }
-        public int CurrentPosition { get; set; }
+        private int currentPosition;
+
+        public int CurrentPosition
+        {
+            get { return currentPosition; }
+            set
+            {
+                currentPosition = value;
+                CurrentTile.HandlePlayer(this);
+            }
+        }
+
+        public int PreviousPosition { get; set; }
         private bool IsNpc { get; set; }
         public int NumberOfRolls { get; set; }
         public int CurrentRoll { get; set; }
+
+        public ITile CurrentTile
+        {
+            get
+            {
+                return GameBoard.GetGameBoard().Tiles[CurrentPosition];
+            }
+        }
 
         public bool IsInWell // hoort in methode bij Run - currently = redundant data
         { get; set; }
 
         public int Skips { get; set; }
 
-        public Player(string name, GameBoard board)
+        public Player(string name)
         {
             Name = name;
-            Board = board;
         }
 
-        public void UpdatePosition(int? setPosition = null)
+        public void MovePlayer(int roll) //splitsen naar twee methodes
         {
-            if (setPosition == null)
+            CurrentRoll=roll;
+
+            if (CurrentPosition + roll > GameBoard.GetGameBoard().AmountOfTiles - 1)
             {
-                if (CurrentPosition + CurrentRoll > Board.AmountOfTiles - 1)
-                {
-                    CurrentPosition = (Board.AmountOfTiles - 1) + ((Board.AmountOfTiles - 1) - (CurrentPosition + CurrentRoll));
-                }
-                else
-                {
-                    CurrentPosition += CurrentRoll;
-                }
+                CurrentPosition = MoveBackWards();
             }
             else
             {
-                CurrentPosition = (int)setPosition;
+                PreviousPosition = CurrentPosition;
+                CurrentPosition += roll;
             }
+        }
+
+        public void SetPlayerPosition(int tileNumber)
+        {
+            CurrentPosition = tileNumber;
+        }
+
+        private int MoveBackWards()
+        {
+            return (GameBoard.GetGameBoard().AmountOfTiles - 1) + ((GameBoard.GetGameBoard().AmountOfTiles - 1) - (CurrentPosition + CurrentRoll));
+        }
+
+        public bool IsPlayerActive()
+        {
+            if (IsInWell)
+            {
+                return false;
+            }
+            if (Skips > 0)
+            {
+                Skips--;
+                return false;
+            }
+            return true;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
