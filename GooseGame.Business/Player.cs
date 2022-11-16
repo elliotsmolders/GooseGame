@@ -1,11 +1,5 @@
-﻿using GooseGame.DAL.Models;
-using System;
-using System.Collections.Generic;
+﻿using GooseGame.Business.Interfaces;
 using System.ComponentModel;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GooseGame.Business
 {
@@ -14,11 +8,30 @@ namespace GooseGame.Business
         //public int Id { get; set; }
         public string Name { get; set; }
 
-        public int CurrentPosition { get; set; }
+        private int currentPosition;
+
+        public int CurrentPosition
+        {
+            get { return currentPosition; }
+            set
+            {
+                currentPosition = value;
+                CurrentTile.HandlePlayer(this);
+            }
+        }
+
         public int PreviousPosition { get; set; }
         private bool IsNpc { get; set; }
         public int NumberOfRolls { get; set; }
         public int CurrentRoll { get; set; }
+
+        public ITile CurrentTile
+        {
+            get
+            {
+                return GameBoard.GetGameBoard().Tiles[CurrentPosition];
+            }
+        }
 
         public bool IsInWell // hoort in methode bij Run - currently = redundant data
         { get; set; }
@@ -30,24 +43,22 @@ namespace GooseGame.Business
             Name = name;
         }
 
-        public void UpdatePosition(int? setPosition = null) //splitsen naar twee methodes
+        public void MovePlayer() //splitsen naar twee methodes
         {
-            if (setPosition == null)
+            if (CurrentPosition + CurrentRoll > GameBoard.GetGameBoard().AmountOfTiles - 1)
             {
-                if (CurrentPosition + CurrentRoll > GameBoard.GetGameBoard().AmountOfTiles - 1)
-                {
-                    CurrentPosition = MoveBackWards();
-                }
-                else
-                {
-                    PreviousPosition = CurrentPosition;
-                    CurrentPosition += CurrentRoll;
-                }
+                CurrentPosition = MoveBackWards();
             }
             else
             {
-                CurrentPosition = (int)setPosition;
+                PreviousPosition = CurrentPosition;
+                CurrentPosition += CurrentRoll;
             }
+        }
+
+        public void SetPlayerPosition(int tileNumber)
+        {
+            CurrentPosition = tileNumber;
         }
 
         private int MoveBackWards()

@@ -39,7 +39,7 @@ namespace GooseGame.Business
         private int[] GooseTilePositions = { 5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54, 59 };
 
         private int[] PrisonTilePositions = { 52 };
-        private int[] BridgeTilePositions = { 6, 12 };
+        private int[] BridgeTilePositions = { 6 };
         private int[] InnTilePositions = { 19 };
         private int[] WellTilePositions = { 31 };
         private int[] MazeTilePositions = { 42 };

@@ -1,9 +1,4 @@
-﻿using GooseGame.Business.Tiles;
-using GooseGame.DAL.Models;
-using System.Numerics;
-using System.Reflection.Metadata.Ecma335;
-
-namespace GooseGame.Business
+﻿namespace GooseGame.Business
 {
     /// <summary>
     /// GameEngine mag singleton worden zodat deze zonder Depandancy injection overal oproepbaar is.
@@ -55,22 +50,16 @@ namespace GooseGame.Business
 
         public void PlayTurn(int currentRoll)
         {
-            if (!CurrentPlayer.IsPlayerActive())
+            if (CurrentPlayer.IsPlayerActive())
             {
-                return;
+                CurrentPlayer.CurrentRoll = currentRoll;
+
+                CurrentPlayer.MovePlayer();
+                CurrentPlayer.NumberOfRolls++;
+
+                Console.WriteLine(CurrentPlayer.CurrentTile.GetType());
+
             }
-            CurrentPlayer.CurrentRoll = currentRoll;
-
-            //Console.WriteLine($"{roll1} + {roll2}");
-            CurrentPlayer.UpdatePosition();
-            CurrentPlayer.NumberOfRolls++;
-
-            do
-            {
-                Console.WriteLine(GameBoard.GetGameBoard().Tiles[CurrentPlayer.CurrentPosition].GetType());
-                GameBoard.GetGameBoard().Tiles[CurrentPlayer.CurrentPosition].HandlePlayer(CurrentPlayer);
-            } while (GameBoard.GetGameBoard().Tiles[CurrentPlayer.CurrentPosition] is GooseTile);
-            //Console.WriteLine($"{CurrentPlayer.Name} on position {CurrentPlayer.CurrentPosition} \n *********************");
         }
 
         public void HandleFirstThrow(int roll1, int roll2) // geld enkel op eerste worp of als speler op start staat? + terug implementeren
