@@ -43,16 +43,18 @@ namespace GooseGame.Business
             Name = name;
         }
 
-        public void MovePlayer() //splitsen naar twee methodes
+        public void MovePlayer(int roll) //splitsen naar twee methodes
         {
-            if (CurrentPosition + CurrentRoll > GameBoard.GetGameBoard().AmountOfTiles - 1)
+            CurrentRoll=roll;
+
+            if (CurrentPosition + roll > GameBoard.GetGameBoard().AmountOfTiles - 1)
             {
                 CurrentPosition = MoveBackWards();
             }
             else
             {
                 PreviousPosition = CurrentPosition;
-                CurrentPosition += CurrentRoll;
+                CurrentPosition += roll;
             }
         }
 

@@ -52,9 +52,7 @@
         {
             if (CurrentPlayer.IsPlayerActive())
             {
-                CurrentPlayer.CurrentRoll = currentRoll;
-
-                CurrentPlayer.MovePlayer();
+                CurrentPlayer.MovePlayer(currentRoll);
                 CurrentPlayer.NumberOfRolls++;
 
                 Console.WriteLine(CurrentPlayer.CurrentTile.GetType());
