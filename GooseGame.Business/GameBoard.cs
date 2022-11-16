@@ -10,9 +10,6 @@ using System.Threading.Tasks;
 namespace GooseGame.Business
 {
     /// <summary>
-    /// Niet meer singleton want: doel singleton is om niet met dependancy injection te moeten werken in ingewikkelde structuren
-    /// stel de vraag: moeten we dikwijls van een speler naar het bord of tile naar het bord?
-    /// Is niet uitbreidbaar/aanpasbaar door inheritance
     /// + heel belangrijke reden , we komen in problemen bij het bijvoorbeeld restoren van een spel uit de DB
     ///
     /// GameBoard mag ook naar DAL als entity als we het board willen opslagen wat wel een goed idee is
@@ -20,9 +17,18 @@ namespace GooseGame.Business
     /// </summary>
     public class GameBoard
     {
-        public GameBoard()
+        private GameBoard()
         {
             FillTileList();
+        }
+
+        public static GameBoard GetGameBoard()
+        {
+            if (_gameBoard == null)
+            {
+                _gameBoard = new GameBoard();
+            }
+            return _gameBoard;
         }
 
         public IList<ITile> Tiles { get; set; } = new List<ITile>(); // ListOf doen we niet meer

@@ -10,14 +10,12 @@ namespace GooseGameWPF.ViewModels
 {
     internal class MainViewModel : INotifyPropertyChanged
     {
-        private GameBoard _board;
         private GameEngine _engine;
         public int ClickedRoll { get; set; }
 
         public MainViewModel()
         {
-            _board = new GameBoard();
-            _engine = new GameEngine(_board);
+            _engine = new GameEngine();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -27,13 +25,12 @@ namespace GooseGameWPF.ViewModels
             return _engine.RollDice();
         }
 
-        public void GetNextPlayer()
+        public void SetNextPlayer()
         {
-            if (_engine.Winner != null)
+            if (_engine.Winner == null) //moet verhuizen
             {
-                return;
+                _engine.SetNextPlayer();
             }
-            _engine.GetNextPlayer();
         }
 
         public void Init()

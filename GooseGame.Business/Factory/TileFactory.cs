@@ -39,6 +39,9 @@ namespace GooseGame.Business.Factory
 
                 case TileType.Bridge:
                     return new BridgeTile();
+
+                default:
+                    throw new Exception($"Tile not supported  {nameof(type)}  {type}");
             }
             return null!;
         }

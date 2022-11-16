@@ -33,7 +33,7 @@ namespace GooseGameWPF
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-            vm.GetNextPlayer();
+            vm.SetNextPlayer();
             Roll1.Content = vm.RollDice();
             Roll2.Content = vm.RollDice();
             CurrentRoll.Content = (int)Roll1.Content + (int)Roll2.Content;

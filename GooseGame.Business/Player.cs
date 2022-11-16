@@ -14,7 +14,6 @@ namespace GooseGame.Business
         //public int Id { get; set; }
         public string Name { get; set; }
 
-        public GameBoard Board { get; }
         public int CurrentPosition { get; set; }
         public int PreviousPosition { get; set; }
         private bool IsNpc { get; set; }
@@ -26,19 +25,18 @@ namespace GooseGame.Business
 
         public int Skips { get; set; }
 
-        public Player(string name, GameBoard board)
+        public Player(string name)
         {
             Name = name;
-            Board = board;
         }
 
-        public void UpdatePosition(int? setPosition = null)
+        public void UpdatePosition(int? setPosition = null) //splitsen naar twee methodes
         {
             if (setPosition == null)
             {
-                if (CurrentPosition + CurrentRoll > Board.AmountOfTiles - 1)
+                if (CurrentPosition + CurrentRoll > GameBoard.GetGameBoard().AmountOfTiles - 1)
                 {
-                    CurrentPosition = (Board.AmountOfTiles - 1) + ((Board.AmountOfTiles - 1) - (CurrentPosition + CurrentRoll));
+                    CurrentPosition = MoveBackWards();
                 }
                 else
                 {
@@ -50,6 +48,25 @@ namespace GooseGame.Business
             {
                 CurrentPosition = (int)setPosition;
             }
+        }
+
+        private int MoveBackWards()
+        {
+            return (GameBoard.GetGameBoard().AmountOfTiles - 1) + ((GameBoard.GetGameBoard().AmountOfTiles - 1) - (CurrentPosition + CurrentRoll));
+        }
+
+        public bool IsPlayerActive()
+        {
+            if (IsInWell)
+            {
+                return false;
+            }
+            if (Skips > 0)
+            {
+                Skips--;
+                return false;
+            }
+            return true;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

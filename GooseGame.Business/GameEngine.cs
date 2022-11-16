@@ -19,20 +19,11 @@ namespace GooseGame.Business
         public List<Player> Players { get; set; } = new List<Player>(); // verhuisd naar Game instance
 
         public int TotalNumberOfRolls { get; set; }
-        public GameBoard Board { get; set; }
-
         public Player Winner { get; set; } = null!;
 
         public int AmountOfPlayers { get; set; } = 4;
-        public Dice Dice1 { get; set; } = new Dice();
-        public Dice Dice2 { get; set; } = new Dice();
-        public IList<Dice> Dices { get; set; }
+        public Dice DiceManager { get; set; } = new Dice(); // todo terug naar lijst idee
         public int Roll1 { get; set; }
-
-        public GameEngine(GameBoard board)
-        {
-            Board = board;
-        }
 
         public void Init()
         {
@@ -44,25 +35,27 @@ namespace GooseGame.Business
             CurrentPlayer = Players[0]; //nog logica achter steken voor speler met hoogste worp
         }
 
-        public void GetNextPlayer()
+        public void SetNextPlayer()
         {
-            if (CurrentPlayer.CurrentPosition == 63)
+            if (CurrentPlayer.CurrentPosition == 63) //naar aparte methode
             {
                 Winner = CurrentPlayer;
-                return;
             }
-            int index = Players.IndexOf(CurrentPlayer);
-            CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
+            else
+            {
+                int index = Players.IndexOf(CurrentPlayer);
+                CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
+            }
         }
 
         public int RollDice()
         {
-            return Dice1.RollDice();
+            return DiceManager.RollDice();
         }
 
         public void PlayTurn(int currentRoll)
         {
-            if (!IsPlayerActive(CurrentPlayer))
+            if (!CurrentPlayer.IsPlayerActive())
             {
                 return;
             }
@@ -71,15 +64,16 @@ namespace GooseGame.Business
             //Console.WriteLine($"{roll1} + {roll2}");
             CurrentPlayer.UpdatePosition();
             CurrentPlayer.NumberOfRolls++;
+
             do
             {
-                Console.WriteLine(Board.Tiles[CurrentPlayer.CurrentPosition].GetType());
-                Board.Tiles[CurrentPlayer.CurrentPosition].HandlePlayer(CurrentPlayer);
-            } while (Board.Tiles[CurrentPlayer.CurrentPosition] is GooseTile);
+                Console.WriteLine(GameBoard.GetGameBoard().Tiles[CurrentPlayer.CurrentPosition].GetType());
+                GameBoard.GetGameBoard().Tiles[CurrentPlayer.CurrentPosition].HandlePlayer(CurrentPlayer);
+            } while (GameBoard.GetGameBoard().Tiles[CurrentPlayer.CurrentPosition] is GooseTile);
             //Console.WriteLine($"{CurrentPlayer.Name} on position {CurrentPlayer.CurrentPosition} \n *********************");
         }
 
-        public void HandleFirstThrow(int roll1, int roll2)
+        public void HandleFirstThrow(int roll1, int roll2) // geld enkel op eerste worp of als speler op start staat? + terug implementeren
         {
             if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
             {
@@ -95,23 +89,9 @@ namespace GooseGame.Business
             }
         }
 
-        private bool IsPlayerActive(Player player)
-        {
-            if (player.IsInWell)
-            {
-                return false;
-            }
-            if (player.Skips > 0)
-            {
-                player.Skips--;
-                return false;
-            }
-            return true;
-        }
-
         private void CreatePlayer(string name)
         {
-            Players.Add(new Player(name, Board));
+            Players.Add(new Player(name));
         }
 
         public void Restore()
