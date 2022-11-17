@@ -37,7 +37,7 @@ namespace GooseGame.Business
 
         //int[] EmptyTilePositions = {1,2, 3,4, 7,8,10,11,13,15,16,17,20,21,22,24,25,26,28,29,30,33,34,35,37,38,39,40,43,44,46,47,48,49,51,53,55,56,57,60,61,62};
         private int[] GooseTilePositions = { 5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54, 59 };
-
+        private int[] StartTilePositions = { 0 };
         private int[] PrisonTilePositions = { 52 };
         private int[] BridgeTilePositions = { 6 };
         private int[] InnTilePositions = { 19 };
@@ -61,6 +61,9 @@ namespace GooseGame.Business
                 if (GooseTilePositions.Contains(i))
                 {
                     Tiles.Add(_factory.CreateTile(TileType.Goose));
+                }
+                else if(StartTilePositions.Contains(i)){
+                    Tiles.Add(_factory.CreateTile(TileType.Start));
                 }
                 else if (PrisonTilePositions.Contains(i))
                 {

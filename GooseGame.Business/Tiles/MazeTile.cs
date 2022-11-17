@@ -6,7 +6,7 @@ namespace GooseGame.Business.Tiles
     {
         public void HandlePlayer(Player player)
         {
-            player.MovePlayer(39);
+            player.SetPlayerPosition(39);
             Console.WriteLine("Maze");
         }
     }

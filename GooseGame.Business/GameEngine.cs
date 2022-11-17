@@ -1,5 +1,4 @@
-﻿using GooseGame.Business.Tiles;
-
+﻿
 namespace GooseGame.Business
 {
     /// <summary>
@@ -50,13 +49,15 @@ namespace GooseGame.Business
             return DiceManager.RollDice();
         }
 
+
+        //player as parameter for playturn?
         public void PlayTurn(int roll1, int roll2)
         {
             if (CurrentPlayer.IsPlayerActive())
             {
                 int currentRoll = roll1 + roll2;
                 //nu tweede if statemment,possible refactor
-                if(currentRoll == 9 && CurrentPlayer.CurrentTile.GetType() == typeof(StartTile))
+                if(currentRoll == 9 && CurrentPlayer.isOnStartTile())
                 {
                     HandleFirstThrow(roll1, roll2);
                 }
@@ -77,15 +78,15 @@ namespace GooseGame.Business
         {
             if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
             {
-                CurrentPlayer.CurrentPosition = 53;
+                CurrentPlayer.SetPlayerPosition(53);
             }
             else if ((roll1 == 6 && roll2 == 3) || (roll1 == 3 && roll2 == 6))
             {
-                CurrentPlayer.CurrentPosition = 26;
+                CurrentPlayer.SetPlayerPosition(26);
             }
             else
             {
-                CurrentPlayer.CurrentPosition += CurrentPlayer.CurrentRoll;
+                throw new Exception("unsupported dice variation that equals 9");
             }
         }
 
