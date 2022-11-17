@@ -57,18 +57,6 @@ namespace GooseGame.Tests
             Assert.That(player.CurrentPosition, Is.EqualTo(26));
         }
         [Test]
-        public void WhenPlayerLandsOnGoose_ThenNumberOfRollsDoesntIncrease()
-        {
-            //arrange
-            GameBoard board = GameBoard.GetGameBoard();
-            Player player = new Player("TestJos");
-            //act
-
-            //number of rolls is increased in playturn function? is this the right place? move rolldice function to player?
-
-            //assert
-        }
-        [Test]
         [TestCase(5,61)]
         [TestCase(9, 57)]
         public void WhenPlayerRollCausesItToGoAboveMaxTileAmount_ThenCountUpToMaxTileAmountAndMoveBackRemainder(int roll, int result)
