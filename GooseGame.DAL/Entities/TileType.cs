@@ -3,6 +3,7 @@
     public enum TileType
     {
         Empty,
+        Start,
         Death,
         Goose,
         Prison,

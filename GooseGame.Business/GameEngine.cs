@@ -1,4 +1,6 @@
-﻿namespace GooseGame.Business
+﻿using GooseGame.Business.Tiles;
+
+namespace GooseGame.Business
 {
     /// <summary>
     /// GameEngine mag singleton worden zodat deze zonder Depandancy injection overal oproepbaar is.
@@ -48,19 +50,30 @@
             return DiceManager.RollDice();
         }
 
-        public void PlayTurn(int currentRoll)
+        public void PlayTurn(int roll1, int roll2)
         {
             if (CurrentPlayer.IsPlayerActive())
             {
-                CurrentPlayer.MovePlayer(currentRoll);
-                CurrentPlayer.NumberOfRolls++;
+                int currentRoll = roll1 + roll2;
+                //nu tweede if statemment,possible refactor
+                if(currentRoll == 9 && CurrentPlayer.CurrentTile.GetType() == typeof(StartTile))
+                {
+                    HandleFirstThrow(roll1, roll2);
+                }
+                else
+                {
+                    CurrentPlayer.MovePlayer(currentRoll);
+                    CurrentPlayer.NumberOfRolls++;
+                }
+
 
                 Console.WriteLine(CurrentPlayer.CurrentTile.GetType());
 
             }
         }
 
-        public void HandleFirstThrow(int roll1, int roll2) // geld enkel op eerste worp of als speler op start staat? + terug implementeren
+        public void HandleFirstThrow(int roll1, int roll2) // geld enkel op eerste worp of als speler op start staat? + terug implementeren, rename to throwfromstarttile or something?
+
         {
             if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
             {

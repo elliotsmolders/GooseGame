@@ -7,12 +7,11 @@ using GooseGame.Business.Interfaces;
 
 namespace GooseGame.Business.Tiles
 {
-   public class BridgeTile : ITile
+    public class StartTile : ITile
     {
         public void HandlePlayer(Player player)
         {
-            player.SetPlayerPosition(12);
-            Console.WriteLine("Bridge");
+            Console.WriteLine("StartTile");
         }
     }
 }

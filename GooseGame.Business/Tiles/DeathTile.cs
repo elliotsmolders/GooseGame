@@ -7,7 +7,7 @@ using GooseGame.Business.Interfaces;
 
 namespace GooseGame.Business.Tiles
 {
-    internal class DeathTile : ITile
+    public class DeathTile : ITile
     {
         public void HandlePlayer(Player player)
         {

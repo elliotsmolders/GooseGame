@@ -37,7 +37,7 @@ namespace GooseGameWPF
             Roll1.Content = vm.RollDice();
             Roll2.Content = vm.RollDice();
             CurrentRoll.Content = (int)Roll1.Content + (int)Roll2.Content;
-            vm.PlayTurn((int)CurrentRoll.Content);
+            vm.PlayTurn((int)Roll1.Content,(int)Roll2.Content);
             Debug.Content = vm.GetCurrentPlayerPositionAndName();
         }
     }

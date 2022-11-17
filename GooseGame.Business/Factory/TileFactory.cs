@@ -13,6 +13,9 @@ namespace GooseGame.Business.Factory
                 case TileType.Empty:
                     return new EmptyTile();
 
+                case TileType.Start:
+                    return new StartTile();
+
                 case TileType.Death:
                     return new DeathTile();
 

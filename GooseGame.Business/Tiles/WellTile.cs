@@ -2,7 +2,7 @@
 
 namespace GooseGame.Business.Tiles
 {
-    internal class WellTile : ITile
+    public class WellTile : ITile
     {
         public Player playerInWell { get; private set; }
 
