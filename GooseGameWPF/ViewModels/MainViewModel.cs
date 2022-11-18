@@ -44,6 +44,10 @@ namespace GooseGameWPF.ViewModels
             return $"{_engine.CurrentPlayer.Name} pos:{_engine.CurrentPlayer.CurrentPosition} coming from {_engine.CurrentPlayer.PreviousPosition}";
         }
 
+        public int GetPlayerPosition()
+        {
+         return _engine.CurrentPlayer.CurrentPosition;
+        }
         public void PlayTurn(int roll1,int roll2)
         {
             ClickedRoll++;
@@ -53,6 +57,7 @@ namespace GooseGameWPF.ViewModels
             //}
             _engine.PlayTurn(roll1,roll2);
         }
+
 
 
      
