@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace GooseGameWPF.ViewModels
 {
@@ -22,7 +23,7 @@ namespace GooseGameWPF.ViewModels
 
         public int RollDice()
         {
-            return _engine.RollDice();
+        return _engine.RollDice();
         }
 
         public void SetNextPlayer()
@@ -52,5 +53,10 @@ namespace GooseGameWPF.ViewModels
             //}
             _engine.PlayTurn(roll1,roll2);
         }
+
+
+     
     }
+
+
 }

@@ -1,19 +1,7 @@
-﻿using GooseGame.Business;
-using GooseGameWPF.ViewModels;
+﻿using GooseGameWPF.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GooseGameWPF
 {
@@ -29,6 +17,7 @@ namespace GooseGameWPF
             InitializeComponent();
             GooseGrid.DataContext = vm;
             vm.Init();
+            LabelGridTiles();
         }
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
@@ -36,9 +25,37 @@ namespace GooseGameWPF
             vm.SetNextPlayer();
             Roll1.Content = vm.RollDice();
             Roll2.Content = vm.RollDice();
-            CurrentRoll.Content = (int)Roll1.Content + (int)Roll2.Content;
-            vm.PlayTurn((int)Roll1.Content,(int)Roll2.Content);
+            CurrentRoll.Content = vm.RollDice();
+
+            //vm.PlayTurn((int)Roll1.Content,(int)Roll2.Content);
             Debug.Content = vm.GetCurrentPlayerPositionAndName();
+        }
+
+        private void LabelGridTiles()
+
+        {
+            int[,] myGrid = new int[8, 8];
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    Label tileLabel = new();
+                    if (i % 2 == 0)
+                    {
+                        tileLabel.Content = (63 - (i * 8 + j)).ToString();
+                    }
+                    else
+                    {
+                        tileLabel.Content = (63 - (i * 8 + 7 - j)).ToString();
+                        Console.Write($"{myGrid[i, j]}\t");
+                    }
+                    Grid.SetRow(tileLabel, i);
+                    Grid.SetColumn(tileLabel, j);
+
+                    GooseGrid.Children.Add(tileLabel);
+                }
+          
+            }
         }
     }
 }
