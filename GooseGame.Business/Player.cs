@@ -1,5 +1,7 @@
 ﻿using GooseGame.Business.Interfaces;
 using System.ComponentModel;
+using GooseGame.Business.Tiles;
+
 
 namespace GooseGame.Business
 {
@@ -82,6 +84,10 @@ namespace GooseGame.Business
             return true;
         }
 
+        public bool isOnStartTile()
+        {
+            return CurrentTile.GetType() == typeof(StartTile);
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }

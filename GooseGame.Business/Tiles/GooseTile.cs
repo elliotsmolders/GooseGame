@@ -3,7 +3,7 @@ using GooseGame.Business.Interfaces;
 
 namespace GooseGame.Business.Tiles
 {
-    internal class GooseTile : ITile
+    public class GooseTile : ITile
     {
         public void HandlePlayer(Player player)
         {

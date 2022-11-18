@@ -2,7 +2,7 @@
 
 namespace GooseGame.Business.Tiles
 {
-    internal class EndTile : ITile
+    public class EndTile : ITile
     {
         public void HandlePlayer(Player player)
         {

@@ -2,11 +2,11 @@
 
 namespace GooseGame.Business.Tiles
 {
-    internal class MazeTile : ITile
+    public class MazeTile : ITile
     {
         public void HandlePlayer(Player player)
         {
-            player.MovePlayer(39);
+            player.SetPlayerPosition(39);
             Console.WriteLine("Maze");
         }
     }
