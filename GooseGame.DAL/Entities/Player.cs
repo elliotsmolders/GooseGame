@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GooseGame.DAL.Models
 {
-    public class Player
+    public class Player : BaseEntity
     {
         [Key]
         public int PlayerId { get; set; }

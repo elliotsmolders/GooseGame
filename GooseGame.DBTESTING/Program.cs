@@ -1,17 +1,28 @@
 ﻿using GooseGame.DAL;
 using GooseGame.DAL.Models;
+using GooseGame.DAL.Repositories;
+using GooseGame.Entities;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        BaseRepository<Player> _repo = new BaseRepository<Player>();
 
-        using GooseGameDbContext _ctx = new GooseGameDbContext();
+        Player player = new Player();
+        player.Name = "Beire";
 
-        foreach (Player player in _ctx.Players)
+        void SaveNewPlayer(Player entity)
         {
-            Console.WriteLine(player.Name);
+            _repo.AddAsync(entity);
+        }
+
+        async Task RetrieveAsync()
+        {
+            foreach (Player player in await _repo.GetAllAsync())
+            {
+                Console.WriteLine(player.Name);
+            }
         }
     }
 }
