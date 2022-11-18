@@ -6,16 +6,16 @@ namespace GooseGame.DBTESTING.Controllers
 {
     public class PlayerController
     {
-        private readonly IPlayerService playerService;
+        private readonly IPlayerService _playerService;
 
         public PlayerController(IPlayerService playerService)
         {
-            this.playerService = playerService;
+            _playerService = playerService;
         }
 
-        public void Create(Player player)
+        public async Task CreateAsync(Player player)
         {
-            playerService.Insert(player);
+            await _playerService.AddAsync(player);
         }
 
         public void Read(Player player)

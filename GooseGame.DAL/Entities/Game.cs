@@ -13,7 +13,7 @@ namespace GooseGame.DAL.Models
         [Required]
         public GameBoard GameBoard { get; set; }
 
-        public virtual IList<PlayerGame> PlayerGames { get; set; }
+        public virtual IList<GamePlayer> PlayerGames { get; set; }
         public int AmountOfThrows { get; set; }
         public Player? Winner { get; set; }
         public DateTime Start { get; set; }

@@ -13,10 +13,10 @@ namespace GooseGame.Services.Interfaces
 
         Task<IEnumerable<Game>> GetGamesAsync();
 
-        Task<Game> GetGameAsync(int id);
+        Task<Game?> GetGameAsync(int id);
 
-        Task UpdateAsync(int id, Game game);
+        Task UpdateAsync(Game game);
 
-        Task InsertAsync(Game game);
+        Task AddAsync(Game game);
     }
 }

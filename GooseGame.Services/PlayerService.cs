@@ -7,11 +7,11 @@ namespace GooseGame.Services
 {
     public class PlayerService : IPlayerService
     {
-        private BaseRepository<Player> _repo;
+        private readonly BaseRepository<Player> _repo;
 
-        public PlayerService()
+        public PlayerService(BaseRepository<Player> playerRepo)
         {
-            _repo = new BaseRepository<Player>();
+            _repo = playerRepo;
         }
 
         public async Task DeleteAsync(int id)
@@ -29,14 +29,14 @@ namespace GooseGame.Services
             return await _repo.GetAllAsync();
         }
 
-        public async Task InsertAsync(Player player)
+        public async Task AddAsync(Player player)
         {
             await _repo.AddAsync(player);
         }
 
-        public async Task UpdateAsync(int id, Player player)
+        public async Task UpdateAsync(Player player)
         {
-            await _repo.UpdateAsync(id, player);
+            await _repo.UpdateAsync(player);
         }
     }
 }

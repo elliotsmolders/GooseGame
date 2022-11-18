@@ -9,9 +9,9 @@ namespace GooseGame.Services
     {
         private readonly BaseRepository<Game> _repo;
 
-        public GameService()
+        public GameService(BaseRepository<Game> gameRepo)
         {
-            _repo = new BaseRepository<Game>();
+            _repo = gameRepo;
         }
 
         public async Task DeleteAsync(int id)
@@ -19,9 +19,9 @@ namespace GooseGame.Services
             await _repo.DeleteAsync(id);
         }
 
-        public async Task GetGameAsync(int id)
+        public async Task<Game?> GetGameAsync(int id)
         {
-            await _repo.GetAsync(id);
+            return await _repo.GetAsync(id);
         }
 
         public Task<IEnumerable<Game>> GetGamesAsync()
@@ -29,12 +29,12 @@ namespace GooseGame.Services
             throw new NotImplementedException();
         }
 
-        public async Task InsertAsync(Game game)
+        public async Task AddAsync(Game game)
         {
             await _repo.AddAsync(game);
         }
 
-        public async Task UpdateAsync(int id, Game game)
+        public async Task UpdateAsync(Game game)
         {
             throw new NotImplementedException();
         }

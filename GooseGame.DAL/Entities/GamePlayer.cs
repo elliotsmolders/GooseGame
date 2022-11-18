@@ -9,13 +9,17 @@ using System.Threading.Tasks;
 
 namespace GooseGame.DAL.Entities
 {
-    public class PlayerGame
+    public class GamePlayer
     {
         [Key]
         public int Id { get; set; }
 
+        [Required]
         public Player Player { get; set; }
+
+        [Required]
         public int PlayerId { get; set; }
+
         public Game Game { get; set; }
         public int GameId { get; set; }
     }

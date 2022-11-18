@@ -10,8 +10,10 @@ internal class Program
     public static void Main(string[] args)
     {
         //add accesors after porting e.g. public / private
-        IPlayerService playerService = new PlayerService();
-        IGameService gameService = new GameService();
+        BaseRepository<Player> playerRepo = new BaseRepository<Player>();
+        BaseRepository<Game> gameRepo = new BaseRepository<Game>();
+        IPlayerService playerService = new PlayerService(playerRepo);
+        IGameService gameService = new GameService(gameRepo);
 
         GameController gameController = new GameController(gameService);
         PlayerController playerController = new PlayerController(playerService);
