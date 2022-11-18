@@ -2,6 +2,7 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace GooseGameWPF
 {
@@ -40,13 +41,21 @@ namespace GooseGameWPF
                 for (int j = 0; j < 8; j++)
                 {
                     Label tileLabel = new();
+                    tileLabel.HorizontalAlignment = HorizontalAlignment.Center;
+                    tileLabel.VerticalAlignment = VerticalAlignment.Center;
+
                     if (i % 2 == 0)
                     {
-                        tileLabel.Content = (63 - (i * 8 + j)).ToString();
+                        int evenTiles = 63 - (i * 8 + j);
+                        tileLabel.Name = $"Tile{evenTiles}";
+                        tileLabel.Content = evenTiles;
                     }
                     else
                     {
-                        tileLabel.Content = (63 - (i * 8 + 7 - j)).ToString();
+                        int oddTiles = 63 - (i * 8 + 7 - j);
+                        tileLabel.Background = Brushes.Beige;
+                        tileLabel.Name = $"Tile{oddTiles}";
+                        tileLabel.Content = oddTiles;
                         Console.Write($"{myGrid[i, j]}\t");
                     }
                     Grid.SetRow(tileLabel, i);
@@ -54,7 +63,6 @@ namespace GooseGameWPF
 
                     GooseGrid.Children.Add(tileLabel);
                 }
-          
             }
         }
     }
