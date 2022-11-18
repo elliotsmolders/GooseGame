@@ -1,28 +1,19 @@
 ﻿using GooseGame.DAL;
 using GooseGame.DAL.Models;
 using GooseGame.DAL.Repositories;
-using GooseGame.Entities;
+using GooseGame.DBTESTING.Controllers;
+using GooseGame.Services;
+using GooseGame.Services.Interfaces;
 
 internal class Program
 {
-    private static void Main(string[] args)
+    public static void Main(string[] args)
     {
-        BaseRepository<Player> _repo = new BaseRepository<Player>();
+        //add accesors after porting e.g. public / private
+        IPlayerService playerService = new PlayerService();
+        IGameService gameService = new GameService();
 
-        Player player = new Player();
-        player.Name = "Beire";
-
-        void SaveNewPlayer(Player entity)
-        {
-            _repo.AddAsync(entity);
-        }
-
-        async Task RetrieveAsync()
-        {
-            foreach (Player player in await _repo.GetAllAsync())
-            {
-                Console.WriteLine(player.Name);
-            }
-        }
+        GameController gameController = new GameController(gameService);
+        PlayerController playerController = new PlayerController(playerService);
     }
 }

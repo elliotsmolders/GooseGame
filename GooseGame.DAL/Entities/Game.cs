@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GooseGame.DAL.Models
 {
-    public class Game
+    public class Game : BaseEntity
     {
         [Key]
         public int GameId { get; set; }
+
         [Required]
         public GameBoard GameBoard { get; set; }
 

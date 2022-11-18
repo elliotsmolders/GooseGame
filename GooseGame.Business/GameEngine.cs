@@ -1,5 +1,4 @@
-﻿
-namespace GooseGame.Business
+﻿namespace GooseGame.Business
 {
     /// <summary>
     /// GameEngine mag singleton worden zodat deze zonder Depandancy injection overal oproepbaar is.
@@ -9,7 +8,7 @@ namespace GooseGame.Business
     /// Wich brings u to the following, Game als entity moet nog ingeladen worden in de engine zodat we de juiste properties kunnen bijhouden of opvragen.
     ///
     /// </summary>
-    public class GameEngine
+    public partial class GameEngine
     {
         public Player CurrentPlayer { get; set; }
         public List<Player> Players { get; set; } = new List<Player>(); // verhuisd naar Game instance
@@ -49,7 +48,6 @@ namespace GooseGame.Business
             return DiceManager.RollDice();
         }
 
-
         //player as parameter for playturn?
         public void PlayTurn(int roll1, int roll2)
         {
@@ -57,7 +55,7 @@ namespace GooseGame.Business
             {
                 int currentRoll = roll1 + roll2;
                 //nu tweede if statemment,possible refactor
-                if(currentRoll == 9 && CurrentPlayer.isOnStartTile())
+                if (currentRoll == 9 && CurrentPlayer.isOnStartTile())
                 {
                     HandleFirstThrow(roll1, roll2);
                 }
@@ -67,9 +65,7 @@ namespace GooseGame.Business
                     CurrentPlayer.NumberOfRolls++;
                 }
 
-
                 Console.WriteLine(CurrentPlayer.CurrentTile.GetType());
-
             }
         }
 
