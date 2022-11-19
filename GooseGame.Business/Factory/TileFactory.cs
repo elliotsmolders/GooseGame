@@ -10,7 +10,7 @@ namespace GooseGame.Business.Factory
         {
             switch (type)
             {
-                case TileType.Empty:
+                case TileType.Default:
                     return new EmptyTile();
 
                 case TileType.Start:

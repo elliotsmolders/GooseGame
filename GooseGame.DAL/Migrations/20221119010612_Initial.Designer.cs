@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GooseGame.DAL.Migrations
 {
     [DbContext(typeof(GooseGameDbContext))]
-    [Migration("20221117144611_addedPlayerNullables")]
-    partial class addedPlayerNullables
+    [Migration("20221119010612_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,7 @@ namespace GooseGame.DAL.Migrations
                     b.ToTable("GameBoard");
                 });
 
-            modelBuilder.Entity("GooseGame.DAL.Entities.PlayerGame", b =>
+            modelBuilder.Entity("GooseGame.DAL.Entities.GamePlayer", b =>
                 {
                     b.Property<int>("PlayerId")
                         .HasColumnType("INTEGER");
@@ -39,11 +39,22 @@ namespace GooseGame.DAL.Migrations
                     b.Property<int>("GameId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Icon")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PlayerPosition")
+                        .IsRequired()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PlayerSequence")
+                        .IsRequired()
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("PlayerId", "GameId");
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("PlayerGame");
+                    b.ToTable("GamePlayer");
                 });
 
             modelBuilder.Entity("GooseGame.DAL.Entities.Tile", b =>
@@ -65,12 +76,12 @@ namespace GooseGame.DAL.Migrations
 
                     b.HasIndex("GameBoardId");
 
-                    b.ToTable("Tile");
+                    b.ToTable("Tiles");
                 });
 
             modelBuilder.Entity("GooseGame.DAL.Models.Game", b =>
                 {
-                    b.Property<int>("GameId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -86,52 +97,43 @@ namespace GooseGame.DAL.Migrations
                     b.Property<DateTime>("Start")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("WinnerPlayerId")
+                    b.Property<int?>("WinnerId")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("GameId");
+                    b.HasKey("Id");
 
                     b.HasIndex("GameBoardId");
 
-                    b.HasIndex("WinnerPlayerId");
+                    b.HasIndex("WinnerId");
 
                     b.ToTable("Games");
                 });
 
             modelBuilder.Entity("GooseGame.DAL.Models.Player", b =>
                 {
-                    b.Property<int>("PlayerId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("CurrentPosition")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("IconPath")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("PlayerName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Sequence")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("PlayerId");
+                    b.HasKey("Id");
 
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("GooseGame.DAL.Entities.PlayerGame", b =>
+            modelBuilder.Entity("GooseGame.DAL.Entities.GamePlayer", b =>
                 {
                     b.HasOne("GooseGame.DAL.Models.Game", "Game")
-                        .WithMany("PlayerGames")
+                        .WithMany("GamePlayers")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("GooseGame.DAL.Models.Player", "Player")
-                        .WithMany("PlayerGames")
+                        .WithMany("GamePlayers")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -158,7 +160,7 @@ namespace GooseGame.DAL.Migrations
 
                     b.HasOne("GooseGame.DAL.Models.Player", "Winner")
                         .WithMany()
-                        .HasForeignKey("WinnerPlayerId");
+                        .HasForeignKey("WinnerId");
 
                     b.Navigation("GameBoard");
 
@@ -172,12 +174,12 @@ namespace GooseGame.DAL.Migrations
 
             modelBuilder.Entity("GooseGame.DAL.Models.Game", b =>
                 {
-                    b.Navigation("PlayerGames");
+                    b.Navigation("GamePlayers");
                 });
 
             modelBuilder.Entity("GooseGame.DAL.Models.Player", b =>
                 {
-                    b.Navigation("PlayerGames");
+                    b.Navigation("GamePlayers");
                 });
 #pragma warning restore 612, 618
         }

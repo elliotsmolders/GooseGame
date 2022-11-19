@@ -2,7 +2,7 @@
 {
     public enum TileType
     {
-        Empty,
+        Default,
         Start,
         Death,
         Goose,

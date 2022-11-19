@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace GooseGame.Entities
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
+        [Key]
+        public int Id { get; set; }
     }
 }

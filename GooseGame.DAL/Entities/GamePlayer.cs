@@ -11,16 +11,23 @@ namespace GooseGame.DAL.Entities
 {
     public class GamePlayer
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
-        public Player Player { get; set; }
+        public Player? Player { get; set; }
 
-        [Required]
         public int PlayerId { get; set; }
 
-        public Game Game { get; set; }
+        [Required]
+        public Game? Game { get; set; }
+
         public int GameId { get; set; }
+
+        [Required]
+        public Icon? Icon { get; set; }
+
+        [Required]
+        public int? PlayerSequence { get; set; } // order is een keyword in mssql vandaar sequence
+
+        [Required]
+        public int? PlayerPosition { get; set; }
     }
 }
