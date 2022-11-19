@@ -8,7 +8,41 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="GooseBoard.png" />
+    <None Remove="Resources\AmazonBox.png" />
+    <None Remove="Resources\BickyBurger.png" />
+    <None Remove="Resources\BobbleHead.png" />
+    <None Remove="Resources\FidgetSpinner.png" />
+    <None Remove="Resources\Tesla.png" />
+    <None Remove="twitter.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GooseGame.Business\GooseGame.Business.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\AmazonBox.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\BickyBurger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\BobbleHead.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\FidgetSpinner.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\GooseBoard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Tesla.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Twitter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

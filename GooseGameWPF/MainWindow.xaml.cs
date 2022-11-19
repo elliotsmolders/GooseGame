@@ -30,12 +30,9 @@ namespace GooseGameWPF
 
             //vm.PlayTurn((int)Roll1.Content,(int)Roll2.Content);
             //Debug.Content = vm.GetCurrentPlayerPositionAndName();
-
         }
 
-
-
-        private int[,]  StylelizeGridTiles()
+        private int[,] StylelizeGridTiles()
 
         {
             int[,] tileGrid = new int[8, 8];
@@ -61,7 +58,6 @@ namespace GooseGameWPF
                         int oddTiles = 63 - (i * 8 + 7 - j);
                         tileLabel.Name = $"Tile{oddTiles}";
                         tileLabel.Content = $"Tile{oddTiles}";
-                       
                     }
 
                     foreach (int pos in tileGrid)
@@ -71,7 +67,7 @@ namespace GooseGameWPF
                             b.BorderBrush = new SolidColorBrush(Colors.Blue);
                             tileLabel.Background = Brushes.Beige;
                         }
-                        else 
+                        else
                         {
                             b.BorderBrush = new SolidColorBrush(Colors.Red);
                         }
@@ -81,16 +77,11 @@ namespace GooseGameWPF
                     Grid.SetRow(tileLabel, i);
                     Grid.SetColumn(tileLabel, j);
 
-
                     GooseGrid.Children.Add(tileLabel);
                     GooseGrid.Children.Add(b);
                 }
-
-
             }
             return tileGrid;
         }
-
-
     }
 }
