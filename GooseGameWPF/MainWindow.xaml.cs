@@ -1,6 +1,7 @@
 ﻿using GooseGameWPF.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -19,20 +20,20 @@ namespace GooseGameWPF
             InitializeComponent();
             GooseGrid.DataContext = vm;
             vm.Init();
-            StylelizeGridTiles();
+            //StylelizeGridTiles();
         }
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
             vm.SetNextPlayer();
-            displayPlayerPosition();
+            //displayPlayerPosition();
             Roll1.Content = vm.RollDice();
             Roll2.Content = vm.RollDice();
             CurrentRoll.Content = vm.RollDice();
             
             
             vm.PlayTurn((int)Roll1.Content,(int)Roll2.Content);
-            //Debug.Content = vm.GetCurrentPlayerPositionAndName();
+            Debug.Content = vm.GetCurrentPlayerPositionAndName();
 
         }
 
@@ -107,11 +108,13 @@ namespace GooseGameWPF
         private void displayPlayerPosition()
         {
           int currentPos = vm.GetPlayerPosition();
-            var currentLabel = generatedLabels[currentPos];
-
+            var currentLabel = $"Tile{currentPos}";
+            
 
             MessageBox.Show($"{currentPos} playerpos and {currentLabel}");
-            generatedLabels[currentPos].Content = $"player here! ";
+            //generatedLabels[currentPos].Content = $"player here! ";
+            var label = GooseGrid.Children.OfType<Label>()[currentPos];
+            label.Background = new SolidColorBrush(Colors.White);
         }
     }
 }
