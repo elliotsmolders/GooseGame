@@ -64,12 +64,12 @@ namespace GooseGame.Business
                 else
                 {
                     CurrentPlayer.MovePlayer(currentRoll);
-                    CurrentPlayer.NumberOfRolls++;
                 }
 
-
+                CurrentPlayer.NumberOfRolls++;
+                TotalNumberOfRolls++;
                 Console.WriteLine(CurrentPlayer.CurrentTile.GetType());
-
+                CurrentPlayer.IsMovingBackwards = false;
             }
         }
 
