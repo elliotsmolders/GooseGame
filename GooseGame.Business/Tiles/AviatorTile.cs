@@ -1,4 +1,5 @@
 ﻿using GooseGame.Business.Interfaces;
+using GooseGame.DAL.Models;
 
 namespace GooseGame.Business.Tiles
 {

@@ -1,41 +1,72 @@
-﻿namespace GooseGame.Business
+﻿using GooseGame.DAL.Entities;
+using GooseGame.DAL.Models;
+using GooseGame.DAL.Repositories;
+using GooseGame.Entities;
+using System.Collections.ObjectModel;
+
+namespace GooseGame.Business
 {
-    /// <summary>
-    /// GameEngine mag singleton worden zodat deze zonder Depandancy injection overal oproepbaar is.
-    /// Nog een goede reden, bevat enkel logica en geen save states
-    ///
-    /// Dal rechtstreeks van business aanspreken mag zonder tussenlayer, Frtonend mag er nooit rechtstreeks aankunnen
-    /// Wich brings u to the following, Game als entity moet nog ingeladen worden in de engine zodat we de juiste properties kunnen bijhouden of opvragen.
-    ///
-    /// </summary>
     public class GameEngine
     {
-        public Player CurrentPlayer { get; set; }
-        public List<Player> Players { get; set; } = new List<Player>(); // verhuisd naar Game instance
+        private GameRepository _gameRepo = new GameRepository();
+        private PlayerRepository _playerRepo = new PlayerRepository();
+        private GamePlayerRepository _gamePlayerRepository = new GamePlayerRepository();
+
+        public Player? CurrentPlayer { get; set; } // moet nog gezet worden
+        public Game? Game { get; set; }
+        public GamePlayer? GamePlayer { get; set; }
+        public int CurrentPlayerPreviousPosition { get; set; }
+
+        public List<Player?> Players { get; set; }
 
         public int TotalNumberOfRolls { get; set; }
         public Player Winner { get; set; } = null!;
 
-        public int AmountOfPlayers { get; set; } = 4;
-        public Dice DiceManager { get; set; } = new Dice(); // todo terug naar lijst idee
+        public Dice DiceManager { get; set; } = new Dice();
 
         public static int Roll1 { get; set; }
         public static int Roll2 { get; set; }
         public static int CurrentRoll => Roll1 + Roll2;
 
+        /// <summary>
+        /// Laad bestaande Spelers
+        /// Laad bestaande Spellen
+        /// </summary>
         public void Init()
         {
-            for (int i = 0; i < AmountOfPlayers; i++)
+            foreach (GamePlayer gamePlayer in Game.GamePlayers)
             {
-                string name = $"Harold {i}";
-                CreatePlayer(name);
+                Players.Add(gamePlayer.Player);
             }
+        }
+
+        public async Task LoadGameAsync(int index)
+        {
+            Game = await _gameRepo.GetAsync(index);
+            CurrentPlayer = Players[GamePlayer.PlayerSequence];
+        }
+
+        public void NewGame()
+        {
             CurrentPlayer = Players.First(); //nog logica achter steken voor speler met hoogste worp
+        }
+
+        public void BuildEntities()
+        {
         }
 
         public void SetNextPlayer()
         {
-            if (CurrentPlayer.CurrentPosition == GameBoard.EndTilePosition) //naar aparte methode
+            var product = (from p in _gamePlayerRepository._ctx
+                .Include(p => p.ProductModel)
+                           where p.ProductID == 814
+                           select p).ToList();
+
+            foreach (var p in product)
+            {
+                Console.WriteLine("{0} {1} {2}", p.ProductID, p.Name, p.ProductModel.Name);
+            }
+            if (CurrentPlayer.PlayerPosition == GameBoard.EndTilePosition)
             {
                 Winner = CurrentPlayer;
             }
@@ -43,7 +74,9 @@
             {
                 int index = Players.IndexOf(CurrentPlayer);
                 CurrentPlayer = index >= Players.Count - 1 ? Players.First() : Players[index + 1];
-            }
+                //var findNextGamePlayer = _gameRepo._ctx.
+                //GamePlayer = GamePlayer
+            };
         }
 
         public Tuple<int, int> RollDice()
@@ -73,7 +106,7 @@
             }
         }
 
-        private void HandleFirstThrow() // geldt enkel op eerste worp of als speler op start staat? + terug implementeren, rename to throwfromstarttile or something?
+        private void HandleFirstThrow() // geldt enkel op eerste worp - zie specs
         {
             if ((Roll1 == 5 && Roll2 == 4) || (Roll1 == 4 && Roll2 == 5))
             {
@@ -85,14 +118,58 @@
             }
         }
 
-        private void CreatePlayer(string name)
-        {
-            Players.Add(new Player(name));
-        }
-
         public void Restore()
         {
             throw new NotImplementedException();
         }
+
+        #region Data Related Tasks
+
+        public async Task AddPlayerAsync(string playerName)
+        {
+            Player player = new Player();
+            player.PlayerName = playerName;
+            await _playerRepo.AddAsync(player);
+        }
+
+        public void InstantiatePlayers(ObservableCollection<Player> selectedPlayers)
+        {
+            Players = selectedPlayers.ToList();
+        }
+
+        public async Task InstantiateGameAsync()
+        {
+            Game = new Game();
+            //await _gameRepo.AddAsync(Game); //unsure if needed
+            //var LastAddedGame = await _gameRepo.GetAsync(Game.Id); //unsure if needed
+            foreach (Player player in Players)
+            {
+                new GamePlayer()
+                {
+                    Player = player,
+                    PlayerId = player.Id,
+                    Game = Game,
+                    GameId = Game.Id,
+                    Icon = DAL.Icon.AmazonBox, // te fixen
+                    TotalRolls = 0,
+                    PlayerSequence = 0, //nog logica maken voor eerste speler en dan index van spelers oplopend
+                    PlayerPosition = 0,
+                    TurnsToSkip = 0
+                };
+            }
+            await _gameRepo.AddAsync(Game);
+        }
+
+        public async Task<ObservableCollection<Player>> RetrievePlayers()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ObservableCollection<Game>> RetrieveGames()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion Data Related Tasks
     }
 }

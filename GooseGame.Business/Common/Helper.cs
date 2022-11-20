@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GooseGame.Business
+namespace GooseGame.Business.Common
 {
     internal class Helper
     {

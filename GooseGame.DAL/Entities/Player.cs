@@ -1,5 +1,6 @@
 ﻿using GooseGame.DAL.Entities;
 using GooseGame.Entities;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GooseGame.DAL.Models
@@ -9,7 +10,8 @@ namespace GooseGame.DAL.Models
         [Required]
         public string? PlayerName { get; set; }
 
-        public virtual IList<GamePlayer>? GamePlayers { get; set; }
-        // public bool IsNpc { get; set; } // eerst alle andere implementaties, werkend spel
+        public virtual ICollection<GamePlayer>? GamePlayers { get; set; }
+
+        public virtual Scores? GlobalPlayerScore { get; set; }
     }
 }

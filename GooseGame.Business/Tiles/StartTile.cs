@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GooseGame.Business.Interfaces;
+using GooseGame.DAL.Models;
 
 namespace GooseGame.Business.Tiles
 {

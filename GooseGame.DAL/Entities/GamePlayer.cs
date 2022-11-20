@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace GooseGame.DAL.Entities
 {
-    public class GamePlayer
+    public class GamePlayer : BaseEntity
     {
         [Required]
         public Player? Player { get; set; }
@@ -22,6 +22,8 @@ namespace GooseGame.DAL.Entities
         public int GameId { get; set; }
 
         public Icon Icon { get; set; }
+
+        public int TotalRolls { get; set; }
 
         public int PlayerSequence { get; set; } // order is een keyword in mssql vandaar sequence
 

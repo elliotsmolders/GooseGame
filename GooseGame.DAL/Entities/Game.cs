@@ -8,14 +8,11 @@ namespace GooseGame.DAL.Models
 {
     public class Game : BaseEntity
     {
-        [Required]
-        public GameBoard? GameBoard { get; set; }
-
         public virtual ICollection<GamePlayer>? GamePlayers { get; set; }
 
         public int AmountOfThrows { get; set; }
 
-        public Player? Winner { get; set; }
+        public Player? WinningPlayer { get; set; }
 
         public DateTime Start { get; set; }
 

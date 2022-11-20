@@ -3,9 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:GooseGameWPF"
+        xmlns:local="clr-namespace:GooseGameWPF" xmlns:viewmodels="clr-namespace:GooseGameWPF.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <viewmodels:MainViewModel />
+    </Window.DataContext>
+
     <Grid x:Name="GooseGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5" />
@@ -34,6 +39,19 @@
             <RowDefinition Height="5" />
         </Grid.RowDefinitions>
 
+        <ComboBox ItemsSource="{Binding }"
+                  Grid.Column="3"
+                  Grid.Row="5"
+                  Grid.RowSpan="2">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding PlayerName}"></TextBlock>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <TextBox x:Name="PlayerName" Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="3"></TextBox>
+        <Button x:Name="AddPlayerAsync" Margin="20" Grid.Column="7" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Row="5" Click="AddPlayerAsync_Click" />
         <Button x:Name="RollDice" Margin="20" Grid.Column="7" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Row="8" Click="RollDice_Click" />
         <Label x:Name="Roll1" Grid.Column="5" Grid.Row="8" />
         <Label x:Name="Roll2" Grid.Column="5" Grid.Row="9" />

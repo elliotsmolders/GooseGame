@@ -27,9 +27,8 @@ namespace GooseGame.DAL
                 .WithMany(g => g.GamePlayers)
                 .HasForeignKey(gp => gp.PlayerId);
 
-            modelBuilder.Entity<Tile>()
-                .Property(c => c.TileType)
-                .HasConversion<int>();
+            modelBuilder.Entity<Scores>()
+                .HasForeignKey(s => s.PlayerId);
 
             modelBuilder.Entity<GamePlayer>()
                 .Property(c => c.Icon)

@@ -28,13 +28,47 @@ namespace GooseGameWPF
         {
             InitializeComponent();
             GooseGrid.DataContext = vm;
-            vm.Init();
         }
 
+        public void SelectPlayers()
+        {
+            vm.SelectPlayers();
+        }
+
+        /// <summary>
+        /// Voor het spel start kunnen spelers toegevoegd worden
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public async Task AddPlayerAsync_Click(object sender, RoutedEventArgs e)
+        {
+            var Playername = PlayerName.Text;
+            vm.AddPlayerAsync(Playername);
+        }
+
+        public async Task PrepareNewGameAsync()
+        {
+            vm.InstantiatePlayers();
+            await vm.InstantiateGameAsync();
+        }
+
+        public void LoadGame()
+        {
+            vm.LoadGame();
+        }
+
+        public void ShowHighScores()
+        {
+        }
+
+        /// <summary>
+        /// Na game initializing Zien we het bord en zien we de Roll dice knop
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-            vm.SetNextPlayer();
-
             Tuple<int, int> dice = vm.RollDice();
             var roll1 = dice.Item1;
             var roll2 = dice.Item2;
