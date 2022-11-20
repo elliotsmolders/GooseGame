@@ -37,7 +37,7 @@ namespace GooseGameWPF
         }
 
 
-        List<Label> generatedLabels = new();
+        Label[] generatedLabels = new Label[64];
 
         private int[,]  StylelizeGridTiles()
                     
@@ -64,7 +64,7 @@ namespace GooseGameWPF
                         int evenTiles = 63 - (i * 8 + j);
                         tileLabel.Name = $"Tile{evenTiles}";
                         tileLabel.Content = $"Tile{evenTiles}";
-                        generatedLabels.Add(tileLabel);
+                        generatedLabels[evenTiles] = (tileLabel);
                         
 
                     }
@@ -73,7 +73,7 @@ namespace GooseGameWPF
                         int oddTiles = 63 - (i * 8 + 7 - j);
                         tileLabel.Name = $"Tile{oddTiles}";
                         tileLabel.Content = $"Tile{oddTiles}";
-                        generatedLabels.Add(tileLabel);
+                        generatedLabels[oddTiles] = (tileLabel);
 
                     }
 
@@ -107,9 +107,11 @@ namespace GooseGameWPF
         private void displayPlayerPosition()
         {
           int currentPos = vm.GetPlayerPosition();
-            var currentLabel = generatedLabels[63 - currentPos];
+            var currentLabel = generatedLabels[currentPos];
+
+
             MessageBox.Show($"{currentPos} playerpos and {currentLabel}");
-            generatedLabels[63-currentPos].Content = $"player here! ";
+            generatedLabels[currentPos].Content = $"player here! ";
         }
     }
 }
