@@ -27,70 +27,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label x:Name="Tile0" Grid.Row="0" Grid.Column="0" Content="Tile 0" />
-        <Label x:Name="Tile1" Grid.Row="0" Grid.Column="1" Content="Tile 1" />
-        <Label x:Name="Tile2" Grid.Row="0" Grid.Column="2" Content="Tile 2" />
-        <Label x:Name="Tile3" Grid.Row="0" Grid.Column="3" Content="Tile 3" />
-        <Label x:Name="Tile4" Grid.Row="0" Grid.Column="4" Content="Tile 4" />
-        <Label x:Name="Tile5" Grid.Row="0" Grid.Column="5" Content="Tile 5" />
-        <Label x:Name="Tile6" Grid.Row="0" Grid.Column="6" Content="Tile 6" />
-        <Label x:Name="Tile7" Grid.Row="0" Grid.Column="7" Content="Tile 7" />
-        <Label x:Name="Tile8" Grid.Row="1" Grid.Column="0" Content="Tile 8" />
-        <Label x:Name="Tile9" Grid.Row="1" Grid.Column="1" Content="Tile 9" />
-        <Label x:Name="Tile10" Grid.Row="1" Grid.Column="2" Content="Tile 10" />
-        <Label x:Name="Tile11" Grid.Row="1" Grid.Column="3" Content="Tile 11" />
-        <Label x:Name="Tile12" Grid.Row="1" Grid.Column="4" Content="Tile 12" />
-        <Label x:Name="Tile13" Grid.Row="1" Grid.Column="5" Content="Tile 13" />
-        <Label x:Name="Tile14" Grid.Row="1" Grid.Column="6" Content="Tile 14" />
-        <Label x:Name="Tile15" Grid.Row="1" Grid.Column="7" Content="Tile 15" />
-        <Label x:Name="Tile16" Grid.Row="2" Grid.Column="0" Content="Tile 16" />
-        <Label x:Name="Tile17" Grid.Row="2" Grid.Column="1" Content="Tile 17" />
-        <Label x:Name="Tile18" Grid.Row="2" Grid.Column="2" Content="Tile 18" />
-        <Label x:Name="Tile19" Grid.Row="2" Grid.Column="3" Content="Tile 19" />
-        <Label x:Name="Tile20" Grid.Row="2" Grid.Column="4" Content="Tile 20" />
-        <Label x:Name="Tile21" Grid.Row="2" Grid.Column="5" Content="Tile 21" />
-        <Label x:Name="Tile22" Grid.Row="2" Grid.Column="6" Content="Tile 22" />
-        <Label x:Name="Tile23" Grid.Row="2" Grid.Column="7" Content="Tile 23" />
-        <Label x:Name="Tile24" Grid.Row="3" Grid.Column="0" Content="Tile 24" />
-        <Label x:Name="Tile25" Grid.Row="3" Grid.Column="1" Content="Tile 25" />
-        <Label x:Name="Tile26" Grid.Row="3" Grid.Column="2" Content="Tile 26" />
-        <Label x:Name="Tile27" Grid.Row="3" Grid.Column="3" Content="Tile 27" />
-        <Label x:Name="Tile28" Grid.Row="3" Grid.Column="4" Content="Tile 28" />
-        <Label x:Name="Tile29" Grid.Row="3" Grid.Column="5" Content="Tile 29" />
-        <Label x:Name="Tile30" Grid.Row="3" Grid.Column="6" Content="Tile 30" />
-        <Label x:Name="Tile31" Grid.Row="3" Grid.Column="7" Content="Tile 31" />
-        <Label x:Name="Tile32" Grid.Row="4" Grid.Column="0" Content="Tile 32" />
-        <Label x:Name="Tile33" Grid.Row="4" Grid.Column="1" Content="Tile 33" />
-        <Label x:Name="Tile34" Grid.Row="4" Grid.Column="2" Content="Tile 34" />
-        <Label x:Name="Tile35" Grid.Row="4" Grid.Column="3" Content="Tile 35" />
-        <Label x:Name="Tile36" Grid.Row="4" Grid.Column="4" Content="Tile 36" />
-        <Label x:Name="Tile37" Grid.Row="4" Grid.Column="5" Content="Tile 37" />
-        <Label x:Name="Tile38" Grid.Row="4" Grid.Column="6" Content="Tile 38" />
-        <Label x:Name="Tile39" Grid.Row="4" Grid.Column="7" Content="Tile 39" />
-        <Label x:Name="Tile40" Grid.Row="5" Grid.Column="0" Content="Tile 40" />
-        <Label x:Name="Tile41" Grid.Row="5" Grid.Column="1" Content="Tile 41" />
-        <Label x:Name="Tile42" Grid.Row="5" Grid.Column="2" Content="Tile 42" />
-        <Label x:Name="Tile43" Grid.Row="5" Grid.Column="3" Content="Tile 43" />
-        <Label x:Name="Tile44" Grid.Row="5" Grid.Column="4" Content="Tile 44" />
-        <Label x:Name="Tile45" Grid.Row="5" Grid.Column="5" Content="Tile 45" />
-        <Label x:Name="Tile46" Grid.Row="5" Grid.Column="6" Content="Tile 46" />
-        <Label x:Name="Tile47" Grid.Row="5" Grid.Column="7" Content="Tile 47" />
-        <Label x:Name="Tile48" Grid.Row="6" Grid.Column="0" Content="Tile 48" />
-        <Label x:Name="Tile49" Grid.Row="6" Grid.Column="1" Content="Tile 49" />
-        <Label x:Name="Tile50" Grid.Row="6" Grid.Column="2" Content="Tile 50" />
-        <Label x:Name="Tile51" Grid.Row="6" Grid.Column="3" Content="Tile 51" />
-        <Label x:Name="Tile52" Grid.Row="6" Grid.Column="4" Content="Tile 52" />
-        <Label x:Name="Tile53" Grid.Row="6" Grid.Column="5" Content="Tile 53" />
-        <Label x:Name="Tile54" Grid.Row="6" Grid.Column="6" Content="Tile 54" />
-        <Label x:Name="Tile55" Grid.Row="6" Grid.Column="7" Content="Tile 55" />
-        <Label x:Name="Tile56" Grid.Row="7" Grid.Column="0" Content="Tile 56" />
-        <Label x:Name="Tile57" Grid.Row="7" Grid.Column="1" Content="Tile 57" />
-        <Label x:Name="Tile58" Grid.Row="7" Grid.Column="2" Content="Tile 58" />
-        <Label x:Name="Tile59" Grid.Row="7" Grid.Column="3" Content="Tile 59" />
-        <Label x:Name="Tile60" Grid.Row="7" Grid.Column="4" Content="Tile 60" />
-        <Label x:Name="Tile61" Grid.Row="7" Grid.Column="5" Content="Tile 61" />
-        <Label x:Name="Tile62" Grid.Row="7" Grid.Column="6" Content="Tile 62" />
-        <Label x:Name="Tile63" Grid.Row="7" Grid.Column="7" Content="Tile 63" />
+       
         <StackPanel  Margin="227,27,-228,111" Grid.RowSpan="4" Grid.Column="7">
             <Label x:Name="Roll1" Height="27"  />
             <Label x:Name="Roll2" Height="38"/>

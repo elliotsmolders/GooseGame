@@ -20,13 +20,13 @@ namespace GooseGameWPF
             InitializeComponent();
             GooseGrid.DataContext = vm;
             vm.Init();
-            //StylelizeGridTiles();
+            StylelizeGridTiles();
         }
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
             vm.SetNextPlayer();
-            //displayPlayerPosition();
+            updateCurrentPlayerPosition();
             Roll1.Content = vm.RollDice();
             Roll2.Content = vm.RollDice();
             CurrentRoll.Content = vm.RollDice();
@@ -105,16 +105,20 @@ namespace GooseGameWPF
             return tileGrid;
         }
 
-        private void displayPlayerPosition()
+        private void updateCurrentPlayerPosition()
         {
           int currentPos = vm.GetPlayerPosition();
             var currentLabel = $"Tile{currentPos}";
             
 
-            MessageBox.Show($"{currentPos} playerpos and {currentLabel}");
-            //generatedLabels[currentPos].Content = $"player here! ";
-            var label = GooseGrid.Children.OfType<Label>()[currentPos];
-            label.Background = new SolidColorBrush(Colors.White);
+            //MessageBox.Show($"{currentPos} playerpos and {currentLabel}");
+            generatedLabels[currentPos].Content = $"player here! ";
+
+            generatedLabels[currentPos].Background = Brushes.Pink;
+            Border b = new();
+
+            b.BorderThickness = new Thickness(20);
+            generatedLabels[currentPos].BorderBrush = new SolidColorBrush(Colors.Green);
         }
     }
 }
