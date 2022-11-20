@@ -11,7 +11,7 @@ namespace GooseGame.Business.Tiles
     {
         public void HandlePlayer(Player player)
         {
-            player.Skips = 1;
+            player.TurnsToSkip = 1;
             Console.WriteLine("Inn");
         }
     }

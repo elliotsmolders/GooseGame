@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GooseGame.Business\GooseGame.Business.csproj" />
+    <ProjectReference Include="..\GooseGame.DAL\GooseGame.DAL.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,6 @@ namespace GooseGameWPF.ViewModels
     internal class MainViewModel : INotifyPropertyChanged
     {
         private GameEngine _engine;
-        public int ClickedRoll { get; set; }
 
         public MainViewModel()
         {
@@ -20,7 +19,7 @@ namespace GooseGameWPF.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public int RollDice()
+        public Tuple<int, int> RollDice()
         {
             return _engine.RollDice();
         }
@@ -43,14 +42,13 @@ namespace GooseGameWPF.ViewModels
             return $"{_engine.CurrentPlayer.Name} pos:{_engine.CurrentPlayer.CurrentPosition} coming from {_engine.CurrentPlayer.PreviousPosition}";
         }
 
-        public void PlayTurn(int roll1,int roll2)
+        public void PlayTurn()
         {
-            ClickedRoll++;
             //if (ClickedRoll == 1)
             //{
             //    _engine.HandleFirstThrow(roll1, roll2);
             //}
-            _engine.PlayTurn(roll1,roll2);
+            _engine.PlayTurn();
         }
     }
 }

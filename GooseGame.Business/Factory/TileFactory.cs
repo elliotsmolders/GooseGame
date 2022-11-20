@@ -11,7 +11,7 @@ namespace GooseGame.Business.Factory
             switch (type)
             {
                 case TileType.Default:
-                    return new EmptyTile();
+                    return new DefaultTile();
 
                 case TileType.Start:
                     return new StartTile();

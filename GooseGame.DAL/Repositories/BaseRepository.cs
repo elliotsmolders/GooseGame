@@ -9,7 +9,7 @@ namespace GooseGame.DAL.Repositories
 
         public async Task AddAsync(T entity)
         {
-            _ctx.Add(entity);
+            await _ctx.AddAsync(entity);
             await _ctx.SaveChangesAsync();
         }
 

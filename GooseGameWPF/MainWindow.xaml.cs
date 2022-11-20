@@ -34,10 +34,16 @@ namespace GooseGameWPF
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
             vm.SetNextPlayer();
-            Roll1.Content = vm.RollDice();
-            Roll2.Content = vm.RollDice();
-            CurrentRoll.Content = (int)Roll1.Content + (int)Roll2.Content;
-            vm.PlayTurn((int)Roll1.Content,(int)Roll2.Content);
+
+            Tuple<int, int> dice = vm.RollDice();
+            var roll1 = dice.Item1;
+            var roll2 = dice.Item2;
+
+            Roll1.Content = roll1;
+            Roll2.Content = roll2;
+            CurrentRoll.Content = roll1 + roll2;
+
+            vm.PlayTurn(); //2 dice die elk nummer bijhouden geupdate door de Engine
             Debug.Content = vm.GetCurrentPlayerPositionAndName();
         }
     }

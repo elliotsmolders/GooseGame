@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GooseGame.Tests", "GooseGam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GooseGame.DBTESTING", "GooseGame.DBTESTING\GooseGame.DBTESTING.csproj", "{A8515B1C-7D5F-42E0-944E-EE831A1BD778}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooseGame.Services", "GooseGame.Services\GooseGame.Services.csproj", "{0B6F88D5-A819-48A8-80AC-D0A47177AA2C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{A8515B1C-7D5F-42E0-944E-EE831A1BD778}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8515B1C-7D5F-42E0-944E-EE831A1BD778}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8515B1C-7D5F-42E0-944E-EE831A1BD778}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0B6F88D5-A819-48A8-80AC-D0A47177AA2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0B6F88D5-A819-48A8-80AC-D0A47177AA2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0B6F88D5-A819-48A8-80AC-D0A47177AA2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0B6F88D5-A819-48A8-80AC-D0A47177AA2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,7 +6,7 @@ namespace GooseGame.Business.Tiles
     {
         public void HandlePlayer(Player player)
         {
-            player.Skips = 3;
+            player.TurnsToSkip = 3;
             Console.WriteLine("Prison");
         }
     }

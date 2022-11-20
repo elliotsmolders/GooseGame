@@ -1,11 +1,6 @@
 ﻿using GooseGame.Business.Factory;
 using GooseGame.Business.Interfaces;
 using GooseGame.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GooseGame.Business
 {
@@ -19,7 +14,7 @@ namespace GooseGame.Business
     {
         private GameBoard()
         {
-            FillTileList();
+            Tiles = CreateTileList();
         }
 
         public static GameBoard GetGameBoard()
@@ -31,72 +26,73 @@ namespace GooseGame.Business
             return _gameBoard;
         }
 
-        public IList<ITile> Tiles { get; set; } = new List<ITile>(); // ListOf doen we niet meer
+        public IList<ITile> Tiles { get; set; }
 
-        public int AmountOfTiles = 64;
+        public readonly int[] GooseTilePositions = { 5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54, 59 };
+        public const int StartTilePosition = 0;
+        public const int PrisonTilePosition = 52;
+        public const int BridgeTilePosition = 6;
+        public const int InnTilePosition = 19;
+        public const int WellTilePosition = 31;
+        public const int MazeTilePosition = 42;
+        public const int DeathTilePosition = 58;
+        public const int EndTilePosition = 63;
 
-        //int[] EmptyTilePositions = {1,2, 3,4, 7,8,10,11,13,15,16,17,20,21,22,24,25,26,28,29,30,33,34,35,37,38,39,40,43,44,46,47,48,49,51,53,55,56,57,60,61,62};
-        private int[] GooseTilePositions = { 5, 9, 14, 18, 23, 27, 32, 36, 41, 45, 50, 54, 59 };
-
-        private int[] StartTilePositions = { 0 };
-        private int[] PrisonTilePositions = { 52 };
-        private int[] BridgeTilePositions = { 6 };
-        private int[] InnTilePositions = { 19 };
-        private int[] WellTilePositions = { 31 };
-        private int[] MazeTilePositions = { 42 };
-        private int[] DeathTilePositions = { 58 };
-        private int[] EndTilePositions = { 63 };
-
-        private static GameBoard _gameBoard;
+        private static GameBoard? _gameBoard;
 
         /// <summary>
         /// private fields moeten toch met _
         /// https://stackoverflow.com/questions/450238/to-underscore-or-to-not-to-underscore-that-is-the-question
         /// </summary>
-        private TileFactory _factory = new();
+        private readonly TileFactory _factory = new();
 
-        private void FillTileList()
+        private List<ITile> CreateTileList()
         {
-            for (int i = 0; i < AmountOfTiles; i++)
+            List<ITile> retval = new();
+            for (int i = StartTilePosition; i <= EndTilePosition; i++)
             {
                 if (GooseTilePositions.Contains(i))
                 {
-                    Tiles.Add(_factory.CreateTile(TileType.Goose));
+                    retval.Add(_factory.CreateTile(TileType.Goose));
                 }
-                else if (StartTilePositions.Contains(i))
+                else if (i == StartTilePosition)
                 {
-                    Tiles.Add(_factory.CreateTile(TileType.Start));
+                    retval.Add(_factory.CreateTile(TileType.Start));
                 }
-                else if (PrisonTilePositions.Contains(i))
+                else if (i == PrisonTilePosition)
                 {
-                    Tiles.Add(_factory.CreateTile(TileType.Prison));
+                    retval.Add(_factory.CreateTile(TileType.Prison));
                 }
-                else if (BridgeTilePositions.Contains(i))
+                else if (i == BridgeTilePosition)
                 {
-                    Tiles.Add(_factory.CreateTile(TileType.Bridge));
+                    retval.Add(_factory.CreateTile(TileType.Bridge));
                 }
-                else if (InnTilePositions.Contains(i))
+                else if (i == InnTilePosition)
                 {
-                    Tiles.Add(_factory.CreateTile(TileType.Inn));
+                    retval.Add(_factory.CreateTile(TileType.Inn));
                 }
-                else if (WellTilePositions.Contains(i))
+                else if (i == WellTilePosition)
                 {
-                    Tiles.Add(_factory.CreateTile(TileType.Well));
+                    retval.Add(_factory.CreateTile(TileType.Well));
                 }
-                else if (MazeTilePositions.Contains(i))
+                else if (i == MazeTilePosition)
                 {
-                    Tiles.Add(_factory.CreateTile(TileType.Maze));
+                    retval.Add(_factory.CreateTile(TileType.Maze));
                 }
-                else if (DeathTilePositions.Contains(i))
+                else if (i == DeathTilePosition)
                 {
-                    Tiles.Add(_factory.CreateTile(TileType.Death));
+                    retval.Add(_factory.CreateTile(TileType.Death));
                 }
-                else if (EndTilePositions.Contains(i))
+                else if (i == EndTilePosition)
                 {
-                    Tiles.Add(_factory.CreateTile(TileType.End));
+                    retval.Add(_factory.CreateTile(TileType.End));
                 }
-                else Tiles.Add(_factory.CreateTile(TileType.Default));
+                else
+                {
+                    retval.Add(_factory.CreateTile(TileType.Default));
+                }
             }
+            return retval;
         }
     }
 }

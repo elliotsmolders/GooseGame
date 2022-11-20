@@ -8,7 +8,7 @@
     /// Wich brings u to the following, Game als entity moet nog ingeladen worden in de engine zodat we de juiste properties kunnen bijhouden of opvragen.
     ///
     /// </summary>
-    public partial class GameEngine
+    public class GameEngine
     {
         public Player CurrentPlayer { get; set; }
         public List<Player> Players { get; set; } = new List<Player>(); // verhuisd naar Game instance
@@ -18,7 +18,10 @@
 
         public int AmountOfPlayers { get; set; } = 4;
         public Dice DiceManager { get; set; } = new Dice(); // todo terug naar lijst idee
-        public int Roll1 { get; set; }
+
+        public static int Roll1 { get; set; }
+        public static int Roll2 { get; set; }
+        public static int CurrentRoll => Roll1 + Roll2;
 
         public void Init()
         {
@@ -27,41 +30,42 @@
                 string name = $"Harold {i}";
                 CreatePlayer(name);
             }
-            CurrentPlayer = Players[0]; //nog logica achter steken voor speler met hoogste worp
+            CurrentPlayer = Players.First(); //nog logica achter steken voor speler met hoogste worp
         }
 
         public void SetNextPlayer()
         {
-            if (CurrentPlayer.CurrentPosition == 63) //naar aparte methode
+            if (CurrentPlayer.CurrentPosition == GameBoard.EndTilePosition) //naar aparte methode
             {
                 Winner = CurrentPlayer;
             }
             else
             {
                 int index = Players.IndexOf(CurrentPlayer);
-                CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
+                CurrentPlayer = index >= Players.Count - 1 ? Players.First() : Players[index + 1];
             }
         }
 
-        public int RollDice()
+        public Tuple<int, int> RollDice()
         {
-            return DiceManager.RollDice();
+            Roll1 = DiceManager.RollDice();
+            Roll2 = DiceManager.RollDice();
+            return new Tuple<int, int>(Roll1, Roll2);
         }
 
         //player as parameter for playturn?
-        public void PlayTurn(int roll1, int roll2)
+        public void PlayTurn()
         {
             if (CurrentPlayer.IsPlayerActive())
             {
-                int currentRoll = roll1 + roll2;
                 //nu tweede if statemment,possible refactor
-                if (currentRoll == 9 && CurrentPlayer.isOnStartTile())
+                if (CurrentPlayer.NumberOfRolls == 0)
                 {
-                    HandleFirstThrow(roll1, roll2);
+                    HandleFirstThrow();
                 }
                 else
                 {
-                    CurrentPlayer.MovePlayer(currentRoll);
+                    CurrentPlayer.MovePlayer(CurrentRoll);
                     CurrentPlayer.NumberOfRolls++;
                 }
 
@@ -69,20 +73,15 @@
             }
         }
 
-        public void HandleFirstThrow(int roll1, int roll2) // geld enkel op eerste worp of als speler op start staat? + terug implementeren, rename to throwfromstarttile or something?
-
+        private void HandleFirstThrow() // geldt enkel op eerste worp of als speler op start staat? + terug implementeren, rename to throwfromstarttile or something?
         {
-            if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
+            if ((Roll1 == 5 && Roll2 == 4) || (Roll1 == 4 && Roll2 == 5))
             {
                 CurrentPlayer.SetPlayerPosition(53);
             }
-            else if ((roll1 == 6 && roll2 == 3) || (roll1 == 3 && roll2 == 6))
+            else if ((Roll1 == 6 && Roll2 == 3) || (Roll1 == 3 && Roll2 == 6))
             {
                 CurrentPlayer.SetPlayerPosition(26);
-            }
-            else
-            {
-                throw new Exception("unsupported dice variation that equals 9");
             }
         }
 

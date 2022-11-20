@@ -1,21 +1,43 @@
-﻿using GooseGame.DAL;
+﻿using GooseGame.Business.Tiles;
+using GooseGame.DAL;
+using GooseGame.DAL.Entities;
 using GooseGame.DAL.Models;
 using GooseGame.DAL.Repositories;
-using GooseGame.DBTESTING.Controllers;
-using GooseGame.Services;
-using GooseGame.Services.Interfaces;
 
 internal class Program
 {
     public static void Main(string[] args)
     {
-        //add accesors after porting e.g. public / private
-        BaseRepository<Player> playerRepo = new BaseRepository<Player>();
-        BaseRepository<Game> gameRepo = new BaseRepository<Game>();
-        IPlayerService playerService = new PlayerService(playerRepo);
-        IGameService gameService = new GameService(gameRepo);
+        ////needed Instances
+        //GameRepository gameRepository = new GameRepository();
+        //PlayerRepository playerRepository = new PlayerRepository();
 
-        GameController gameController = new GameController(gameService);
-        PlayerController playerController = new PlayerController(playerService);
+        ////Load board
+        //GameBoard board = new GameBoard { Tiles = new List<Tile>()};
+
+        ////make 4 players
+        //Player player1 = new Player { PlayerName = "Johhny" };
+        //Player player2 = new Player { PlayerName = "Claude" };
+        //Player player3 = new Player { PlayerName = "Theodore" };
+        //Player player4 = new Player { PlayerName = "Velma" };
+
+        ////list from players
+        //List<Player> players =new(){ player1, player2, player3, player4 };
+
+        //// Make game
+        //Game game = new Game
+        //{
+        //    GameBoard = board,
+        //    GamePlayers = players,
+        //    AmountOfThrows = 0,
+        //    Start = DateTime.Now
+        //};
+
+        //// save game
+        //GamePlayer saveGame = new GamePlayer
+        //{
+        //    Player = player1,
+
+        //};
     }
 }

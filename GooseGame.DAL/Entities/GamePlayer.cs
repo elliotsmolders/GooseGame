@@ -21,13 +21,12 @@ namespace GooseGame.DAL.Entities
 
         public int GameId { get; set; }
 
-        [Required]
-        public Icon? Icon { get; set; }
+        public Icon Icon { get; set; }
 
-        [Required]
-        public int? PlayerSequence { get; set; } // order is een keyword in mssql vandaar sequence
+        public int PlayerSequence { get; set; } // order is een keyword in mssql vandaar sequence
 
-        [Required]
-        public int? PlayerPosition { get; set; }
+        public int PlayerPosition { get; set; }
+
+        public int TurnsToSkip { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace GooseGame.DAL.Models
     public class Game : BaseEntity
     {
         [Required]
-        public GameBoard GameBoard { get; set; }
+        public GameBoard? GameBoard { get; set; }
 
         public virtual ICollection<GamePlayer>? GamePlayers { get; set; }
 

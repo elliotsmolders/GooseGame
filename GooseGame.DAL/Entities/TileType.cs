@@ -1,4 +1,6 @@
-﻿namespace GooseGame.DAL.Entities
+﻿using System.ComponentModel;
+
+namespace GooseGame.DAL.Entities
 {
     public enum TileType
     {
