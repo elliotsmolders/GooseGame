@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1600">
+
     <Grid x:Name="GooseGrid" ShowGridLines="true">
         <Grid.ColumnDefinitions>
   

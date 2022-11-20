@@ -1,5 +1,6 @@
 ﻿using GooseGameWPF.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -24,23 +25,30 @@ namespace GooseGameWPF
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
             vm.SetNextPlayer();
+            displayPlayerPosition();
             Roll1.Content = vm.RollDice();
             Roll2.Content = vm.RollDice();
             CurrentRoll.Content = vm.RollDice();
-
-            //vm.PlayTurn((int)Roll1.Content,(int)Roll2.Content);
+            
+            
+            vm.PlayTurn((int)Roll1.Content,(int)Roll2.Content);
             //Debug.Content = vm.GetCurrentPlayerPositionAndName();
 
         }
 
 
+        List<Label> generatedLabels = new();
 
         private int[,]  StylelizeGridTiles()
-
+                    
         {
+            
+            
             int[,] tileGrid = new int[8, 8];
+
             for (int i = 0; i < 8; i++)
             {
+
                 for (int j = 0; j < 8; j++)
                 {
                     Label tileLabel = new();
@@ -49,19 +57,24 @@ namespace GooseGameWPF
                     b.BorderThickness = new Thickness(10);
                     tileLabel.HorizontalAlignment = HorizontalAlignment.Center;
                     tileLabel.VerticalAlignment = VerticalAlignment.Center;
+                    
 
                     if (i % 2 == 0)
                     {
                         int evenTiles = 63 - (i * 8 + j);
                         tileLabel.Name = $"Tile{evenTiles}";
                         tileLabel.Content = $"Tile{evenTiles}";
+                        generatedLabels.Add(tileLabel);
+                        
+
                     }
                     else
                     {
                         int oddTiles = 63 - (i * 8 + 7 - j);
                         tileLabel.Name = $"Tile{oddTiles}";
                         tileLabel.Content = $"Tile{oddTiles}";
-                       
+                        generatedLabels.Add(tileLabel);
+
                     }
 
                     foreach (int pos in tileGrid)
@@ -91,6 +104,12 @@ namespace GooseGameWPF
             return tileGrid;
         }
 
-
+        private void displayPlayerPosition()
+        {
+          int currentPos = vm.GetPlayerPosition();
+            var currentLabel = generatedLabels[63 - currentPos];
+            MessageBox.Show($"{currentPos} playerpos and {currentLabel}");
+            generatedLabels[63-currentPos].Content = $"player here! ";
+        }
     }
 }
