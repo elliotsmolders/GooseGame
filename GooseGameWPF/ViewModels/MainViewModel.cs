@@ -1,11 +1,6 @@
 ﻿using GooseGame.Business;
-using GooseGameWPF.Entities;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
 
 namespace GooseGameWPF.ViewModels
 {
@@ -15,6 +10,7 @@ namespace GooseGameWPF.ViewModels
 
         private GameEngine _engine;
         public int ClickedRoll { get; set; }
+
         // public List<Rectangle> playerRectangles = new();
         public MainViewModel()
         {
@@ -42,51 +38,33 @@ namespace GooseGameWPF.ViewModels
             _engine.Init();
         }
 
-        public string GetCurrentPlayerPositionAndName()
+        public string GetCurrentPlayerPositions()
         {
-            return $"{_engine.CurrentPlayer.Name} pos:{_engine.CurrentPlayer.CurrentPosition} coming from {_engine.CurrentPlayer.PreviousPosition}";
+            return $"{_engine.CurrentPlayer.PreviousPosition} pos:{_engine.CurrentPlayer.CurrentPosition} coming from {_engine.CurrentPlayer.PreviousPosition}";
         }
 
-        public PlayerModel GetPlayer(int player){
-
-            Player p = _engine.Players[player];
-            return new PlayerModel
-            {
-                Name = p.Name,
-                PlayerIcon = p.PlayerIcon,
-                CurrentPosition = p.CurrentPosition
-            };
-        }
-
-        public void SetPlayerPosition(int id, int pos)
+        public string GetPlayerName(int num)
         {
-            _engine.Players[id].CurrentPosition = pos;
-        }
-        
-        public List<Player> GetPlayers() 
-        {
-            return _engine.Players;
+            return _engine.Players[num].Name;
         }
 
-        //public void assignPlayerIcon()
-        //{
-        //    foreach (var player in players)
-        //    {
-        //        playerRectangles.Add(new Rectangle());
-        //        playerRectangles.Last();
-        //    }
-        //}
+        public int GetPlayerPosition(int num)
+        {
+            return _engine.Players[num].CurrentPosition;
+        }
 
         public int GetCurrentPlayerPosition()
         {
             return _engine.CurrentPlayer.CurrentPosition;
         }
 
-        public int GetPlayerPosition(int id)
+        public string GetCurrentPlayerName()
         {
-            return _engine.Players[id].CurrentPosition;
+            return _engine.CurrentPlayer.Name;
         }
-
+        public string GetCurrentPlayerTile() {
+            return _engine.CurrentPlayer.CurrentTile.ToString();
+        }
         public void PlayTurn(int roll1, int roll2)
         {
             ClickedRoll++;

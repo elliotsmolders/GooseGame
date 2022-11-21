@@ -31,13 +31,22 @@
         <StackPanel  Margin="227,27,-228,111" Grid.RowSpan="4" Grid.Column="7">
             <Label x:Name="Roll1" Height="27"  />
             <Label x:Name="Roll2" Height="38"/>
+            <Label x:Name="CurrentRoll" Height="38"/>
+            
+            <Label x:Name="CurrentPlayerTile"/>
 
 
-            <Label x:Name="CurrentRoll" Height="36" />
-            <Label x:Name="Debug" Height="50"/>
+
+
             <Button x:Name="RollDice" Content="play a turn" Click="RollDice_Click" />
         </StackPanel>
 
-        <Rectangle x:Name="RectPlayer" Fill="Aqua"></Rectangle>
+        <Rectangle x:Name="RectPlayer1" Fill="DeepSkyBlue" Grid.Column="0" Grid.Row="7" ></Rectangle>
+        <StackPanel Grid.Column="7" Grid.Row="3" Margin="189,103,-245,49" Grid.RowSpan="4">
+            <Label x:Name="PlayerLabel1"/>
+            <Label x:Name="PlayerLabel2"/>
+            <Label x:Name="PlayerLabel3"/>
+            <Label x:Name="PlayerLabel4"/>
+        </StackPanel>
     </Grid>
 </Window>
