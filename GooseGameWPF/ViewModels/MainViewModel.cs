@@ -1,6 +1,10 @@
 ﻿using GooseGame.Business;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
+using System.Linq;
 
 namespace GooseGameWPF.ViewModels
 {
@@ -10,7 +14,7 @@ namespace GooseGameWPF.ViewModels
 
         private GameEngine _engine;
         public int ClickedRoll { get; set; }
-
+        // public List<Rectangle> playerRectangles = new();
         public MainViewModel()
         {
             _engine = new GameEngine();
@@ -41,6 +45,29 @@ namespace GooseGameWPF.ViewModels
         {
             return $"{_engine.CurrentPlayer.Name} pos:{_engine.CurrentPlayer.CurrentPosition} coming from {_engine.CurrentPlayer.PreviousPosition}";
         }
+
+        public Player GetPlayer(int player){
+
+            return _engine.Players[player];
+        }
+
+        
+        public List<Player> GetPlayers() 
+        {
+            return _engine.Players;
+        }
+
+        //public void assignPlayerIcon()
+        //{
+        //    foreach (var player in players)
+        //    {
+        //        playerRectangles.Add(new Rectangle());
+        //        playerRectangles.Last();
+        //    }
+        //}
+
+
+        public 
 
         public int GetPlayerPosition()
         {

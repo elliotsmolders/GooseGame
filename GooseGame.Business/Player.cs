@@ -27,6 +27,7 @@ namespace GooseGame.Business
         public int NumberOfRolls { get; set; }
         public int CurrentRoll { get; set; }
 
+        public int PlayerIcon { get; set; }
         public ITile CurrentTile
         {
             get
@@ -40,9 +41,10 @@ namespace GooseGame.Business
 
         public int Skips { get; set; }
 
-        public Player(string name)
+        public Player(string name, int playerIcon = 1)
         {
             Name = name;
+            PlayerIcon = playerIcon;
         }
 
         public void MovePlayer(int roll) //splitsen naar twee methodes

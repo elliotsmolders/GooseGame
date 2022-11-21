@@ -39,6 +39,7 @@
         </StackPanel>
 
         <Rectangle x:Name="RectPlayer" Fill="Aqua"></Rectangle>
+        
 
         
     </Grid>

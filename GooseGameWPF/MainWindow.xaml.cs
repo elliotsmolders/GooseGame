@@ -1,6 +1,5 @@
 ﻿using GooseGameWPF.ViewModels;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations.Schema;
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -33,18 +32,19 @@ namespace GooseGameWPF
             Roll2.Content = vm.RollDice();
 
             CurrentRoll.Content = vm.RollDice();
-            
+
             vm.PlayTurn((int)Roll1.Content, (int)Roll2.Content);
             Debug.Content = vm.GetCurrentPlayerPositionAndName();
         }
 
+        
+        
         private Label[] generatedLabels = new Label[64];
         private Point[] generatedPoints = new Point[64];
 
         private int[,] StylelizeGridTiles()
 
         {
-       
             int[,] tileGrid = new int[8, 8];
 
             for (int i = 0; i < 8; i++)
@@ -100,41 +100,30 @@ namespace GooseGameWPF
         }
 
 
+        
 
         public int[,] NumberToRowColumn(int numberToConvert)
         {
-        
             int row;
             int column;
             row = numberToConvert / 8;
             if (row % 2 == 0)
-               {
+            {
                 column = numberToConvert % 8;
             }
             else
             {
                 column = 8 - (numberToConvert % 8);
-
-
-
-             
-             }
+            }
             int[,] tilePoints = new int[row, column];
             return tilePoints;
-            }
+        }
 
-
-         //TODO Beetje uit elkaar halen
-            private void updateCurrentPlayerPosition()
-            {
-                int currentPos = vm.GetPlayerPosition();
-                var currentLabel = $"Tile{currentPos}";
-            //var currentPoint = $" player position is {currentPos} current column = {generatedPoints[currentPos].X} current row = {generatedPoints[currentPos].Y}";
-                
-            //MessageBox.Show(currentPoint.ToString());
-            
-            //generatedLabels[currentPos].Content = $"player here on {currentPos}! ";
-
+        //TODO Beetje uit elkaar halen
+        private void updateCurrentPlayerPosition()
+        {
+            int currentPos = vm.GetPlayerPosition();
+            var currentLabel = $"Tile{currentPos}";
             int playerposX = (int)generatedPoints[currentPos].X;
             int playerposY = (int)generatedPoints[currentPos].Y;
             RectPlayer.SetValue(Grid.RowProperty, playerposX);
@@ -143,14 +132,16 @@ namespace GooseGameWPF
 
 
 
-        private void updatePlayerIconPosition() 
+
+        private void updatePlayerIconPosition()
         {
-        
         }
 
 
+        //    private void assignPlayerIcon()
+        //    {
+        //        vm.assignPlayerIcon();
+        //    }
+        //}
     }
-
-            
-    }
-
+}

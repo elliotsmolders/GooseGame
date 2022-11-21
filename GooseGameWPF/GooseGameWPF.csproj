@@ -11,4 +11,8 @@
     <ProjectReference Include="..\GooseGame.Business\GooseGame.Business.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Icons\" />
+  </ItemGroup>
+
 </Project>

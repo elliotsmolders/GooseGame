@@ -25,8 +25,8 @@ namespace GooseGame.Business
         {
             for (int i = 0; i < AmountOfPlayers; i++)
             {
-                string name = $"Harold {i}";
-                CreatePlayer(name);
+                string name = $"Player{i}";
+                CreatePlayer(name, i+1);
             }
             CurrentPlayer = Players[0]; //nog logica achter steken voor speler met hoogste worp
         }
@@ -90,9 +90,10 @@ namespace GooseGame.Business
             }
         }
 
-        private void CreatePlayer(string name)
+        private void CreatePlayer(string name, int icon)
         {
-            Players.Add(new Player(name));
+            Players.Add(new Player(name, icon));
+
         }
 
         public void Restore()
