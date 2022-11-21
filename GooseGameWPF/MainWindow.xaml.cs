@@ -24,7 +24,7 @@ namespace GooseGameWPF
             GooseGrid.DataContext = vm;
             vm.Init();
             StylelizeGridTiles();
-            SetplayerNames();
+       
 
         }
 
@@ -32,12 +32,16 @@ namespace GooseGameWPF
         
 
         //buh
-        private void SetplayerNames() {
+        private void DisplayPlayerInfo() {
 
-            PlayerLabel1.Content = vm.GetPlayerName(0);
-            PlayerLabel2.Content = vm.GetPlayerName(1);
-            PlayerLabel3.Content = vm.GetPlayerName(2);
-            PlayerLabel4.Content = vm.GetPlayerName(3);
+            string playerNamePos1 = vm.GetPlayerName(0) + " is on tile " + vm.GetPlayerPosition(0);
+            string playerNamePos2 = vm.GetPlayerName(1) + " is on tile " + vm.GetPlayerPosition(1);
+            string playerNamePos3 = vm.GetPlayerName(2) + " is on tile " + vm.GetPlayerPosition(2);
+            string playerNamePos4 = vm.GetPlayerName(3) + " is on tile " + vm.GetPlayerPosition(3);
+            PlayerLabel1.Content = playerNamePos1;
+            PlayerLabel2.Content = playerNamePos2;
+            PlayerLabel3.Content = playerNamePos3;
+            PlayerLabel4.Content = playerNamePos4;
          }
 
 
@@ -58,6 +62,7 @@ namespace GooseGameWPF
             //Debug.Content = vm.GetCurrentPlayerPositions();
             CurrentPlayerTile.Content= currentTile;
             updatePlayerPositions();
+            DisplayPlayerInfo();
         }
 
 

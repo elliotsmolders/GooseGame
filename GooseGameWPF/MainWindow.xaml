@@ -46,10 +46,10 @@
         <Rectangle x:Name="RectPlayer3" Fill="ForestGreen" Grid.Column="0" Grid.Row="7" ></Rectangle>
         <Rectangle x:Name="RectPlayer4" Fill="Yellow" Grid.Column="0" Grid.Row="7" ></Rectangle>
         <StackPanel Grid.Column="7" Grid.Row="3" Margin="189,103,-245,49" Grid.RowSpan="4">
-            <Label x:Name="PlayerLabel1"/>
-            <Label x:Name="PlayerLabel2"/>
-            <Label x:Name="PlayerLabel3"/>
-            <Label x:Name="PlayerLabel4"/>
+            <Label x:Name="PlayerLabel1" Background="DeepSkyBlue" Content="Player 1"/>
+            <Label x:Name="PlayerLabel2" Background="OrangeRed"  Content="Player 2"/>
+            <Label x:Name="PlayerLabel3" Background="ForestGreen"  Content="Player 3"/>
+            <Label x:Name="PlayerLabel4" Background="Yellow"  Content="Player 4"/>
         </StackPanel>
     </Grid>
 </Window>
