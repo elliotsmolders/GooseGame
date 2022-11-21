@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace GooseGameWPF
 {
@@ -27,6 +28,9 @@ namespace GooseGameWPF
 
         }
 
+
+        
+
         //buh
         private void SetplayerNames() {
 
@@ -41,7 +45,7 @@ namespace GooseGameWPF
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-            updateCurrentPlayerPosition();
+            updatePlayerPositions();
             vm.SetNextPlayer();
             int roll1 = vm.RollDice();
             int roll2 = vm.RollDice();
@@ -53,7 +57,7 @@ namespace GooseGameWPF
             vm.PlayTurn(roll1, roll2);
             //Debug.Content = vm.GetCurrentPlayerPositions();
             CurrentPlayerTile.Content= currentTile;
-            updateCurrentPlayerPosition();
+            updatePlayerPositions();
         }
 
 
@@ -118,16 +122,43 @@ namespace GooseGameWPF
         }
 
         //TODO Beetje uit elkaar halen
-        private void updateCurrentPlayerPosition()
-        {
 
-            
-            int currentPos = vm.GetCurrentPlayerPosition();
-            int playerposX = (int)generatedPoints[currentPos].X;
-            int playerposY = (int)generatedPoints[currentPos].Y;
+        System.Drawing.Rectangle vierkantje = new();
+
+
+        //HELP dit is hardcoded sorry Drawings en ControlElements doen moeilijk
+        private void updatePlayerPositions()
+        {
+            int playerPosition = vm.GetPlayerPosition(0);
+            int playerposX = (int)generatedPoints[playerPosition].X;
+            int playerposY = (int)generatedPoints[playerPosition].Y;
             RectPlayer1.SetValue(Grid.RowProperty, playerposX);
             RectPlayer1.SetValue(Grid.ColumnProperty, playerposY);
+
+
+            int playerPosition2 = vm.GetPlayerPosition(1);
+            int playerposX2 = (int)generatedPoints[playerPosition2].X;
+            int playerposY2 = (int)generatedPoints[playerPosition2].Y;
+            RectPlayer2.SetValue(Grid.RowProperty, playerposX2);
+            RectPlayer2.SetValue(Grid.ColumnProperty, playerposY2);
+
+            int playerPosition3 = vm.GetPlayerPosition(2);
+            int playerposX3 = (int)generatedPoints[playerPosition3].X;
+            int playerposY3 = (int)generatedPoints[playerPosition3].Y;
+            RectPlayer3.SetValue(Grid.RowProperty, playerposX3);
+            RectPlayer3.SetValue(Grid.ColumnProperty, playerposY3);
+
+            int playerPosition4 = vm.GetPlayerPosition(3);
+            int playerposX4 = (int)generatedPoints[playerPosition4].X;
+            int playerposY4 = (int)generatedPoints[playerPosition4].Y;
+            RectPlayer4.SetValue(Grid.RowProperty, playerposX4);
+            RectPlayer4.SetValue(Grid.ColumnProperty, playerposY4);
         }
+
+        
+        
+        
+
 
     }
 }
