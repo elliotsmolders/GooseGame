@@ -1,29 +1,27 @@
 ﻿using GooseGame.Business;
-using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace GooseGameWPF.ViewModels
 {
     internal class MainViewModel : INotifyPropertyChanged
     {
+        private ObservableCollection<Player> players;
+
         private GameEngine _engine;
         public int ClickedRoll { get; set; }
 
         public MainViewModel()
         {
             _engine = new GameEngine();
+            players = new ObservableCollection<Player>(_engine.Players);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public int RollDice()
         {
-        return _engine.RollDice();
+            return _engine.RollDice();
         }
 
         public void SetNextPlayer()
@@ -46,22 +44,17 @@ namespace GooseGameWPF.ViewModels
 
         public int GetPlayerPosition()
         {
-         return _engine.CurrentPlayer.CurrentPosition;
+            return _engine.CurrentPlayer.CurrentPosition;
         }
-        public void PlayTurn(int roll1,int roll2)
+
+        public void PlayTurn(int roll1, int roll2)
         {
             ClickedRoll++;
             //if (ClickedRoll == 1)
             //{
             //    _engine.HandleFirstThrow(roll1, roll2);
             //}
-            _engine.PlayTurn(roll1,roll2);
+            _engine.PlayTurn(roll1, roll2);
         }
-
-
-
-     
     }
-
-
 }

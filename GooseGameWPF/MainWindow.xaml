@@ -37,8 +37,9 @@
             <Label x:Name="Debug" Height="50"/>
             <Button x:Name="RollDice" Content="play a turn" Click="RollDice_Click" />
         </StackPanel>
-        
-        
+
+        <Rectangle x:Name="RectPlayer" Fill="Aqua"></Rectangle>
+
         
     </Grid>
 </Window>

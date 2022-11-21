@@ -1,4 +1,5 @@
 ﻿using GooseGameWPF.ViewModels;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,8 @@ namespace GooseGameWPF
             StylelizeGridTiles();
         }
 
+
+
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
             updateCurrentPlayerPosition();
@@ -28,8 +31,9 @@ namespace GooseGameWPF
 
             Roll1.Content = vm.RollDice();
             Roll2.Content = vm.RollDice();
-            CurrentRoll.Content = vm.RollDice();
 
+            CurrentRoll.Content = vm.RollDice();
+            
             vm.PlayTurn((int)Roll1.Content, (int)Roll2.Content);
             Debug.Content = vm.GetCurrentPlayerPositionAndName();
         }
@@ -95,6 +99,8 @@ namespace GooseGameWPF
             return tileGrid;
         }
 
+
+
         public int[,] NumberToRowColumn(int numberToConvert)
         {
         
@@ -118,23 +124,33 @@ namespace GooseGameWPF
             }
 
 
-
+         //TODO Beetje uit elkaar halen
             private void updateCurrentPlayerPosition()
             {
                 int currentPos = vm.GetPlayerPosition();
                 var currentLabel = $"Tile{currentPos}";
-            var currentPoint = $" player position is {currentPos} current column = {generatedPoints[currentPos].X} current row = {generatedPoints[currentPos].Y}";
+            //var currentPoint = $" player position is {currentPos} current column = {generatedPoints[currentPos].X} current row = {generatedPoints[currentPos].Y}";
                 
-            MessageBox.Show(currentPoint.ToString());
+            //MessageBox.Show(currentPoint.ToString());
             
-                generatedLabels[currentPos].Content = $"player here on {currentPos}! ";
+            //generatedLabels[currentPos].Content = $"player here on {currentPos}! ";
 
-
-                generatedLabels[currentPos].Background = Brushes.Pink;
-                Border b = new();
-
-                b.BorderThickness = new Thickness(20);
-                generatedLabels[currentPos].BorderBrush = new SolidColorBrush(Colors.Green);
-            }
+            int playerposX = (int)generatedPoints[currentPos].X;
+            int playerposY = (int)generatedPoints[currentPos].Y;
+            RectPlayer.SetValue(Grid.RowProperty, playerposX);
+            RectPlayer.SetValue(Grid.ColumnProperty, playerposY);
         }
+
+
+
+        private void updatePlayerIconPosition() 
+        {
+        
+        }
+
+
     }
+
+            
+    }
+
