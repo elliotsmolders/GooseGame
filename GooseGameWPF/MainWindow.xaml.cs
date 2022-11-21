@@ -1,5 +1,6 @@
-﻿using GooseGameWPF.ViewModels;
-
+﻿using GooseGameWPF.Entities;
+using GooseGameWPF.ViewModels;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,6 +13,7 @@ namespace GooseGameWPF
     public partial class MainWindow : Window
     {
         private MainViewModel vm = new MainViewModel();
+        List<PlayerModel> players = new List<PlayerModel>();
 
         public MainWindow()
         {
@@ -19,9 +21,18 @@ namespace GooseGameWPF
             GooseGrid.DataContext = vm;
             vm.Init();
             StylelizeGridTiles();
+            players.Add(new PlayerModel { Name = "Arno", PlayerIcon = 1 });
+            players.Add(new PlayerModel { Name = "Bart", PlayerIcon = 2 });
+            players.Add(new PlayerModel { Name = "Elliot", PlayerIcon = 3 });
+            players.Add(new PlayerModel { Name = "Ken", PlayerIcon = 4 });
+
+            vm.SetPlayerPosition(0, 7);
+            vm.SetPlayerPosition(1, 22);
+            vm.SetPlayerPosition(2, 43);
+            vm.SetPlayerPosition(3, 25);
+
+            updatePlayerIconPosition();
         }
-
-
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
@@ -37,8 +48,6 @@ namespace GooseGameWPF
             Debug.Content = vm.GetCurrentPlayerPositionAndName();
         }
 
-        
-        
         private Label[] generatedLabels = new Label[64];
         private Point[] generatedPoints = new Point[64];
 
@@ -100,7 +109,7 @@ namespace GooseGameWPF
         }
 
 
-        
+
 
         public int[,] NumberToRowColumn(int numberToConvert)
         {
@@ -122,7 +131,7 @@ namespace GooseGameWPF
         //TODO Beetje uit elkaar halen
         private void updateCurrentPlayerPosition()
         {
-            int currentPos = vm.GetPlayerPosition();
+            int currentPos = vm.GetCurrentPlayerPosition();
             var currentLabel = $"Tile{currentPos}";
             int playerposX = (int)generatedPoints[currentPos].X;
             int playerposY = (int)generatedPoints[currentPos].Y;
@@ -130,11 +139,19 @@ namespace GooseGameWPF
             RectPlayer.SetValue(Grid.ColumnProperty, playerposY);
         }
 
-
-
-
         private void updatePlayerIconPosition()
         {
+            int teller = 0;
+            List<Grid> playerGrids = new List<Grid>() { Player1, Player2, Player3, Player4 };
+            foreach (PlayerModel player in players)
+            {
+                int currentPos = vm.GetPlayerPosition(teller);
+                int playerposX = (int)generatedPoints[currentPos].X;
+                int playerposY = (int)generatedPoints[currentPos].Y;
+                playerGrids[teller].SetValue(Grid.RowProperty, playerposX);
+                playerGrids[teller].SetValue(Grid.ColumnProperty, playerposY);
+                teller++;
+            }
         }
 
 

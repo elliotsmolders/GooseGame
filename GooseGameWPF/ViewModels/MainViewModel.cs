@@ -1,4 +1,5 @@
 ﻿using GooseGame.Business;
+using GooseGameWPF.Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -46,11 +47,21 @@ namespace GooseGameWPF.ViewModels
             return $"{_engine.CurrentPlayer.Name} pos:{_engine.CurrentPlayer.CurrentPosition} coming from {_engine.CurrentPlayer.PreviousPosition}";
         }
 
-        public Player GetPlayer(int player){
+        public PlayerModel GetPlayer(int player){
 
-            return _engine.Players[player];
+            Player p = _engine.Players[player];
+            return new PlayerModel
+            {
+                Name = p.Name,
+                PlayerIcon = p.PlayerIcon,
+                CurrentPosition = p.CurrentPosition
+            };
         }
 
+        public void SetPlayerPosition(int id, int pos)
+        {
+            _engine.Players[id].CurrentPosition = pos;
+        }
         
         public List<Player> GetPlayers() 
         {
@@ -66,12 +77,14 @@ namespace GooseGameWPF.ViewModels
         //    }
         //}
 
-
-        public 
-
-        public int GetPlayerPosition()
+        public int GetCurrentPlayerPosition()
         {
             return _engine.CurrentPlayer.CurrentPosition;
+        }
+
+        public int GetPlayerPosition(int id)
+        {
+            return _engine.Players[id].CurrentPosition;
         }
 
         public void PlayTurn(int roll1, int roll2)
