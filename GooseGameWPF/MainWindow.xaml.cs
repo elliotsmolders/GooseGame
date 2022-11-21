@@ -1,6 +1,7 @@
 ﻿using GooseGameWPF.Entities;
 using GooseGameWPF.ViewModels;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,6 +15,7 @@ namespace GooseGameWPF
     {
         private MainViewModel vm = new MainViewModel();
         List<PlayerModel> players = new List<PlayerModel>();
+        List<Grid> drawnPlayers = new List<Grid>();
 
         public MainWindow()
         {
@@ -21,15 +23,68 @@ namespace GooseGameWPF
             GooseGrid.DataContext = vm;
             vm.Init();
             StylelizeGridTiles();
+
+            //Dynamisch spelers toevoegen
+
+            int amountOfPlayers = 3;
+
+            for (int i = 0; i < amountOfPlayers; i++)
+            {
+                Grid playerGrid = new Grid();
+                playerGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                playerGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                playerGrid.RowDefinitions.Add(new RowDefinition());
+                playerGrid.RowDefinitions.Add(new RowDefinition());
+                System.Windows.Shapes.Rectangle myRectangle = new();
+
+
+                //MICHIEL GAAT HIER NIET CONTENT MEE ZIJN
+                //MICHIEL ALS GE DIT OOIT LEEST HEBBEN ZE NIET NAAR MIJ GELUISTERD
+                //GROETJES KEN
+                if (i == 0)
+                {
+                    Grid.SetColumn(myRectangle, 0);
+                    Grid.SetRow(myRectangle, 0);
+                    myRectangle.Fill = Brushes.Purple;
+                }
+                else if (i == 1)
+                {
+                    Grid.SetColumn(myRectangle, 1);
+                    Grid.SetRow(myRectangle, 0);
+                    myRectangle.Fill = Brushes.Red;
+                }
+                else if (i == 2)
+                {
+                    Grid.SetColumn(myRectangle, 0);
+                    Grid.SetRow(myRectangle, 1);
+                    myRectangle.Fill = Brushes.Yellow;
+                }
+                else if (i == 3)
+                {
+                    Grid.SetColumn(myRectangle, 1);
+                    Grid.SetRow(myRectangle, 1);
+                    myRectangle.Fill = Brushes.Green;
+                }
+
+                playerGrid.Children.Add(myRectangle);
+
+
+                GooseGrid.Children.Add(playerGrid);
+                drawnPlayers.Add(playerGrid);
+            }
+
+
+
+            //HARDCODED!
             players.Add(new PlayerModel { Name = "Arno", PlayerIcon = 1 });
             players.Add(new PlayerModel { Name = "Bart", PlayerIcon = 2 });
             players.Add(new PlayerModel { Name = "Elliot", PlayerIcon = 3 });
-            players.Add(new PlayerModel { Name = "Ken", PlayerIcon = 4 });
+            //players.Add(new PlayerModel { Name = "Ken", PlayerIcon = 4 });
 
             vm.SetPlayerPosition(0, 7);
             vm.SetPlayerPosition(1, 22);
             vm.SetPlayerPosition(2, 43);
-            vm.SetPlayerPosition(3, 25);
+            //vm.SetPlayerPosition(3, 25);
 
             updatePlayerIconPosition();
         }
@@ -49,7 +104,7 @@ namespace GooseGameWPF
         }
 
         private Label[] generatedLabels = new Label[64];
-        private Point[] generatedPoints = new Point[64];
+        private System.Windows.Point[] generatedPoints = new System.Windows.Point[64];
 
         private int[,] StylelizeGridTiles()
 
@@ -73,7 +128,7 @@ namespace GooseGameWPF
                         tileLabel.Name = $"Tile{evenTiles}";
                         tileLabel.Content = $"Tile{evenTiles}";
                         generatedLabels[evenTiles] = (tileLabel);
-                        generatedPoints[evenTiles] = new Point(i, j);
+                        generatedPoints[evenTiles] = new System.Windows.Point(i, j);
                     }
                     else
                     {
@@ -81,7 +136,7 @@ namespace GooseGameWPF
                         tileLabel.Name = $"Tile{oddTiles}";
                         tileLabel.Content = $"Tile{oddTiles}";
                         generatedLabels[oddTiles] = (tileLabel);
-                        generatedPoints[oddTiles] = new Point(i, j);
+                        generatedPoints[oddTiles] = new System.Windows.Point(i, j);
                     }
 
                     foreach (int pos in tileGrid)
@@ -142,7 +197,12 @@ namespace GooseGameWPF
         private void updatePlayerIconPosition()
         {
             int teller = 0;
-            List<Grid> playerGrids = new List<Grid>() { Player1, Player2, Player3, Player4 };
+            List<Grid> playerGrids = new List<Grid>();
+            foreach (var item in drawnPlayers)
+            {
+                playerGrids.Add(item);
+            }
+
             foreach (PlayerModel player in players)
             {
                 int currentPos = vm.GetPlayerPosition(teller);

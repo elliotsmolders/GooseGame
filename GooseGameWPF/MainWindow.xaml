@@ -39,55 +39,5 @@
         </StackPanel>
 
         <Rectangle x:Name="RectPlayer" Fill="Aqua"></Rectangle>
-
-        <Grid x:Name="Player1" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Rectangle Fill="Red"></Rectangle>
-        </Grid>
-
-        <Grid x:Name="Player2" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Rectangle Fill="Yellow" Grid.Column="1"></Rectangle>
-        </Grid>
-
-        <Grid x:Name="Player3" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Rectangle Fill="Green" Grid.Row="1"></Rectangle>
-        </Grid>
-
-        <Grid x:Name="Player4">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Rectangle Fill="Purple" Grid.Column="1" Grid.Row="1"></Rectangle>
-        </Grid>
-
-
     </Grid>
 </Window>
