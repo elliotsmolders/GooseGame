@@ -1,7 +1,5 @@
 ﻿using GooseGameWPF.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -25,31 +23,28 @@ namespace GooseGameWPF
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-            vm.SetNextPlayer();
             updateCurrentPlayerPosition();
+            vm.SetNextPlayer();
+
             Roll1.Content = vm.RollDice();
             Roll2.Content = vm.RollDice();
             CurrentRoll.Content = vm.RollDice();
-            
-            
-            vm.PlayTurn((int)Roll1.Content,(int)Roll2.Content);
-            Debug.Content = vm.GetCurrentPlayerPositionAndName();
 
+            vm.PlayTurn((int)Roll1.Content, (int)Roll2.Content);
+            Debug.Content = vm.GetCurrentPlayerPositionAndName();
         }
 
+        private Label[] generatedLabels = new Label[64];
+        private Point[] generatedPoints = new Point[64];
 
-        Label[] generatedLabels = new Label[64];
+        private int[,] StylelizeGridTiles()
 
-        private int[,]  StylelizeGridTiles()
-                    
         {
-            
-            
+       
             int[,] tileGrid = new int[8, 8];
 
             for (int i = 0; i < 8; i++)
             {
-
                 for (int j = 0; j < 8; j++)
                 {
                     Label tileLabel = new();
@@ -58,7 +53,6 @@ namespace GooseGameWPF
                     b.BorderThickness = new Thickness(10);
                     tileLabel.HorizontalAlignment = HorizontalAlignment.Center;
                     tileLabel.VerticalAlignment = VerticalAlignment.Center;
-                    
 
                     if (i % 2 == 0)
                     {
@@ -66,8 +60,7 @@ namespace GooseGameWPF
                         tileLabel.Name = $"Tile{evenTiles}";
                         tileLabel.Content = $"Tile{evenTiles}";
                         generatedLabels[evenTiles] = (tileLabel);
-                        
-
+                        generatedPoints[evenTiles] = new Point(i, j);
                     }
                     else
                     {
@@ -75,7 +68,7 @@ namespace GooseGameWPF
                         tileLabel.Name = $"Tile{oddTiles}";
                         tileLabel.Content = $"Tile{oddTiles}";
                         generatedLabels[oddTiles] = (tileLabel);
-
+                        generatedPoints[oddTiles] = new Point(i, j);
                     }
 
                     foreach (int pos in tileGrid)
@@ -85,7 +78,7 @@ namespace GooseGameWPF
                             b.BorderBrush = new SolidColorBrush(Colors.Blue);
                             tileLabel.Background = Brushes.Beige;
                         }
-                        else 
+                        else
                         {
                             b.BorderBrush = new SolidColorBrush(Colors.Red);
                         }
@@ -95,30 +88,51 @@ namespace GooseGameWPF
                     Grid.SetRow(tileLabel, i);
                     Grid.SetColumn(tileLabel, j);
 
-
                     GooseGrid.Children.Add(tileLabel);
                     GooseGrid.Children.Add(b);
                 }
-
-
             }
             return tileGrid;
         }
 
-        private void updateCurrentPlayerPosition()
+        public int[,] NumberToRowColumn(int numberToConvert)
         {
-          int currentPos = vm.GetPlayerPosition();
-            var currentLabel = $"Tile{currentPos}";
-            
+        
+            int row;
+            int column;
+            row = numberToConvert / 8;
+            if (row % 2 == 0)
+               {
+                column = numberToConvert % 8;
+            }
+            else
+            {
+                column = 8 - (numberToConvert % 8);
 
-            //MessageBox.Show($"{currentPos} playerpos and {currentLabel}");
-            generatedLabels[currentPos].Content = $"player here! ";
 
-            generatedLabels[currentPos].Background = Brushes.Pink;
-            Border b = new();
 
-            b.BorderThickness = new Thickness(20);
-            generatedLabels[currentPos].BorderBrush = new SolidColorBrush(Colors.Green);
+             
+             }
+            int[,] tilePoints = new int[row, column];
+            return tilePoints;
+            }
+
+
+
+            private void updateCurrentPlayerPosition()
+            {
+                int currentPos = vm.GetPlayerPosition();
+                var currentLabel = $"Tile{currentPos}";
+                var showGeneratedPoint = NumberToRowColumn((int)currentPos[]);
+                MessageBox.Show($"{currentPos} playerpos and {showGeneratedPoint}");
+                generatedLabels[currentPos].Content = $"player here on {currentPos}! ";
+
+
+                generatedLabels[currentPos].Background = Brushes.Pink;
+                Border b = new();
+
+                b.BorderThickness = new Thickness(20);
+                generatedLabels[currentPos].BorderBrush = new SolidColorBrush(Colors.Green);
+            }
         }
     }
-}
