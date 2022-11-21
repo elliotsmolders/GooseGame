@@ -123,8 +123,10 @@ namespace GooseGameWPF
             {
                 int currentPos = vm.GetPlayerPosition();
                 var currentLabel = $"Tile{currentPos}";
-                var showGeneratedPoint = NumberToRowColumn((int)currentPos[]);
-                MessageBox.Show($"{currentPos} playerpos and {showGeneratedPoint}");
+            var currentPoint = $" player position is {currentPos} current column = {generatedPoints[currentPos].X} current row = {generatedPoints[currentPos].Y}";
+                
+            MessageBox.Show(currentPoint.ToString());
+            
                 generatedLabels[currentPos].Content = $"player here on {currentPos}! ";
 
 
