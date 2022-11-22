@@ -1,12 +1,13 @@
 ﻿using GooseGame.Business.Interfaces;
+using GooseGame.Common;
 
 namespace GooseGame.Business.Tiles
 {
-    public class EndTile : ITile
+    public class EndTile : Tile, ITile
     {
         public void HandlePlayer(Player player)
         {
-            Console.WriteLine("U bent gewonnen");
+            Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on positiion{player.CurrentPosition}");
         }
     }
 }

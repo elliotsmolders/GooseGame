@@ -4,15 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GooseGame.Business.Interfaces;
+using GooseGame.Common;
 
 namespace GooseGame.Business.Tiles
 {
-    public class InnTile : ITile
+    public class InnTile : Tile, ITile
     {
         public void HandlePlayer(Player player)
         {
+            Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on positiion{player.CurrentPosition}");
             player.Skips = 1;
-            Console.WriteLine("Inn");
         }
     }
 }

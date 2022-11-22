@@ -1,7 +1,7 @@
 ﻿using GooseGame.Business.Interfaces;
 using System.ComponentModel;
 using GooseGame.Business.Tiles;
-
+using GooseGame.Common;
 
 namespace GooseGame.Business
 {
@@ -27,6 +27,7 @@ namespace GooseGame.Business
         public int NumberOfRolls { get; set; }
         public int CurrentRoll { get; set; }
 
+        public int PlayerIcon { get; set; }
         public ITile CurrentTile
         {
             get
@@ -39,10 +40,12 @@ namespace GooseGame.Business
         { get; set; }
 
         public int Skips { get; set; }
+        public Player(string name, int playerIcon = 1)
         public bool IsMovingBackwards { get; set; } = false;
-        public Player(string name)
+
         {
             Name = name;
+            PlayerIcon = playerIcon;
         }
 
         public void MovePlayer(int roll) //splitsen naar twee methodes
@@ -75,10 +78,12 @@ namespace GooseGame.Business
         {
             if (IsInWell)
             {
+                Logger.AddToCurrentTurnLog($"{Name} is in well, turn is skipped");
                 return false;
             }
             if (Skips > 0)
             {
+                Logger.AddToCurrentTurnLog($"{Name} is stuck for another {Skips-1} turns, turn is skipped");
                 Skips--;
                 return false;
             }
