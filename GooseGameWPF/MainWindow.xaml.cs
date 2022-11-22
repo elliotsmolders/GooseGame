@@ -63,6 +63,7 @@ namespace GooseGameWPF
             vm.PlayTurn(roll1, roll2);
             //Debug.Content = vm.GetCurrentPlayerPositions();
             CurrentPlayerTile.Content= currentTile;
+            vm.UpdateTurnLog();
             updatePlayerPositions();
             DisplayPlayerInfo();
             CheckForWinner();
@@ -74,6 +75,8 @@ namespace GooseGameWPF
             bool isWinner = vm.CheckForWinner();
             if (isWinner) {
                 MessageBox.Show("Wonner!");
+                GooseGrid.IsEnabled = false;
+                
             }
         }
 

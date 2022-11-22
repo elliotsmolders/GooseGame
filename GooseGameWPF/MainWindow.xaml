@@ -32,7 +32,7 @@
             <Label x:Name="Roll1" Height="27"  />
             <Label x:Name="Roll2" Height="38"/>
             <Label x:Name="CurrentRoll" Height="38"/>
-            
+
             <Label x:Name="CurrentPlayerTile"/>
 
 
@@ -45,11 +45,14 @@
         <Rectangle x:Name="RectPlayer2" Fill="OrangeRed" Grid.Column="0" Grid.Row="7" Margin="0,51,83,4" ></Rectangle>
         <Rectangle x:Name="RectPlayer3" Fill="ForestGreen" Grid.Column="0" Grid.Row="7" Margin="83,0,1,56" ></Rectangle>
         <Rectangle x:Name="RectPlayer4" Fill="Yellow" Grid.Column="0" Grid.Row="7" Margin="1,0,82,56" ></Rectangle>
-        <StackPanel Grid.Column="7" Grid.Row="3" Margin="189,103,-245,49" Grid.RowSpan="4">
+        <StackPanel Grid.Column="7" Grid.Row="2" Margin="189,40,-245,0" Grid.RowSpan="3">
             <Label x:Name="PlayerLabel1" Background="DeepSkyBlue" Content="Player 1"/>
             <Label x:Name="PlayerLabel2" Background="OrangeRed"  Content="Player 2"/>
             <Label x:Name="PlayerLabel3" Background="ForestGreen"  Content="Player 3"/>
             <Label x:Name="PlayerLabel4" Background="Yellow"  Content="Player 4"/>
+        </StackPanel>
+        <StackPanel Grid.Column="7" Grid.Row="4" Margin="217,111,-217,33" Grid.RowSpan="4">
+            <TextBlock x:Name="TotalLogTextBlock"  TextWrapping="Wrap" Text="{Binding TurnLog}" Height="179"/>
         </StackPanel>
 
     </Grid>

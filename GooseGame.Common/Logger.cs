@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GooseGame.Common
 {
-    public static class Logger
+    public static class Logger 
     {
         public static string TurnLog { get; set; }
         public static List<string> TotalLog { get; set; }= new List<string>();

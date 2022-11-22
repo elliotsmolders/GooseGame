@@ -1,12 +1,45 @@
 ﻿using GooseGame.Business;
+using GooseGame.Common;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace GooseGameWPF.ViewModels
 {
     internal class MainViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Player> players;
+
+        private List<string> totalLog;
+        private string turnLog;
+
+        public List<string> TotalLog
+        {
+            get { return totalLog; }
+            set 
+            { 
+                totalLog = value;
+                NotifyPropertyChanged(nameof(totalLog)); 
+            }
+        }
+
+
+
+        public string TurnLog
+        {
+            get { return turnLog; }
+            set
+            {
+                turnLog = value;
+                NotifyPropertyChanged(nameof(turnLog));
+            }
+        }
+
+        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); }
+        }
 
         private GameEngine _engine;
         public int ClickedRoll { get; set; }
@@ -64,6 +97,19 @@ namespace GooseGameWPF.ViewModels
         {
             return _engine.CurrentPlayer.Name;
         }
+
+        public void UpdateLogList() 
+        
+        {
+          TotalLog = Logger.TotalLog;
+
+        }
+
+        public void UpdateTurnLog() 
+        {
+            TurnLog = Logger.TurnLog;
+        }
+
 
         public string GetCurrentPlayerTile()
         {
