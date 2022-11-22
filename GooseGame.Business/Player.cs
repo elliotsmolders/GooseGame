@@ -28,6 +28,7 @@ namespace GooseGame.Business
         public int CurrentRoll { get; set; }
 
         public int PlayerIcon { get; set; }
+
         public ITile CurrentTile
         {
             get
@@ -40,21 +41,22 @@ namespace GooseGame.Business
         { get; set; }
 
         public int Skips { get; set; }
-        public Player(string name, int playerIcon = 1)
-        public bool IsMovingBackwards { get; set; } = false;
 
+        public Player(string name, int playerIcon = 1)
         {
             Name = name;
             PlayerIcon = playerIcon;
         }
 
+        public bool IsMovingBackwards { get; set; } = false;
+
         public void MovePlayer(int roll) //splitsen naar twee methodes
         {
-            CurrentRoll=roll;
+            CurrentRoll = roll;
 
             if (CurrentPosition + roll > GameBoard.GetGameBoard().AmountOfTiles - 1)
             {
-                IsMovingBackwards=true;
+                IsMovingBackwards = true;
                 CurrentPosition = MoveBackWards();
             }
             else
@@ -83,7 +85,7 @@ namespace GooseGame.Business
             }
             if (Skips > 0)
             {
-                Logger.AddToCurrentTurnLog($"{Name} is stuck for another {Skips-1} turns, turn is skipped");
+                Logger.AddToCurrentTurnLog($"{Name} is stuck for another {Skips - 1} turns, turn is skipped");
                 Skips--;
                 return false;
             }
@@ -94,6 +96,7 @@ namespace GooseGame.Business
         {
             return CurrentTile.GetType() == typeof(StartTile);
         }
+
         public event PropertyChangedEventHandler? PropertyChanged;
     }
 }
