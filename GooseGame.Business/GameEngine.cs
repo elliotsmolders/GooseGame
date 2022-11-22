@@ -33,15 +33,11 @@ namespace GooseGame.Business
 
         public void SetNextPlayer()
         {
-            if (CurrentPlayer.CurrentPosition == 63) //naar aparte methode
-            {
-                Winner = CurrentPlayer;
-            }
-            else
-            {
-                int index = Players.IndexOf(CurrentPlayer);
-                CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
-            }
+
+
+         int index = Players.IndexOf(CurrentPlayer);
+        CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
+            
         }
 
         public int RollDice()
@@ -53,8 +49,10 @@ namespace GooseGame.Business
         //player as parameter for playturn?
         public void PlayTurn(int roll1, int roll2)
         {
+            
             if (CurrentPlayer.IsPlayerActive())
             {
+                
                 int currentRoll = roll1 + roll2;
                 //nu tweede if statemment,possible refactor
                 if(currentRoll == 9 && CurrentPlayer.isOnStartTile())
@@ -63,14 +61,24 @@ namespace GooseGame.Business
                 }
                 else
                 {
+
                     CurrentPlayer.MovePlayer(currentRoll);
                     CurrentPlayer.NumberOfRolls++;
                 }
 
 
                 Console.WriteLine(CurrentPlayer.CurrentTile.GetType());
-
+                CheckForWinner();
             }
+
+        }
+
+        public void CheckForWinner() 
+        {
+            if (CurrentPlayer.CurrentPosition == 63) 
+            {
+                Winner = CurrentPlayer;
+            } 
         }
 
         public void HandleFirstThrow(int roll1, int roll2) // geld enkel op eerste worp of als speler op start staat? + terug implementeren, rename to throwfromstarttile or something?

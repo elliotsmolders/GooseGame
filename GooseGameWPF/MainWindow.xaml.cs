@@ -42,14 +42,16 @@ namespace GooseGameWPF
             PlayerLabel2.Content = playerNamePos2;
             PlayerLabel3.Content = playerNamePos3;
             PlayerLabel4.Content = playerNamePos4;
-         }
+
+        }
 
 
 
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-            updatePlayerPositions();
+
+            
             vm.SetNextPlayer();
             int roll1 = vm.RollDice();
             int roll2 = vm.RollDice();
@@ -63,8 +65,17 @@ namespace GooseGameWPF
             CurrentPlayerTile.Content= currentTile;
             updatePlayerPositions();
             DisplayPlayerInfo();
+            CheckForWinner();
+
         }
 
+
+        private void CheckForWinner() {
+            bool isWinner = vm.CheckForWinner();
+            if (isWinner) {
+                MessageBox.Show("Wonner!");
+            }
+        }
 
         private Label[] generatedLabels = new Label[64];
         private System.Windows.Point[] generatedPoints = new System.Windows.Point[64];

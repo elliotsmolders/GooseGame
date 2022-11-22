@@ -27,10 +27,7 @@ namespace GooseGameWPF.ViewModels
 
         public void SetNextPlayer()
         {
-            if (_engine.Winner == null) //moet verhuizen
-            {
-                _engine.SetNextPlayer();
-            }
+            _engine.SetNextPlayer();
         }
 
         public void Init()
@@ -48,6 +45,11 @@ namespace GooseGameWPF.ViewModels
             return _engine.Players[num].Name;
         }
 
+        public bool CheckForWinner()
+        {
+            return _engine.Winner != null;
+        }
+
         public int GetPlayerPosition(int num)
         {
             return _engine.Players[num].CurrentPosition;
@@ -62,9 +64,12 @@ namespace GooseGameWPF.ViewModels
         {
             return _engine.CurrentPlayer.Name;
         }
-        public string GetCurrentPlayerTile() {
+
+        public string GetCurrentPlayerTile()
+        {
             return _engine.CurrentPlayer.CurrentTile.ToString();
         }
+
         public void PlayTurn(int roll1, int roll2)
         {
             ClickedRoll++;
