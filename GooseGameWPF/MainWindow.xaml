@@ -51,5 +51,6 @@
             <Label x:Name="PlayerLabel3" Background="ForestGreen"  Content="Player 3"/>
             <Label x:Name="PlayerLabel4" Background="Yellow"  Content="Player 4"/>
         </StackPanel>
+
     </Grid>
 </Window>

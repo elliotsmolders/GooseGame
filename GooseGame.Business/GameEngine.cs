@@ -1,4 +1,6 @@
 ﻿
+using GooseGame.Common;
+
 namespace GooseGame.Business
 {
     /// <summary>
@@ -49,7 +51,7 @@ namespace GooseGame.Business
         //player as parameter for playturn?
         public void PlayTurn(int roll1, int roll2)
         {
-            
+            Logger.ClearString();
             if (CurrentPlayer.IsPlayerActive())
             {
                 
@@ -69,6 +71,7 @@ namespace GooseGame.Business
 
                 Console.WriteLine(CurrentPlayer.CurrentTile.GetType());
                 CheckForWinner();
+                Logger.AddToTotalLog();
             }
 
         }

@@ -1,5 +1,6 @@
 ﻿using GooseGame.Business;
 using GooseGame.Business.Interfaces;
+using GooseGame.Common;
 
 namespace GooseGame.Business.Tiles
 {
@@ -7,12 +8,11 @@ namespace GooseGame.Business.Tiles
     {
         public void HandlePlayer(Player player)
         {
-            player.MovePlayer(player.CurrentRoll);
-            //als em aant teruggaan is en em komt op een goose vakje dat em dan ook zo ver terug achteruit moet
-            //boolean toevoegen van movebackwards voor goosetile om even ver achteruit te moeten gaan indien nodig
-            //ma da moet ge dan efkes tot op het einde houden
+            Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on positiion{player.CurrentPosition} with roll {player.CurrentRoll}");
 
-            Console.WriteLine($"Goose by rolling {player.CurrentRoll}");
+            player.MovePlayer(player.CurrentRoll);
+
+
         }
     }
 }

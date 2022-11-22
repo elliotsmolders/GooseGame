@@ -1,7 +1,7 @@
 ﻿using GooseGame.Business.Interfaces;
 using System.ComponentModel;
 using GooseGame.Business.Tiles;
-
+using GooseGame.Common;
 
 namespace GooseGame.Business
 {
@@ -76,10 +76,12 @@ namespace GooseGame.Business
         {
             if (IsInWell)
             {
+                Logger.AddToCurrentTurnLog($"{Name} is in well, turn is skipped");
                 return false;
             }
             if (Skips > 0)
             {
+                Logger.AddToCurrentTurnLog($"{Name} is stuck for another {Skips-1} turns, turn is skipped");
                 Skips--;
                 return false;
             }
