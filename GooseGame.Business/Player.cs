@@ -40,8 +40,9 @@ namespace GooseGame.Business
         { get; set; }
 
         public int Skips { get; set; }
-
         public Player(string name, int playerIcon = 1)
+        public bool IsMovingBackwards { get; set; } = false;
+
         {
             Name = name;
             PlayerIcon = playerIcon;
@@ -53,6 +54,7 @@ namespace GooseGame.Business
 
             if (CurrentPosition + roll > GameBoard.GetGameBoard().AmountOfTiles - 1)
             {
+                IsMovingBackwards=true;
                 CurrentPosition = MoveBackWards();
             }
             else

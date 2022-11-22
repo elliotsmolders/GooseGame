@@ -44,7 +44,7 @@ namespace GooseGame.Business
         private int[] WellTilePositions = { 31 };
         private int[] MazeTilePositions = { 42 };
         private int[] DeathTilePositions = { 58 };
-        private int[] EndTilePositions = { 63 };
+        public const int EndTilePosition =  63 ;
 
         private static GameBoard _gameBoard;
 
@@ -89,7 +89,7 @@ namespace GooseGame.Business
                 {
                     Tiles.Add(_factory.CreateTile(TileType.Death));
                 }
-                else if (EndTilePositions.Contains(i))
+                else if (EndTilePosition == 63)
                 {
                     Tiles.Add(_factory.CreateTile(TileType.End));
                 }

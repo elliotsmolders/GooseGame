@@ -22,6 +22,20 @@ namespace GooseGame.Tests
             Assert.That(player.CurrentPosition, Is.EqualTo(0));
             Assert.That(player.CurrentTile, Is.InstanceOf(typeof(StartTile)));
         }
+        [Test]
+        public void WhenFirstRoll_AmountOfRollsUpdateProperly()
+        {
+            //arrange
+            GameBoard board = GameBoard.GetGameBoard();
+            Player player = new Player("TestJos");
+            GameEngine engine = new GameEngine();
+            engine.CurrentPlayer = player;
+            //act
+            engine.PlayTurn(3, 3);
+            //assert
+            Assert.That(player.NumberOfRolls, Is.EqualTo(1));
+            Assert.That(engine.TotalNumberOfRolls, Is.EqualTo(1));
+        }
 
         [Test]
         [TestCase(4, 5)]
@@ -96,7 +110,7 @@ namespace GooseGame.Tests
             //act
             engine.PlayTurn(1, 1);
             //Assert
-            Assert.That(1, Is.EqualTo(player.NumberOfRolls));
+            Assert.That(player.NumberOfRolls, Is.EqualTo(1));
 
         }
         [Test]
@@ -110,7 +124,7 @@ namespace GooseGame.Tests
             //act
             engine.PlayTurn(1, 1);
             //Assert
-            Assert.That(1, Is.EqualTo(engine.TotalNumberOfRolls));
+            Assert.That(engine.TotalNumberOfRolls, Is.EqualTo(1));
 
         }
 
@@ -126,7 +140,7 @@ namespace GooseGame.Tests
             //act
             engine.PlayTurn(1, 1);
             //Assert
-            Assert.That(0,Is.EqualTo(player.NumberOfRolls));
+            Assert.That(player.NumberOfRolls, Is.EqualTo(0));
 
         }
         [Test]
@@ -141,7 +155,7 @@ namespace GooseGame.Tests
             //act
             engine.PlayTurn(1, 1);
             //Assert
-            Assert.That(0, Is.EqualTo(engine.TotalNumberOfRolls));
+            Assert.That(engine.TotalNumberOfRolls, Is.EqualTo(0));
 
         }
         public void WhenPlayerIsInWell_ThenNumberOfRollsAndEngineTotalRollsDoesntIncrease()
@@ -156,8 +170,8 @@ namespace GooseGame.Tests
             //act
             engine.PlayTurn(1, 1);
             //Assert
-            Assert.That(0, Is.EqualTo(player.NumberOfRolls));
-            Assert.That(0, Is.EqualTo(engine.TotalNumberOfRolls));
+            Assert.That(player.NumberOfRolls, Is.EqualTo(0));
+            Assert.That(engine.TotalNumberOfRolls, Is.EqualTo(0));
 
         }
         [Test]
@@ -172,7 +186,7 @@ namespace GooseGame.Tests
             //act
             engine.PlayTurn(1, 1);
             //Assert
-            Assert.That(0, Is.EqualTo(engine.TotalNumberOfRolls));
+            Assert.That(engine.TotalNumberOfRolls, Is.EqualTo(0));
         }
         [Test]
         public void WhenPlayerHitsAGooseTile_ThenItDoesntFurtherIncreaseAmountOfRolls()
