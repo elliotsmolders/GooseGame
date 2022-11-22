@@ -1,5 +1,6 @@
 ﻿using GooseGame.Business;
 using GooseGame.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -17,14 +18,12 @@ namespace GooseGameWPF.ViewModels
         public List<string> TotalLog
         {
             get { return totalLog; }
-            set 
-            { 
+            set
+            {
                 totalLog = value;
-                NotifyPropertyChanged(nameof(totalLog)); 
+                NotifyPropertyChanged(nameof(totalLog));
             }
         }
-
-
 
         public string TurnLog
         {
@@ -98,18 +97,16 @@ namespace GooseGameWPF.ViewModels
             return _engine.CurrentPlayer.Name;
         }
 
-        public void UpdateLogList() 
-        
-        {
-          TotalLog = Logger.TotalLog;
+        public void UpdateLogList()
 
+        {
+            TotalLog = Logger.TotalLog;
         }
 
-        public void UpdateTurnLog() 
+        public void UpdateTurnLog()
         {
             TurnLog = Logger.TurnLog;
         }
-
 
         public string GetCurrentPlayerTile()
         {
@@ -124,6 +121,11 @@ namespace GooseGameWPF.ViewModels
             //    _engine.HandleFirstThrow(roll1, roll2);
             //}
             _engine.PlayTurn(roll1, roll2);
+        }
+
+        public string GetWinnerName()
+        {
+            return _engine.Winner.Name;
         }
     }
 }

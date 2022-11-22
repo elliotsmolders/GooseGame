@@ -9,6 +9,9 @@ namespace GooseGame.Business
 {
     public class Tile
     {
-
+        public override string ToString()
+        {
+            return this.GetType().Name;
+        }
     }
 }

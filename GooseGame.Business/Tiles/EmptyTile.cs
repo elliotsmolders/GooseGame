@@ -8,7 +8,7 @@ using GooseGame.Common;
 
 namespace GooseGame.Business.Tiles
 {
-    public class EmptyTile : ITile
+    public class EmptyTile : Tile, ITile
     {
         public void HandlePlayer(Player player)
         {

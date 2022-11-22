@@ -16,24 +16,17 @@ namespace GooseGameWPF
     {
         private MainViewModel vm = new MainViewModel();
 
-
-
         public MainWindow()
         {
             InitializeComponent();
             GooseGrid.DataContext = vm;
             vm.Init();
             StylelizeGridTiles();
-       
-
         }
 
-
-        
-
         //buh
-        private void DisplayPlayerInfo() {
-
+        private void DisplayPlayerInfo()
+        {
             string playerNamePos1 = vm.GetPlayerName(0) + " is on tile " + vm.GetPlayerPosition(0);
             string playerNamePos2 = vm.GetPlayerName(1) + " is on tile " + vm.GetPlayerPosition(1);
             string playerNamePos3 = vm.GetPlayerName(2) + " is on tile " + vm.GetPlayerPosition(2);
@@ -42,16 +35,10 @@ namespace GooseGameWPF
             PlayerLabel2.Content = playerNamePos2;
             PlayerLabel3.Content = playerNamePos3;
             PlayerLabel4.Content = playerNamePos4;
-
         }
-
-
-
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-
-            
             vm.SetNextPlayer();
             int roll1 = vm.RollDice();
             int roll2 = vm.RollDice();
@@ -62,21 +49,22 @@ namespace GooseGameWPF
             string currentTile = vm.GetCurrentPlayerTile();
             vm.PlayTurn(roll1, roll2);
             //Debug.Content = vm.GetCurrentPlayerPositions();
-            CurrentPlayerTile.Content= currentTile;
+            CurrentPlayerTile.Content = currentTile;
             vm.UpdateTurnLog();
             updatePlayerPositions();
             DisplayPlayerInfo();
             CheckForWinner();
-
         }
 
-
-        private void CheckForWinner() {
+        private void CheckForWinner()
+        {
             bool isWinner = vm.CheckForWinner();
-            if (isWinner) {
-                MessageBox.Show("Wonner!");
+
+            if (isWinner)
+            {
+                string winnerName = vm.GetWinnerName();
+                MessageBox.Show($"{winnerName} has wonnered!");
                 GooseGrid.IsEnabled = false;
-                
             }
         }
 
@@ -142,8 +130,7 @@ namespace GooseGameWPF
 
         //TODO Beetje uit elkaar halen
 
-        System.Drawing.Rectangle vierkantje = new();
-
+        private System.Drawing.Rectangle vierkantje = new();
 
         //HELP dit is hardcoded sorry Drawings en ControlElements doen moeilijk
         private void updatePlayerPositions()
@@ -153,7 +140,6 @@ namespace GooseGameWPF
             int playerposY = (int)generatedPoints[playerPosition].Y;
             RectPlayer1.SetValue(Grid.RowProperty, playerposX);
             RectPlayer1.SetValue(Grid.ColumnProperty, playerposY);
-
 
             int playerPosition2 = vm.GetPlayerPosition(1);
             int playerposX2 = (int)generatedPoints[playerPosition2].X;
@@ -173,11 +159,5 @@ namespace GooseGameWPF
             RectPlayer4.SetValue(Grid.RowProperty, playerposX4);
             RectPlayer4.SetValue(Grid.ColumnProperty, playerposY4);
         }
-
-        
-        
-        
-
-
     }
 }

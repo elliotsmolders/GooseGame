@@ -3,7 +3,7 @@ using GooseGame.Common;
 
 namespace GooseGame.Business.Tiles
 {
-    public class PrisonTile :  ITile
+    public class PrisonTile : Tile, ITile
     {
         public void HandlePlayer(Player player)
         {
