@@ -1,11 +1,8 @@
-﻿using GooseGameWPF.Entities;
-using GooseGameWPF.ViewModels;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using GooseGameWPF.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace GooseGameWPF
 {
@@ -21,7 +18,7 @@ namespace GooseGameWPF
             InitializeComponent();
             GooseGrid.DataContext = vm;
             vm.Init();
-            StylelizeGridTiles();
+            SpiralBoard();
         }
 
         //buh
@@ -71,11 +68,9 @@ namespace GooseGameWPF
         private Label[] generatedLabels = new Label[64];
         private System.Windows.Point[] generatedPoints = new System.Windows.Point[64];
 
-        private int[,] StylelizeGridTiles()
+        private void BoustrophedonBoard()
 
         {
-            int[,] tileGrid = new int[8, 8];
-
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
@@ -92,6 +87,8 @@ namespace GooseGameWPF
                         int evenTiles = 63 - (i * 8 + j);
                         tileLabel.Name = $"Tile{evenTiles}";
                         tileLabel.Content = $"Tile{evenTiles}";
+                        b.BorderBrush = new SolidColorBrush(Colors.Blue);
+                        tileLabel.Background = Brushes.Beige;
                         generatedLabels[evenTiles] = (tileLabel);
                         generatedPoints[evenTiles] = new System.Windows.Point(i, j);
                     }
@@ -100,22 +97,12 @@ namespace GooseGameWPF
                         int oddTiles = 63 - (i * 8 + 7 - j);
                         tileLabel.Name = $"Tile{oddTiles}";
                         tileLabel.Content = $"Tile{oddTiles}";
+                        b.BorderBrush = new SolidColorBrush(Colors.Red);
+                        tileLabel.Background = Brushes.Beige;
                         generatedLabels[oddTiles] = (tileLabel);
                         generatedPoints[oddTiles] = new System.Windows.Point(i, j);
                     }
 
-                    foreach (int pos in tileGrid)
-                    {
-                        if ((j + i) % 2 == 0)
-                        {
-                            b.BorderBrush = new SolidColorBrush(Colors.Blue);
-                            tileLabel.Background = Brushes.Beige;
-                        }
-                        else
-                        {
-                            b.BorderBrush = new SolidColorBrush(Colors.Red);
-                        }
-                    }
                     Grid.SetRow(b, i);
                     Grid.SetColumn(b, j);
                     Grid.SetRow(tileLabel, i);
@@ -125,7 +112,88 @@ namespace GooseGameWPF
                     GooseGrid.Children.Add(b);
                 }
             }
-            return tileGrid;
+        }
+
+        private int pointCounter { get; set; }
+        private int spiralOffSet { get; set; }
+
+        public void SpiralBoard()
+        {
+            //for (int x = 0; x < 8; x++)
+            //{
+            //    for (int y = 0; y < 8; y++)
+            //    {
+            //        Label tilelabel = new();
+            //        Grid.SetRow(tilelabel, y);
+            //        Grid.SetColumn(tilelabel, x);
+            //        tilelabel.Content += $"x:{x} - y:{y}";
+            //        GooseGrid.Children.Add(tilelabel);
+            //    }
+            //}
+            FillPointsLR(8, 7);
+            FillPointsDU(7, 7);
+            FillPointsRL(7, 0);
+            FillPointsUD(0, 7);
+            spiralOffSet++;
+            FillPointsLR(6, 6);
+            FillPointsDU(6, 5);
+            FillPointsRL(5, 1);
+            FillPointsUD(1, 4);
+            spiralOffSet++;
+            FillPointsLR(4, 5);
+            FillPointsDU(5, 3);
+            FillPointsRL(3, 2);
+            FillPointsUD(2, 2);
+            spiralOffSet++;
+            FillPointsLR(2, 4);
+            FillPointsDU(4, 1);
+            FillPointsRL(1, 3);
+        }
+
+        private void FillPointsDU(int x, int y)
+        {
+            for (int j = y - 1; j >= 0; j--)
+            {
+                generatedPoints[pointCounter] = new System.Windows.Point(x + spiralOffSet, j);
+                MakeGrid(x, j);
+            }
+        }
+
+        private void FillPointsUD(int x, int y)
+        {
+            for (int j = 0; j < y; j++)
+            {
+                generatedPoints[pointCounter] = new System.Windows.Point(x + spiralOffSet, j);
+                MakeGrid(x, j);
+            }
+        }
+
+        private void FillPointsRL(int x, int y)
+        {
+            for (int i = x - 1; i > 0; i--)
+            {
+                generatedPoints[pointCounter] = new System.Windows.Point(i, y + spiralOffSet);
+                MakeGrid(i, y);
+            }
+        }
+
+        private void FillPointsLR(int x, int y)
+        {
+            for (int i = 0; i < x; i++)
+            {
+                generatedPoints[pointCounter] = new System.Windows.Point(i, y + spiralOffSet);
+                MakeGrid(i, y);
+            }
+        }
+
+        private void MakeGrid(int x, int y)
+        {
+            Label tileLabel = new();
+            Grid.SetRow(tileLabel, y);
+            Grid.SetColumn(tileLabel, x);
+            tileLabel.Content += $"Vak {pointCounter}";
+            GooseGrid.Children.Add(tileLabel);
+            pointCounter++;
         }
 
         //TODO Beetje uit elkaar halen
@@ -158,6 +226,10 @@ namespace GooseGameWPF
             int playerposY4 = (int)generatedPoints[playerPosition4].Y;
             RectPlayer4.SetValue(Grid.RowProperty, playerposX4);
             RectPlayer4.SetValue(Grid.ColumnProperty, playerposY4);
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
         }
     }
 }
