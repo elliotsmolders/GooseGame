@@ -19,7 +19,7 @@ namespace GooseGame.Business.Tiles
 
         public void HandlePlayer(Player player)
         {
-
+            base.HandlePlayer(player);
         }
     }
 }
