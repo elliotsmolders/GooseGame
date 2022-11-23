@@ -12,9 +12,8 @@ namespace GooseGame.Business.Tiles
         }
         public void HandlePlayer(Player player)
         {
-
+            base.HandlePlayer(player);
             player.Skips = 3;
-            Console.WriteLine("Prison");
         }
     }
 }

@@ -17,7 +17,7 @@ namespace GooseGame.Business.Tiles
         }
         public void HandlePlayer(Player player)
         {
-
+            base.HandlePlayer(player);
             player.SetPlayerPosition(0);
         }
     }

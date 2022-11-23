@@ -28,7 +28,6 @@ namespace GooseGame.Business.Tiles
             }
             player.IsInWell = true;
 
-            Console.WriteLine("Well");
         }
     }
 }
