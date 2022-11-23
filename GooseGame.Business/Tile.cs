@@ -23,14 +23,7 @@ namespace GooseGame.Business
             return this.GetType().Name;
         }
 
-        public string GetTileName() {
-          return this.Name;
-        }
-
-        public int GetTileId()
-        {
-            return this.TileId;
-        }
+\
         private void LogPlayerPosition(Player player)
         {
             Logger.AddToCurrentTurnLog($"{player.Name} has landed on {Name} on position {TileId}");
