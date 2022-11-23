@@ -1,5 +1,5 @@
-﻿
-using GooseGame.Common;
+﻿using GooseGame.Common;
+using GooseGame.DAL.Repositories;
 
 namespace GooseGame.Business
 {
@@ -13,6 +13,15 @@ namespace GooseGame.Business
     /// </summary>
     public class GameEngine
     {
+        private readonly GameRepository _gameRepo;
+        private readonly PlayerRepository _playerRepo;
+
+        public GameEngine()
+        {
+            _playerRepo = new PlayerRepository();
+            _gameRepo = new GameRepository();
+        }
+
         public Player CurrentPlayer { get; set; }
         public List<Player> Players { get; set; } = new List<Player>(); // verhuisd naar Game instance
 
@@ -28,18 +37,15 @@ namespace GooseGame.Business
             for (int i = 0; i < AmountOfPlayers; i++)
             {
                 string name = $"Player {i}";
-                CreatePlayer(name, i+1);
+                CreatePlayer(name, i + 1);
             }
             CurrentPlayer = Players[0]; //nog logica achter steken voor speler met hoogste worp
         }
 
         public void SetNextPlayer()
         {
-
-
-         int index = Players.IndexOf(CurrentPlayer);
-        CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
-            
+            int index = Players.IndexOf(CurrentPlayer);
+            CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
         }
 
         public int RollDice()
@@ -47,23 +53,20 @@ namespace GooseGame.Business
             return DiceManager.RollDice();
         }
 
-
         //player as parameter for playturn?
         public void PlayTurn(int roll1, int roll2)
         {
             Logger.ClearString();
             if (CurrentPlayer.IsPlayerActive())
             {
-                
                 int currentRoll = roll1 + roll2;
                 //nu tweede if statement,possible refactor
-                if(currentRoll == 9 && CurrentPlayer.isOnStartTile())
+                if (currentRoll == 9 && CurrentPlayer.isOnStartTile())
                 {
                     HandleFirstThrow(roll1, roll2);
                 }
                 else
                 {
-
                     CurrentPlayer.MovePlayer(currentRoll);
                 }
 
@@ -73,17 +76,15 @@ namespace GooseGame.Business
                 CheckForWinner();
                 Logger.AddToTotalLog();
                 CurrentPlayer.IsMovingBackwards = false;
-
             }
-
         }
 
-        public void CheckForWinner() 
+        public void CheckForWinner()
         {
-            if (CurrentPlayer.CurrentPosition == 63) 
+            if (CurrentPlayer.CurrentPosition == 63)
             {
                 Winner = CurrentPlayer;
-            } 
+            }
         }
 
         public void HandleFirstThrow(int roll1, int roll2) // geld enkel op eerste worp of als speler op start staat? + terug implementeren, rename to throwfromstarttile or something?
@@ -106,12 +107,29 @@ namespace GooseGame.Business
         private void CreatePlayer(string name, int icon)
         {
             Players.Add(new Player(name, icon));
-
         }
 
         public void Restore()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task AddPlayerAsync(string name, int playerIcon)
+        {
+            var player = new Player(name, playerIcon);
+            await _playerRepo.AddAsync(player);
+        }
+
+        public void GetPlayers()
+        {
+        }
+
+        public void WriteGameToDatabase()
+        {
+        }
+
+        public void GetHighScore()
+        {
         }
     }
 }

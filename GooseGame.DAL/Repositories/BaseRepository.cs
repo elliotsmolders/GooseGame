@@ -7,6 +7,11 @@ namespace GooseGame.DAL.Repositories
     {
         private GooseGameDbContext _ctx;
 
+        public BaseRepository()
+        {
+            _ctx = new GooseGameDbContext();
+        }
+
         public async Task AddAsync(T entity)
         {
             _ctx.Add(entity);
