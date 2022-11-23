@@ -2,17 +2,18 @@
 using GooseGame.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GooseGame.DAL.Models
 {
-    public class Game
+    public class Game : BaseEntity
     {
-        [Key]
         public int GameId { get; set; }
+
         [Required]
         public GameBoard GameBoard { get; set; }
 
-        public virtual IList<PlayerGame> PlayerGames { get; set; }
+        public virtual IList<GamePlayer> PlayerGames { get; set; }
         public int AmountOfThrows { get; set; }
         public Player? Winner { get; set; }
         public DateTime Start { get; set; }

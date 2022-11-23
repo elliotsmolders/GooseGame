@@ -11,7 +11,7 @@ namespace GooseGame.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PlayerGame>().HasKey(pg => new { pg.PlayerId, pg.GameId });
+            modelBuilder.Entity<GamePlayer>().HasKey(pg => new { pg.PlayerId, pg.GameId });
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

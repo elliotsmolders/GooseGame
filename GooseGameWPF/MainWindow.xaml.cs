@@ -115,7 +115,6 @@ namespace GooseGameWPF
         }
 
         private int pointCounter { get; set; }
-        private int spiralOffSet { get; set; }
 
         public void SpiralBoard()
         {
@@ -130,58 +129,59 @@ namespace GooseGameWPF
             //        GooseGrid.Children.Add(tilelabel);
             //    }
             //}
+
             FillPointsLR(8, 7);
-            FillPointsDU(7, 7);
+            FillPointsDU(7, 8, -1);
             FillPointsRL(7, 0);
             FillPointsUD(0, 7);
-            spiralOffSet++;
-            FillPointsLR(6, 6);
-            FillPointsDU(6, 5);
-            FillPointsRL(5, 1);
-            FillPointsUD(1, 4);
-            spiralOffSet++;
-            FillPointsLR(4, 5);
-            FillPointsDU(5, 3);
-            FillPointsRL(3, 2);
-            FillPointsUD(2, 2);
-            spiralOffSet++;
-            FillPointsLR(2, 4);
-            FillPointsDU(4, 1);
-            FillPointsRL(1, 3);
+
+            FillPointsLR(6, 6, 1);
+            FillPointsDU(6, 5, 1);
+            FillPointsRL(7, 1);
+            FillPointsUD(1, 4, 2);
+
+            FillPointsLR(4, 5, 2);
+            FillPointsDU(5, 4, 1);
+            FillPointsRL(4, 2, 1);
+            FillPointsUD(2, 2, 3);
+
+            FillPointsLR(2, 4, 3);
+            FillPointsLR(1, 3, 4);
+            FillPointsLR(1, 3, 3);
         }
 
-        private void FillPointsDU(int x, int y)
+        private void FillPointsDU(int x, int y, int offSet = 0)
         {
-            for (int j = y - 1; j >= 0; j--)
+            for (int j = y + offSet - 1; j > 0 + offSet; j--)
             {
-                generatedPoints[pointCounter] = new System.Windows.Point(x + spiralOffSet, j);
+                generatedPoints[pointCounter] = new System.Windows.Point(x, j);
                 MakeGrid(x, j);
             }
         }
 
-        private void FillPointsUD(int x, int y)
+        private void FillPointsUD(int x, int y, int offSet = 0)
         {
-            for (int j = 0; j < y; j++)
+            for (int j = 0 + offSet; j < y + offSet; j++)
             {
-                generatedPoints[pointCounter] = new System.Windows.Point(x + spiralOffSet, j);
+                generatedPoints[pointCounter] = new System.Windows.Point(x, j);
                 MakeGrid(x, j);
             }
         }
 
-        private void FillPointsRL(int x, int y)
+        private void FillPointsRL(int x, int y, int offSet = 0)
         {
-            for (int i = x - 1; i > 0; i--)
+            for (int i = x + offSet - 1; i > 0 + offSet; i--)
             {
-                generatedPoints[pointCounter] = new System.Windows.Point(i, y + spiralOffSet);
+                generatedPoints[pointCounter] = new System.Windows.Point(i, y);
                 MakeGrid(i, y);
             }
         }
 
-        private void FillPointsLR(int x, int y)
+        private void FillPointsLR(int x, int y, int offSet = 0)
         {
-            for (int i = 0; i < x; i++)
+            for (int i = 0 + offSet; i < x + offSet; i++)
             {
-                generatedPoints[pointCounter] = new System.Windows.Point(i, y + spiralOffSet);
+                generatedPoints[pointCounter] = new System.Windows.Point(i, y);
                 MakeGrid(i, y);
             }
         }
