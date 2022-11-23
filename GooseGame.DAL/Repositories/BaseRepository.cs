@@ -1,4 +1,4 @@
-﻿using GooseGame.Entities;
+﻿using GooseGame.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace GooseGame.DAL.Repositories
