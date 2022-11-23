@@ -127,5 +127,10 @@ namespace GooseGameWPF.ViewModels
         {
             return _engine.Winner.Name;
         }
+
+        internal void AddPlayer(string name, int icon = 1)
+        {
+            _engine.AddPlayerAsync(name, icon);
+        }
     }
 }

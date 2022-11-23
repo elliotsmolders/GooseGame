@@ -1,4 +1,6 @@
-﻿using GooseGame.Common;
+﻿using AutoMapper;
+using GooseGame.Common;
+using GooseGame.DAL.Entities;
 using GooseGame.DAL.Repositories;
 
 namespace GooseGame.Business
@@ -15,11 +17,20 @@ namespace GooseGame.Business
     {
         private readonly GameRepository _gameRepo;
         private readonly PlayerRepository _playerRepo;
+        private readonly IMapper _playerMap;
 
         public GameEngine()
         {
             _playerRepo = new PlayerRepository();
             _gameRepo = new GameRepository();
+            var config = new MapperConfiguration
+                (
+                    cfg =>
+                    {
+                        cfg.CreateMap<Player, PlayerEntity>()
+                                .ForMember(x => x.NumberOfThrows, y => y.MapFrom(z => z.NumberOfRolls));
+                    });
+            _playerMap = new Mapper(config);
         }
 
         public Player CurrentPlayer { get; set; }
@@ -116,12 +127,10 @@ namespace GooseGame.Business
 
         public async Task AddPlayerAsync(string name, int playerIcon)
         {
-            var player = new Player(name, playerIcon);
-            await _playerRepo.AddAsync(player);
-        }
-
-        public void GetPlayers()
-        {
+            Player player = new Player(name, playerIcon);
+            Players.Add(player);
+            PlayerEntity model = _playerMap.Map<PlayerEntity>(player);
+            await _playerRepo.AddAsync(model);
         }
 
         public void WriteGameToDatabase()

@@ -8,35 +8,35 @@
 
     <Grid x:Name="GooseGrid"  Margin="0,0,264,-6">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Button Content="Add Player" IsEnabled="{Binding ElementName=PlayerNameInput, Path=Text.Length}" Width="158" Click="AddPlayer" Grid.Column="7" Margin="232,50,-223,28" Grid.Row="7" />
 
         <StackPanel  Margin="227,27,-228,111" Grid.RowSpan="4" Grid.Column="7">
-            <Label x:Name="Roll1" Height="27"  />
-            <Label x:Name="Roll2" Height="38"/>
-            <Label x:Name="CurrentRoll" Height="38"/>
+            <Label x:Name="Roll1" Height="27">
+            </Label>
+            <Label x:Name="Roll2" Height="38">
+            </Label>
+            <Label x:Name="CurrentRoll" Height="38" />
 
-            <Label x:Name="CurrentPlayerTile"/>
-
-
-
+            <Label x:Name="CurrentPlayerTile" />
 
             <Button x:Name="RollDice" Content="play a turn" Click="RollDice_Click" Height="73" />
         </StackPanel>
@@ -46,14 +46,16 @@
         <Rectangle x:Name="RectPlayer3" Fill="ForestGreen" Grid.Column="0" Grid.Row="7" Margin="83,0,0,56" ></Rectangle>
         <Rectangle x:Name="RectPlayer4" Fill="Yellow" Grid.Column="0" Grid.Row="7" Margin="0,0,82,56" ></Rectangle>
         <StackPanel Grid.Column="7" Grid.Row="2" Margin="189,40,-245,0" Grid.RowSpan="3">
-            <Label x:Name="PlayerLabel1" Background="DeepSkyBlue" Content="Player 1"/>
-            <Label x:Name="PlayerLabel2" Background="OrangeRed"  Content="Player 2"/>
-            <Label x:Name="PlayerLabel3" Background="ForestGreen"  Content="Player 3"/>
-            <Label x:Name="PlayerLabel4" Background="Yellow"  Content="Player 4"/>
+            <Label x:Name="PlayerLabel1" Background="DeepSkyBlue" Content="Player 1" />
+            <Label x:Name="PlayerLabel2" Background="OrangeRed"  Content="Player 2" />
+            <Label x:Name="PlayerLabel3" Background="ForestGreen"  Content="Player 3" />
+            <Label x:Name="PlayerLabel4" Background="Yellow"  Content="Player 4" />
         </StackPanel>
-        <StackPanel Grid.Column="7" Grid.Row="4" Margin="217,111,-217,33" Grid.RowSpan="4">
-            <TextBlock x:Name="TotalLogTextBlock"  TextWrapping="Wrap" Text="{Binding TurnLog}" Height="179"/>
+        <StackPanel Grid.Column="7" Grid.Row="4" Margin="217,111,-217,49" Grid.RowSpan="2">
+            <TextBlock x:Name="TotalLogTextBlock"  TextWrapping="Wrap" Text="{Binding TurnLog}" Height="179" />
         </StackPanel>
-
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="7" Margin="181,98,-253,66" Grid.RowSpan="2" Grid.Row="6" IsEnabled="true">
+            <TextBox x:Name="PlayerNameInput" Text="" />
+        </Border>
     </Grid>
 </Window>

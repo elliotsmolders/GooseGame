@@ -35,9 +35,9 @@ namespace GooseGame.DAL.Repositories
             await _ctx.SaveChangesAsync();
         }
 
-        public async Task<IList<T>> GetAllAsync()
+        public async Task<IList<T>> GetAllPlayersFromGameAsync()
         {
-            return await _ctx.Set<T>().ToListAsync();
+            return await _ctx.Set<T>().ToListAsync(); //
         }
     }
 }

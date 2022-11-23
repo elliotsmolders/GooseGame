@@ -49,8 +49,6 @@ namespace GooseGameWPF
             string currentTile = vm.GetCurrentPlayerTile();
             vm.PlayTurn(roll1, roll2);
 
-
-
             //Debug.Content = vm.GetCurrentPlayerPositions();
             CurrentPlayerTile.Content = currentTile;
             vm.UpdateTurnLog();
@@ -135,7 +133,6 @@ namespace GooseGameWPF
 
         private System.Drawing.Rectangle vierkantje = new();
 
-
         private void updatePlayerPositions()
         {
             System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer1, RectPlayer2, RectPlayer3, RectPlayer4 };
@@ -147,6 +144,16 @@ namespace GooseGameWPF
                 RectPlayer[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
                 RectPlayer[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
             }
+        }
+
+        public void AddPlayer()
+        {
+        }
+
+        private void AddPlayer(object sender, RoutedEventArgs e)
+        {
+            vm.AddPlayer(PlayerNameInput.Text);
+            PlayerNameInput.Text = "";
         }
     }
 }
