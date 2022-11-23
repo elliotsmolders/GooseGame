@@ -101,6 +101,16 @@ namespace GooseGameWPF.ViewModels
             return _engine.CurrentPlayer.Name;
         }
 
+        public string GetPlayerCurrentTileName(int num) {
+            return _engine.Players[num].CurrentTile.Name;
+        }
+
+        public string GetCurrentPlayerTileName()
+        {
+            return _engine.CurrentPlayer.CurrentTile.Name;
+        }
+
+
         public void UpdateLogList()
 
         {
@@ -114,16 +124,13 @@ namespace GooseGameWPF.ViewModels
 
         public string GetCurrentPlayerTile()
         {
-            return _engine.CurrentPlayer.CurrentTile.ToString();
+            return _engine.CurrentPlayer.CurrentTile.Name;
         }
 
         public void PlayTurn(int roll1, int roll2)
         {
             ClickedRoll++;
-            //if (ClickedRoll == 1)
-            //{
-            //    _engine.HandleFirstThrow(roll1, roll2);
-            //}
+
             _engine.PlayTurn(roll1, roll2);
         }
 

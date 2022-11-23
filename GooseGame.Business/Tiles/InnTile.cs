@@ -13,9 +13,9 @@ namespace GooseGame.Business.Tiles
         public InnTile(int tileId) : base(tileId)
         {
             Name = "Inn";
-            //BackgroundImage = " ";
+            BackgroundImage = "C:\\Users\\arnob\\source\\repos\\GooseGame\\GooseGameWPF\\Resources\\Icons\\Inn.png";
         }
-        public void HandlePlayer(Player player)
+        public  void HandlePlayer(Player player)
         {
 
             player.Skips = 1;
