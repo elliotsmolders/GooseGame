@@ -3,6 +3,7 @@ using GooseGame.Business.Interfaces;
 using GooseGameWPF.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -40,7 +41,6 @@ namespace GooseGameWPF
             }
         }
 
-        
         private void DisplayPlayerInfo()
         {
             Label[] PlayerLabel = new Label[] { PlayerLabel0, PlayerLabel1, PlayerLabel2, PlayerLabel3 };
@@ -52,7 +52,9 @@ namespace GooseGameWPF
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
+   
             vm.SetNextPlayer();
+
             int roll1 = vm.RollDice();
             int roll2 = vm.RollDice();
             int currentRoll = roll1 + roll2;
@@ -63,10 +65,18 @@ namespace GooseGameWPF
             vm.PlayTurn(roll1, roll2);
 
             vm.UpdateTurnLog();
-            updatePlayerPositions();
+
+            updatePlayerPosition();
             DisplayPlayerInfo();
+            CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
             CheckForWinner();
         }
+
+        private int DisplayCurrentPlayer()
+        {
+            return vm.GetCurrentPlayerId();
+        }
+
         private int[,] StylelizeGridTiles()
 
         {
@@ -74,19 +84,17 @@ namespace GooseGameWPF
             IList<ITile> tiles = GameBoard.GetGameBoard().Tiles;
             ITile[] gameBoardTilesPosition = new ITile[tiles.Count];
 
-
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
                     int id = (i * 8) + j;
-                   
 
                     Label tileLabel = new();
                     Border b = new();
                     ImageBrush brush = new ImageBrush();
 
-                    b.BorderThickness = new Thickness(5);
+                    b.BorderThickness = new Thickness(2);
                     tileLabel.HorizontalAlignment = HorizontalAlignment.Center;
                     tileLabel.VerticalAlignment = VerticalAlignment.Center;
 
@@ -113,24 +121,10 @@ namespace GooseGameWPF
                         tileLabel.Background = brush;
                     }
 
-                    //foreach (int pos in tileGrid)
-                    //{
-                    //    if ((j + i) % 2 == 0)
-                    //    {
-                    //        b.BorderBrush = new SolidColorBrush(Colors.Blue);
-                    //        tileLabel.Background = Brushes.Beige;
-                    //    }
-                    //    else
-                    //    {
-                    //        b.BorderBrush = new SolidColorBrush(Colors.Red);
-                    //    }
-
-                    //    //ImageBrush brush = new ImageBrush();
-                    //    //ITile currentTile = gameBoardTilesPosition[id];
-                    //    //brush.ImageSource = new BitmapImage(new Uri(gameBoardTilesPosition[i].BackgroundImage, UriKind.Relative));
-                        
-                    //}
-
+                    foreach (int pos in tileGrid)
+                    {
+                        b.BorderBrush = new SolidColorBrush(Colors.Black);
+                    }
 
                     Grid.SetRow(b, i);
                     Grid.SetColumn(b, j);
@@ -144,17 +138,45 @@ namespace GooseGameWPF
             return tileGrid;
         }
 
-        
-        private void updatePlayerPositions()
+        private void updatePlayerPosition()
         {
-            System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer1, RectPlayer2, RectPlayer3, RectPlayer4 };
+            System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer0, RectPlayer1, RectPlayer2, RectPlayer3 };
             int playerPosition, xx, yy;
+            int currentPlayer = 0;
+            int playerPreviousPosition;
+            int difference;
 
-            for (int i = 0; i < 4; i++)
+            currentPlayer = vm.GetCurrentPlayerId();
+            playerPosition = vm.GetCurrentPlayerCurrentPosition();
+            playerPreviousPosition = vm.GetCurrentPlayerPreviousPosition();
+            difference = playerPosition- playerPreviousPosition;
+
+ 
+             RectPlayer[currentPlayer].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
+             RectPlayer[currentPlayer].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+
+
+
+        }
+
+        private void animatePlayerIcon()
+        {
+            System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer0, RectPlayer1, RectPlayer2, RectPlayer3 };
+
+            int currentPlayer = vm.GetCurrentPlayerId();
+            int endPosition = vm.GetCurrentPlayerCurrentPosition();
+            int startPosition = vm.GetCurrentPlayerPreviousPosition();
+      
+
+            for (int i = endPosition; i < startPosition; i++)
             {
-                playerPosition = vm.GetPlayerPosition(i);
-                RectPlayer[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
-                RectPlayer[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+                updatePosition(i);
+                Thread.Sleep(20);
+            }
+
+            void updatePosition(int times) {
+                RectPlayer[currentPlayer].SetValue(Grid.RowProperty, (int)generatedPoints[times].X);
+                RectPlayer[currentPlayer].SetValue(Grid.ColumnProperty, (int)generatedPoints[times].Y);
             }
         }
     }

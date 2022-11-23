@@ -7,6 +7,8 @@ namespace GooseGame.Business
 {
     public class Player : INotifyPropertyChanged
     {
+
+        public int PlayerId { get; set; }
         //public int Id { get; set; }
         public string Name { get; set; }
 
@@ -42,10 +44,12 @@ namespace GooseGame.Business
 
         public int Skips { get; set; }
 
-        public Player(string name, int playerIcon = 1)
+        public Player(string name, int playerId = 0, int playerIcon = 1 )
         {
             Name = name;
+            PlayerId = playerId;
             PlayerIcon = playerIcon;
+
         }
 
         public bool IsMovingBackwards { get; set; } = false;

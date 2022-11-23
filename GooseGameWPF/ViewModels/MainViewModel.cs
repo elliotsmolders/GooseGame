@@ -72,6 +72,10 @@ namespace GooseGameWPF.ViewModels
             return $"{_engine.CurrentPlayer.PreviousPosition} pos:{_engine.CurrentPlayer.CurrentPosition} coming from {_engine.CurrentPlayer.PreviousPosition}";
         }
 
+        public int GetCurrentPlayerId() {
+            return _engine.CurrentPlayer.PlayerId;
+        }
+
         public string GetPlayerName(int num)
         {
             return _engine.Players[num].Name;
@@ -91,9 +95,13 @@ namespace GooseGameWPF.ViewModels
 
 
 
-        public int GetCurrentPlayerPosition()
+        public int GetCurrentPlayerCurrentPosition()
         {
             return _engine.CurrentPlayer.CurrentPosition;
+        }
+
+        public int GetCurrentPlayerPreviousPosition() {
+            return _engine.CurrentPlayer.PreviousPosition;
         }
 
         public string GetCurrentPlayerName()
