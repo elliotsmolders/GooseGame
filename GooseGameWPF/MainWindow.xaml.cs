@@ -132,32 +132,18 @@ namespace GooseGameWPF
 
         private System.Drawing.Rectangle vierkantje = new();
 
-        //HELP dit is hardcoded sorry Drawings en ControlElements doen moeilijk
+
         private void updatePlayerPositions()
         {
-            int playerPosition = vm.GetPlayerPosition(0);
-            int playerposX = (int)generatedPoints[playerPosition].X;
-            int playerposY = (int)generatedPoints[playerPosition].Y;
-            RectPlayer1.SetValue(Grid.RowProperty, playerposX);
-            RectPlayer1.SetValue(Grid.ColumnProperty, playerposY);
+            System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer1, RectPlayer2, RectPlayer3, RectPlayer4 };
+            int playerPosition, xx, yy;
 
-            int playerPosition2 = vm.GetPlayerPosition(1);
-            int playerposX2 = (int)generatedPoints[playerPosition2].X;
-            int playerposY2 = (int)generatedPoints[playerPosition2].Y;
-            RectPlayer2.SetValue(Grid.RowProperty, playerposX2);
-            RectPlayer2.SetValue(Grid.ColumnProperty, playerposY2);
-
-            int playerPosition3 = vm.GetPlayerPosition(2);
-            int playerposX3 = (int)generatedPoints[playerPosition3].X;
-            int playerposY3 = (int)generatedPoints[playerPosition3].Y;
-            RectPlayer3.SetValue(Grid.RowProperty, playerposX3);
-            RectPlayer3.SetValue(Grid.ColumnProperty, playerposY3);
-
-            int playerPosition4 = vm.GetPlayerPosition(3);
-            int playerposX4 = (int)generatedPoints[playerPosition4].X;
-            int playerposY4 = (int)generatedPoints[playerPosition4].Y;
-            RectPlayer4.SetValue(Grid.RowProperty, playerposX4);
-            RectPlayer4.SetValue(Grid.ColumnProperty, playerposY4);
+            for (int i = 0; i < 4; i++)
+            {
+                playerPosition = vm.GetPlayerPosition(i);
+                RectPlayer[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
+                RectPlayer[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+            }
         }
     }
 }

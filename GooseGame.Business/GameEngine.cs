@@ -56,7 +56,7 @@ namespace GooseGame.Business
             {
                 
                 int currentRoll = roll1 + roll2;
-                //nu tweede if statemment,possible refactor
+                //nu tweede if statement,possible refactor
                 if(currentRoll == 9 && CurrentPlayer.isOnStartTile())
                 {
                     HandleFirstThrow(roll1, roll2);
