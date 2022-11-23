@@ -1,10 +1,14 @@
-﻿using GooseGameWPF.Entities;
+﻿using GooseGame.Business;
+using GooseGame.Business.Interfaces;
+using GooseGameWPF.Entities;
 using GooseGameWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace GooseGameWPF
@@ -78,11 +82,15 @@ namespace GooseGameWPF
 
         {
             int[,] tileGrid = new int[8, 8];
+            IList<ITile> tiles = GameBoard.GetGameBoard().Tiles;
 
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
+                    int id = (i * 8) + j;
+                    ITile currentTile = tiles[id];
+
                     Label tileLabel = new();
                     Border b = new();
 
@@ -118,6 +126,13 @@ namespace GooseGameWPF
                         {
                             b.BorderBrush = new SolidColorBrush(Colors.Red);
                         }
+
+                        ImageBrush brush = new ImageBrush();
+
+
+                        brush.ImageSource = new BitmapImage(new Uri(currentTile.BackgroundImage, UriKind.Relative));
+                        tileLabel.Background = brush;
+
                     }
                     Grid.SetRow(b, i);
                     Grid.SetColumn(b, j);

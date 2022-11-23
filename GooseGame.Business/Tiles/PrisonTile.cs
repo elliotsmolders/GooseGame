@@ -7,7 +7,8 @@ namespace GooseGame.Business.Tiles
     {
         public PrisonTile(int tileId) : base(tileId)
         {
-
+            Name = "Prison";
+            //BackgroundImage = " ";
         }
         public void HandlePlayer(Player player)
         {

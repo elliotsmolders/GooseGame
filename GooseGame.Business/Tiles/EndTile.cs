@@ -7,7 +7,8 @@ namespace GooseGame.Business.Tiles
     {
         public EndTile(int tileId) : base(tileId)
         {
-
+            Name = "Winning Tile";
+            //BackgroundImage = " ";
         }
         public void HandlePlayer(Player player)
         {

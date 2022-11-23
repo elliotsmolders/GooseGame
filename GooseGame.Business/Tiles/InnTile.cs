@@ -12,7 +12,8 @@ namespace GooseGame.Business.Tiles
     {
         public InnTile(int tileId) : base(tileId)
         {
-
+            Name = "Inn";
+            //BackgroundImage = " ";
         }
         public void HandlePlayer(Player player)
         {

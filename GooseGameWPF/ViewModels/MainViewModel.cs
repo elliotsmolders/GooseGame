@@ -77,6 +77,8 @@ namespace GooseGameWPF.ViewModels
             return _engine.Players[num].Name;
         }
 
+
+
         public bool CheckForWinner()
         {
             return _engine.Winner != null;
@@ -86,6 +88,8 @@ namespace GooseGameWPF.ViewModels
         {
             return _engine.Players[num].CurrentPosition;
         }
+
+
 
         public int GetCurrentPlayerPosition()
         {

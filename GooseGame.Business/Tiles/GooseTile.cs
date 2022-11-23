@@ -12,7 +12,7 @@ namespace GooseGame.Business.Tiles
         }
         public void HandlePlayer(Player player)
         {
-            Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on positiion{player.CurrentPosition} with roll {player.CurrentRoll}");
+            Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on position {player.CurrentPosition} with roll {player.CurrentRoll}");
                         if (player.IsMovingBackwards)
             {
                 player.CurrentRoll *= -1;

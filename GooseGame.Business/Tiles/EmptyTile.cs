@@ -13,7 +13,8 @@ namespace GooseGame.Business.Tiles
 
         public EmptyTile(int tileId) : base(tileId)
         {
-
+            Name = $"Tile {tileId}";
+            //BackgroundImage = " ";
         }
 
         public void HandlePlayer(Player player)
