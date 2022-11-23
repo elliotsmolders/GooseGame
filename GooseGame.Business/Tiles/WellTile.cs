@@ -17,10 +17,10 @@ namespace GooseGame.Business.Tiles
             else
             {
                 Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on positiion{player.CurrentPosition} {playerInWell.Name} was in well and is freed");
-                playerInWell.IsInWell = true;
+                playerInWell.IsInWell = false;
                 playerInWell = player;
             }
-            player.IsInWell = false;
+            player.IsInWell = true;
 
             Console.WriteLine("Well");
         }

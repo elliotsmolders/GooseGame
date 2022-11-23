@@ -4,15 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GooseGame.Business;
+using GooseGame.Business.Tiles;
 
 namespace GooseGame.Tests
 {
-    public class PlayerTests
+    public class PlayerTest
     {
         [SetUp]
         public void Setup()
         {
         }
+        [Test]
+        public void WhenPlayerIsCreated_ThenInItialTileisStartTileAndPositionIs0()
+        {
+            //arrange
+            GameBoard board = GameBoard.GetGameBoard();
+            //act
+            Player player = new Player("TestJos");
+            //assert
+            Assert.That(player.CurrentPosition, Is.EqualTo(0));
+            Assert.That(player.CurrentTile, Is.InstanceOf(typeof(StartTile)));
+        }
+
         [Test]
         public void WhenPlayerTurnIsOver_ThenNextPlayerIsNewCurrentPlayer()
         {
