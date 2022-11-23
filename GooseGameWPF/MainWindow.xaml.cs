@@ -84,6 +84,7 @@ namespace GooseGameWPF
 
                     Label tileLabel = new();
                     Border b = new();
+                    ImageBrush brush = new ImageBrush();
 
                     b.BorderThickness = new Thickness(5);
                     tileLabel.HorizontalAlignment = HorizontalAlignment.Center;
@@ -97,6 +98,8 @@ namespace GooseGameWPF
                         generatedLabels[evenTiles] = (tileLabel);
                         generatedPoints[evenTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[evenTiles] = tiles[evenTiles];
+                        brush.ImageSource = new BitmapImage(new Uri(gameBoardTilesPosition[evenTiles].BackgroundImage, UriKind.Relative));
+                        tileLabel.Background = brush;
                     }
                     else
                     {
@@ -106,32 +109,28 @@ namespace GooseGameWPF
                         generatedLabels[oddTiles] = (tileLabel);
                         generatedPoints[oddTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[oddTiles] = tiles[oddTiles];
-                    }
-
-                    foreach (int pos in tileGrid)
-                    {
-                        if ((j + i) % 2 == 0)
-                        {
-                            b.BorderBrush = new SolidColorBrush(Colors.Blue);
-                            tileLabel.Background = Brushes.Beige;
-                        }
-                        else
-                        {
-                            b.BorderBrush = new SolidColorBrush(Colors.Red);
-                        }
-
-                        //ImageBrush brush = new ImageBrush();
-                        //ITile currentTile = gameBoardTilesPosition[id];
-                        //brush.ImageSource = new BitmapImage(new Uri(gameBoardTilesPosition[i].BackgroundImage, UriKind.Relative));
-                        
-                    }
-
-                    foreach (ITile tile in gameBoardTilesPosition)
-                    {
-                        ImageBrush brush = new ImageBrush();
-                        brush.ImageSource = new BitmapImage(new Uri(tile.BackgroundImage, UriKind.Relative));
+                        brush.ImageSource = new BitmapImage(new Uri(gameBoardTilesPosition[oddTiles].BackgroundImage, UriKind.Relative));
                         tileLabel.Background = brush;
                     }
+
+                    //foreach (int pos in tileGrid)
+                    //{
+                    //    if ((j + i) % 2 == 0)
+                    //    {
+                    //        b.BorderBrush = new SolidColorBrush(Colors.Blue);
+                    //        tileLabel.Background = Brushes.Beige;
+                    //    }
+                    //    else
+                    //    {
+                    //        b.BorderBrush = new SolidColorBrush(Colors.Red);
+                    //    }
+
+                    //    //ImageBrush brush = new ImageBrush();
+                    //    //ITile currentTile = gameBoardTilesPosition[id];
+                    //    //brush.ImageSource = new BitmapImage(new Uri(gameBoardTilesPosition[i].BackgroundImage, UriKind.Relative));
+                        
+                    //}
+
 
                     Grid.SetRow(b, i);
                     Grid.SetColumn(b, j);
