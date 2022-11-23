@@ -48,6 +48,9 @@ namespace GooseGameWPF
             CurrentRoll.Content = currentRoll;
             string currentTile = vm.GetCurrentPlayerTile();
             vm.PlayTurn(roll1, roll2);
+
+
+
             //Debug.Content = vm.GetCurrentPlayerPositions();
             CurrentPlayerTile.Content = currentTile;
             vm.UpdateTurnLog();

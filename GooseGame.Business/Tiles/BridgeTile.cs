@@ -10,9 +10,16 @@ namespace GooseGame.Business.Tiles
 {
     public class BridgeTile : Tile, ITile
     {
-        public void HandlePlayer(Player player)
+        public BridgeTile(int tileId) : base(tileId)
         {
-            Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on positiion{player.CurrentPosition}");
+            
+            Name = "Bridge";
+            BackgroundImage = " ";
+        }
+        public override void HandlePlayer(Player player)
+        {
+            //TODO dit moet voor alle tiles gebeuren
+            base.HandlePlayer(player);
             player.SetPlayerPosition(12);
         }
     }

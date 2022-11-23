@@ -5,9 +5,13 @@ namespace GooseGame.Business.Tiles
 {
     public class EndTile : Tile, ITile
     {
+        public EndTile(int tileId) : base(tileId)
+        {
+
+        }
         public void HandlePlayer(Player player)
         {
-            Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on positiion{player.CurrentPosition}");
+
         }
     }
 }

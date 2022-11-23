@@ -6,47 +6,43 @@ namespace GooseGame.Business.Factory
 {
     public class TileFactory
     {
-        public ITile CreateTile(TileType type)
+        public ITile CreateTile(TileType type, int tileId)
         {
             switch (type)
             {
                 case TileType.Empty:
-                    return new EmptyTile();
+                    return new EmptyTile(tileId);
 
                 case TileType.Start:
-                    return new StartTile();
+                    return new StartTile(tileId);
 
                 case TileType.Death:
-                    return new DeathTile();
+                    return new DeathTile(tileId);
 
                 case TileType.Goose:
-                    return new GooseTile();
+                    return new GooseTile(tileId);
 
                 case TileType.Prison:
-                    return new PrisonTile();
-
-                case TileType.Aviator:
-                    return new AviatorTile();
+                    return new PrisonTile(tileId);
 
                 case TileType.Inn:
-                    return new InnTile();
+                    return new InnTile(tileId);
 
                 case TileType.Well:
-                    return new WellTile();
+                    return new WellTile(tileId);
 
                 case TileType.Maze:
-                    return new MazeTile();
+                    return new MazeTile(tileId);
 
                 case TileType.End:
-                    return new EndTile();
+                    return new EndTile(tileId);
 
                 case TileType.Bridge:
-                    return new BridgeTile();
+                    return new BridgeTile(tileId);
 
                 default:
                     throw new Exception($"Tile not supported  {nameof(type)}  {type}");
             }
-            return null!;
         }
     }
 }

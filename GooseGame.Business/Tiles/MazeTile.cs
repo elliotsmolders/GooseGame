@@ -5,9 +5,13 @@ namespace GooseGame.Business.Tiles
 {
     public class MazeTile : Tile, ITile
     {
+        public MazeTile(int tileId) : base(tileId)
+        {
+
+        }
         public void HandlePlayer(Player player)
         {
-            Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on positiion{player.CurrentPosition}");
+           
             player.SetPlayerPosition(39);
         }
     }

@@ -10,9 +10,15 @@ namespace GooseGame.Business.Tiles
 {
     public class EmptyTile : Tile, ITile
     {
+
+        public EmptyTile(int tileId) : base(tileId)
+        {
+
+        }
+
         public void HandlePlayer(Player player)
         {
-            Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on positiion{player.CurrentPosition}");
+
         }
     }
 }

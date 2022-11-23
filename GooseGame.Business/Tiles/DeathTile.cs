@@ -10,9 +10,13 @@ namespace GooseGame.Business.Tiles
 {
     public class DeathTile : Tile, ITile
     {
+        public DeathTile(int tileId) : base(tileId)
+        {
+
+        }
         public void HandlePlayer(Player player)
         {
-            Logger.AddToCurrentTurnLog($"{player.Name} has landed on {player.CurrentTile} on positiion{player.CurrentPosition}");
+
             player.SetPlayerPosition(0);
         }
     }
