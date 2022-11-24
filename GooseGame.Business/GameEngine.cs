@@ -1,6 +1,7 @@
 ﻿using GooseGame.Common;
 using GooseGame.DAL.Entities;
 using GooseGame.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace GooseGame.Business
 {
@@ -141,6 +142,7 @@ namespace GooseGame.Business
         private async Task<GameEntity> GamePrepAsync(List<PlayerEntity> gamePlayers)
         {
             GameEntity game = new GameEntity();
+            game.Id = game.Id;
             game.DateUpdated = dateUpdated;
             game.Players = gamePlayers;
             game.DatePlayed = DateTime.Now;
@@ -173,9 +175,7 @@ namespace GooseGame.Business
             {
                 await AddPlayerAsync(player);
             }
-            return gamePlayers = (List<PlayerEntity>)(from p in _playerRepo._ctx.Players
-                                                      orderby p.Id descending
-                                                      select p).Take(Players.Count);
+            return gamePlayers = _playerRepo._ctx.Players.OrderByDescending(p => p.Id).Take(Players.Count).ToList();
         }
 
         public void GetHighScore()
