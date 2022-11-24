@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,17 +41,9 @@ namespace GooseGameWPF
             this.Visibility = Visibility.Hidden;
         }
 
-        private void CheckForWinner()
+        private bool CheckForWinner()
         {
-            bool isWinner = vm.CheckForWinner();
-
-            if (isWinner)
-            {
-                WriteGameToDatabaseAsync();
-                string winnerName = vm.GetWinnerName();
-                MessageBox.Show($"{winnerName} has wonnered!");
-                GooseGrid.IsEnabled = false;
-            }
+            return vm.CheckForWinner();
         }
 
         private async Task WriteGameToDatabaseAsync()
@@ -80,8 +74,22 @@ namespace GooseGameWPF
             updatePlayerPositions(vm.GetPlayerAmount());
             vm.PlayTurn(roll1, roll2);
             CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
-            CheckForWinner();
-            vm.SetNextPlayer();
+            if (CheckForWinner())
+            {
+                FinalizeGame();
+            }
+            else
+            {
+                vm.SetNextPlayer();
+            }
+        }
+
+        private async void FinalizeGame() //Needed to end the async chain for the event handler Upwards
+        {
+            string winnerName = vm.GetWinnerName();
+            MessageBox.Show($"{winnerName} has wonnered!");
+            GooseGrid.IsEnabled = false;
+            await WriteGameToDatabaseAsync();
         }
 
         private int DisplayCurrentPlayer()

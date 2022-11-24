@@ -96,19 +96,18 @@ namespace GooseGame.Business
             Players.Add(new Player(name, icon));
         }
 
-        public void Restore()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task AddPlayerAsync(string name, int playerIcon)
+        public async Task AddPlayerAsync(Player player)
         {
             foreach (var item in Players)
             {
-                Player player = new Player(name, playerIcon);
                 PlayerEntity model = new PlayerEntity();
                 model.Name = player.Name;
                 model.PlayerIcon = player.PlayerIcon;
+                model.NumberOfThrows = player.NumberOfRolls;
+                if (player.CurrentPosition == 63)
+                {
+                    model.GameWon = true;
+                }
                 await _playerRepo.AddAsync(model);
             }
         }
@@ -121,9 +120,50 @@ namespace GooseGame.Business
             return player;
         }
 
+        private void GiveTempIdToPlayersInList()
+        {
+            int i = 0;
+            foreach (Player player in Players)
+            {
+                player.Id = i;
+                i++;
+            }
+        }
+
         public async Task WriteGameToDatabaseAsync()
         {
+            GiveTempIdToPlayersInList();
             List<PlayerEntity> gamePlayers = await PlayerPrep();
+            GameEntity game = await GamePrepAsync(gamePlayers);
+            await _gameRepo.AddAsync(game);
+        }
+
+        private async Task<GameEntity> GamePrepAsync(List<PlayerEntity> gamePlayers)
+        {
+            GameEntity game = new GameEntity();
+            game.DateUpdated = dateUpdated;
+            game.Players = gamePlayers;
+            game.DatePlayed = DateTime.Now;
+            game.WinnerId = CurrentPlayer.Id;
+            game.ThrowsNeededToWin = TotalNumberOfRolls;
+            game.AmountOfPlayers = Players.Count;
+            await UpdatePlayers(gamePlayers, game);
+            return game;
+        }
+
+        private async Task UpdatePlayers(List<PlayerEntity> gamePlayers, GameEntity game)
+        {
+            foreach (PlayerEntity entity in gamePlayers)
+            {
+                entity.Game = game;
+                entity.GameId = game.Id;
+
+                if (entity.GameWon == null)
+                {
+                    entity.GameWon = false;
+                }
+                await _playerRepo.UpdateAsync(entity);
+            }
         }
 
         private async Task<List<PlayerEntity>> PlayerPrep()
@@ -131,7 +171,7 @@ namespace GooseGame.Business
             List<PlayerEntity> gamePlayers;
             foreach (Player player in Players)
             {
-                await AddPlayerAsync(player.Name, player.PlayerIcon);
+                await AddPlayerAsync(player);
             }
             return gamePlayers = (List<PlayerEntity>)(from p in _playerRepo._ctx.Players
                                                       orderby p.Id descending
