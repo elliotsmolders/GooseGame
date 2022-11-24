@@ -48,11 +48,6 @@ namespace GooseGame.Business
 
         public void Init()
         {
-            for (int i = 0; i < AmountOfPlayers; i++)
-            {
-                string name = $"Player {i}";
-                CreatePlayer(name, i + 1);
-            }
             CurrentPlayer = Players[0]; //nog logica achter steken voor speler met hoogste worp
         }
 
