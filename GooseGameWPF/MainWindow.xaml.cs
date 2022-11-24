@@ -110,11 +110,11 @@ namespace GooseGameWPF
                     {
                         int evenTiles = 63 - (i * 8 + j);
                         tileLabel.Name = $"Tile{evenTiles}";
-                        tileLabel.Content = $"Tile{evenTiles}";
+                        tileLabel.Content = $"{evenTiles}";
                         generatedLabels[evenTiles] = (tileLabel);
                         generatedPoints[evenTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[evenTiles] = tiles[evenTiles];
-                        ImageSource tileImage = new BitmapImage(new Uri(gameBoardTilesPosition[evenTiles].BackgroundImage, UriKind.Relative));
+                        ImageSource tileImage = new BitmapImage(new Uri(gameBoardTilesPosition[evenTiles].BackgroundImage, UriKind.RelativeOrAbsolute));
 
                         tileBackground.Source = tileImage;
                     }
@@ -126,7 +126,7 @@ namespace GooseGameWPF
                         generatedLabels[oddTiles] = (tileLabel);
                         generatedPoints[oddTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[oddTiles] = tiles[oddTiles];
-                        ImageSource tileImage = new BitmapImage(new Uri(gameBoardTilesPosition[oddTiles].BackgroundImage, UriKind.Relative));
+                        ImageSource tileImage = new BitmapImage(new Uri(gameBoardTilesPosition[oddTiles].BackgroundImage, UriKind.RelativeOrAbsolute));
 
                         tileBackground.Source = tileImage;
                     }
@@ -142,10 +142,10 @@ namespace GooseGameWPF
                     Grid.SetColumn(tileLabel, j);
                     Grid.SetRow(tileBackground, i);
                     Grid.SetColumn(tileBackground, j);
-
+                    GooseGrid.Children.Add(tileBackground);
                     GooseGrid.Children.Add(tileLabel);
                     GooseGrid.Children.Add(b);
-                    GooseGrid.Children.Add(tileBackground);
+
                 }
             }
             return tileGrid;

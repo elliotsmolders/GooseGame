@@ -10,7 +10,7 @@ namespace GooseGame.Business
             TileId = tileId;
         }
 
-        public string BackgroundImage { get; set; } = "C:\\Users\\arnob\\source\\repos\\GooseGame\\GooseGameWPF\\Resources\\Icons\\Default.png";
+        public string BackgroundImage { get; set; } = "pack://application:,,,/Resources/Icons/Default.png";
         public string Name { get; set; }
         public int TileId { get; set; }
         public virtual void HandlePlayer(Player player)
