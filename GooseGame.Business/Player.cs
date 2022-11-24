@@ -30,7 +30,7 @@ namespace GooseGame.Business
         private bool IsNpc { get; set; }
         public int NumberOfRolls { get; set; }
         public int CurrentRoll { get; set; }
-
+        public int Sequence { get; set; }
         public int PlayerIcon { get; set; }
 
         public ITile CurrentTile
@@ -46,12 +46,11 @@ namespace GooseGame.Business
 
         public int Skips { get; set; }
 
-        public Player(string name, int playerId = 0, int playerIcon = 1 )
+        public Player(string name, int playerId = 0, int playerIcon = 1)
         {
             Name = name;
             PlayerId = playerId;
             PlayerIcon = playerIcon;
-
         }
 
         public bool IsMovingBackwards { get; set; } = false;

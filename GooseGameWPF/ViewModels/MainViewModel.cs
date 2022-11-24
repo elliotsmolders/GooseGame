@@ -1,5 +1,6 @@
 ﻿using GooseGame.Business;
 using GooseGame.Common;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -90,6 +91,11 @@ namespace GooseGameWPF.ViewModels
             return _engine.Players[num].CurrentPosition;
         }
 
+        internal int GetPlayerPreviousPosition(int num)
+        {
+            return _engine.Players[num].PreviousPosition;
+        }
+
         public int GetCurrentPlayerCurrentPosition()
         {
             return _engine.CurrentPlayer.CurrentPosition;
@@ -154,6 +160,11 @@ namespace GooseGameWPF.ViewModels
         internal async Task WriteGameToDatabaseAsync()
         {
             await _engine.WriteGameToDatabaseAsync();
+        }
+
+        internal int CurrentSequence()
+        {
+            return _engine.CurrentPlayer.Sequence;
         }
     }
 }

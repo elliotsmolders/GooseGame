@@ -73,6 +73,7 @@ namespace GooseGameWPF
             CurrentPlayerTile.Content = currentTile;
             vm.UpdateTurnLog();
             updatePlayerPositions(vm.GetPlayerAmount());
+            //UpdatePositionsAsync();
             CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
             if (CheckForWinner())
             {
@@ -216,14 +217,82 @@ namespace GooseGameWPF
                 CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
                 CheckForWinner();
                 vm.SetNextPlayer();
-                MessageBox.Show(sanitizedString);
+                //MessageBox.Show(sanitizedString);
             }
-
         }
+
         private bool IsANumber(string input)
         {
             int output;
-            return int.TryParse(input,out output);
+            return int.TryParse(input, out output);
+        }
+
+        private void UpdatePositionsAsync()
+        {
+            var bw = new BackgroundWorker();
+            int iMin = vm.GetCurrentPlayerCurrentPosition();
+            int iMax = vm.GetCurrentPlayerCurrentPosition() + (int)CurrentRoll.Content;
+            var xamlPlayer = Player0;
+            switch (vm.CurrentSequence())
+            {
+                case 0:
+                    xamlPlayer = Player0;
+                    break;
+
+                case 1:
+                    xamlPlayer = Player1;
+                    break;
+
+                case 2:
+                    xamlPlayer = Player2;
+                    break;
+
+                case 4:
+                    xamlPlayer = Player3;
+                    break;
+            }
+            List<object> arguments = new List<object>
+            {
+                xamlPlayer,
+                iMin,
+                iMax
+            };
+            bw.DoWork += Bw_DoWork;
+            bw.RunWorkerAsync(arguments);
+        }
+
+        private void Bw_DoWork(object? sender, DoWorkEventArgs e)
+        {
+            List<object> genericlist = e.Argument as List<object>;
+
+            Image Player = (Image)genericlist[0];
+            int iMin = (int)genericlist[1];
+            int iMax = (int)genericlist[2];
+            for (int i = iMin; i < iMax; i++)
+            {
+                SetLocation(Player);
+                System.Threading.Thread.Sleep(300);
+            }
+        }
+
+        /// <summary>
+        /// https://stackoverflow.com/questions/15504826/invokerequired-in-wpf
+        /// </summary>
+        /// <param name="playerIcon"></param>
+        /// <param name="p"></param>
+        private delegate void ParametrizedMethodInvoker5(Image Player);
+
+        private void SetLocation(Image Player)
+        {
+            if (!Dispatcher.CheckAccess()) // CheckAccess returns true if you're on the dispatcher thread
+            {
+                Dispatcher.Invoke(new ParametrizedMethodInvoker5(SetLocation), Player);
+                return;
+            }
+
+            int playerPosition = vm.GetCurrentPlayerCurrentPosition();
+            Player.SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
+            Player.SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
         }
     }
 }

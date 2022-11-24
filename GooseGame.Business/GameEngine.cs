@@ -92,9 +92,14 @@ namespace GooseGame.Business
             }
         }
 
+        public int SequenceTracker { get; set; }
+
         public void CreatePlayer(string name, int icon)
         {
-            Players.Add(new Player(name, icon));
+            Player player = new Player(name, icon);
+            player.Sequence = SequenceTracker;
+            SequenceTracker++;
+            Players.Add(player);
         }
 
         public async Task AddPlayerAsync(Player player)
