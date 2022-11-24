@@ -8,21 +8,52 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\icon1.bmp" />
+    <None Remove="Resources\Icons\icon1.png" />
+    <None Remove="Resources\Icons\icon2.bmp" />
+    <None Remove="Resources\Icons\icon2.png" />
+    <None Remove="Resources\Icons\icon3.bmp" />
+    <None Remove="Resources\Icons\icon3.png" />
+    <None Remove="Resources\Icons\icon4.bmp" />
+    <None Remove="Resources\Icons\icon4.png" />
     <None Remove="Resources\menu.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Icons\icon1.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\icon1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\icon2.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\icon2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\icon3.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\icon3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Icons\icon4.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\menu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GooseGame.Business\GooseGame.Business.csproj" />
+    <Content Include="Resources\Icons\icon4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Icons\" />
+    <ProjectReference Include="..\GooseGame.Business\GooseGame.Business.csproj" />
   </ItemGroup>
 
 </Project>

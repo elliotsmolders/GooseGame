@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,10 +28,23 @@ namespace GooseGameWPF
         {
             InitializeComponent();
             vm = new MainViewModel();
+            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon1.bmp", UriKind.Relative))));
+            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon2.bmp", UriKind.Relative))));
+            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon3.bmp", UriKind.Relative))));
+            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon4.bmp", UriKind.Relative))));
         }
 
         private void StartGame_Click(object sender, RoutedEventArgs e)
         {
+            int playeramount;
+            if (PlayerAmount.SelectedIndex > -1)
+            {
+                bool test = int.TryParse(PlayerAmount.Text, out playeramount);
+            }
+            else
+            {
+                throw new ArgumentException("Invalid amount of players selected", nameof(PlayerAmount) + PlayerAmount);
+            }
             MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
             mainWindow.Visibility = Visibility.Visible;
             Window win = (Window)this.Parent;
@@ -39,7 +53,7 @@ namespace GooseGameWPF
 
         private void AddPlayer(object sender, RoutedEventArgs e)
         {
-            vm.AddPlayer(PlayerNameInput.Text);
+            vm.AddPlayer(PlayerNameInput.Text, IconSelect.SelectedIndex + 1);
             PlayerNameInput.Text = "";
         }
     }

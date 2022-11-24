@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace GooseGameWPF.ViewModels
 {
-    internal class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Player> players;
 
@@ -130,7 +130,7 @@ namespace GooseGameWPF.ViewModels
 
         internal void AddPlayer(string name, int icon = 1)
         {
-            _engine.AddPlayerAsync(name, icon);
+            _engine.CreatePlayer(name, icon);
         }
     }
 }
