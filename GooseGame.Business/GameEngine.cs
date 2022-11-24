@@ -113,9 +113,11 @@ namespace GooseGame.Business
             }
         }
 
-        public void CreatePlayer(string name, int icon)
+
+        private void CreatePlayer(string name, int playerID, int icon)
         {
-            Players.Add(new Player(name, icon));
+            Players.Add(new Player(name, playerID, icon));
+
         }
 
         public void Restore()

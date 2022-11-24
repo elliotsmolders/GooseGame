@@ -7,13 +7,13 @@ namespace GooseGame.Business.Tiles
     {
         public PrisonTile(int tileId) : base(tileId)
         {
-
+            Name = "Prison";
+            BackgroundImage = "pack://application:,,,/Resources/Icons/Goose.png";
         }
         public void HandlePlayer(Player player)
         {
-
+            base.HandlePlayer(player);
             player.Skips = 3;
-            Console.WriteLine("Prison");
         }
     }
 }

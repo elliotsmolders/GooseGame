@@ -10,7 +10,7 @@ namespace GooseGame.Business
             TileId = tileId;
         }
 
-        public string BackgroundImage { get; set; }
+        public string BackgroundImage { get; set; } = "pack://application:,,,/Resources/Icons/Default.png";
         public string Name { get; set; }
         public int TileId { get; set; }
         public virtual void HandlePlayer(Player player)
@@ -23,6 +23,7 @@ namespace GooseGame.Business
             return this.GetType().Name;
         }
 
+\
         private void LogPlayerPosition(Player player)
         {
             Logger.AddToCurrentTurnLog($"{player.Name} has landed on {Name} on position {TileId}");

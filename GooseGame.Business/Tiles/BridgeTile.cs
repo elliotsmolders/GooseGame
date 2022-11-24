@@ -14,7 +14,7 @@ namespace GooseGame.Business.Tiles
         {
             
             Name = "Bridge";
-            BackgroundImage = " ";
+            BackgroundImage = "pack://application:,,,/Resources/Icons/Bridge.png";
         }
         public override void HandlePlayer(Player player)
         {
