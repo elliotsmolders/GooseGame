@@ -2,14 +2,14 @@
 using System.ComponentModel;
 using GooseGame.Business.Tiles;
 using GooseGame.Common;
+using GooseGame.DAL.Entities;
 
 namespace GooseGame.Business
 {
     public class Player : INotifyPropertyChanged
     {
-
+        public int Id { get; set; }
         public int PlayerId { get; set; }
-        //public int Id { get; set; }
         public string Name { get; set; }
 
         private int currentPosition;
@@ -23,6 +23,8 @@ namespace GooseGame.Business
                 CurrentTile.HandlePlayer(this);
             }
         }
+
+        public GameEntity Game { get; set; } = new GameEntity();
 
         public int PreviousPosition { get; set; }
         private bool IsNpc { get; set; }

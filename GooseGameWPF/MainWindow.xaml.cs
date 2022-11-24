@@ -7,6 +7,8 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using System.Windows.Media.Imaging;
 
 namespace GooseGameWPF
@@ -16,19 +18,26 @@ namespace GooseGameWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel vm;
         private Label[] generatedLabels = new Label[64];
         private System.Windows.Point[] generatedPoints = new System.Windows.Point[64];
         private System.Drawing.Rectangle vierkantje = new();
-        private MainViewModel vm = new MainViewModel();
 
-        public MainWindow()
+        public MainWindow(MainViewModel viewModel)
         {
             InitializeComponent();
+            this.vm = viewModel;
             GooseGrid.DataContext = vm;
-            vm.Init();
             StylelizeGridTiles();
+            vm.Init();
         }
 
+        private void GoToMenu(MainViewModel vm)
+        {
+            NavigationWindow window = new NavigationWindow();
+            window.Source = new Uri("Menu.xaml", UriKind.Relative);
+            window.Show();
+            this.Visibility = Visibility.Hidden;
         private void CheckForWinner()
         {
             bool isWinner = vm.CheckForWinner();
@@ -50,10 +59,10 @@ namespace GooseGameWPF
             }
         }
 
+
+
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-   
-            vm.SetNextPlayer();
 
             int roll1 = vm.RollDice();
             int roll2 = vm.RollDice();
@@ -61,15 +70,14 @@ namespace GooseGameWPF
             Roll1.Content = roll1;
             Roll2.Content = roll2;
             CurrentRoll.Content = currentRoll;
-
-            vm.PlayTurn(roll1, roll2);
-
+            string currentTile = vm.GetCurrentPlayerTile();
+            CurrentPlayerTile.Content = currentTile;
             vm.UpdateTurnLog();
-
-            updatePlayerPosition();
-            DisplayPlayerInfo();
+            updatePlayerPositions(vm.GetPlayerAmount());
+            vm.PlayTurn(roll1, roll2);
             CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
             CheckForWinner();
+            vm.SetNextPlayer();
         }
 
         private int DisplayCurrentPlayer()
@@ -168,7 +176,17 @@ namespace GooseGameWPF
              RectPlayer[currentPlayer].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
              RectPlayer[currentPlayer].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
 
+        private void updatePlayerPositions(int amountOfPlayers)
+        {
+            System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer1, RectPlayer2, RectPlayer3, RectPlayer4 };
+            int playerPosition, xx, yy;
 
+            for (int i = 0; i < amountOfPlayers; i++)
+            {
+                playerPosition = vm.GetPlayerPosition(i);
+                RectPlayer[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
+                RectPlayer[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+            }
 
         }
 

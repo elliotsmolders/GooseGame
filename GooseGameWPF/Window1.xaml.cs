@@ -23,5 +23,10 @@ namespace GooseGameWPF
         {
             InitializeComponent();
         }
+
+        private void AddPlaya_Click(object sender, RoutedEventArgs e)
+        {
+            //ViewModels.AddPlaya
+        }
     }
 }

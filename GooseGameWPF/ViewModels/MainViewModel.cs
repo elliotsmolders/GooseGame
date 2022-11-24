@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace GooseGameWPF.ViewModels
 {
-    internal class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<Player> players;
 
@@ -33,7 +33,10 @@ namespace GooseGameWPF.ViewModels
                 NotifyPropertyChanged(nameof(turnLog));
             }
         }
-
+        public void Init()
+        {
+            _engine.Init();
+        }
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); }
@@ -61,10 +64,7 @@ namespace GooseGameWPF.ViewModels
             _engine.SetNextPlayer();
         }
 
-        public void Init()
-        {
-            _engine.Init();
-        }
+
 
         public string GetCurrentPlayerPositions()
         {
@@ -131,6 +131,10 @@ namespace GooseGameWPF.ViewModels
         {
             return _engine.CurrentPlayer.CurrentTile.Name;
         }
+        public int GetPlayerAmount()
+        {
+           return _engine.Players.Count;
+        }
 
         public void PlayTurn(int roll1, int roll2)
         {
@@ -140,6 +144,11 @@ namespace GooseGameWPF.ViewModels
         public string GetWinnerName()
         {
             return _engine.Winner.Name;
+        }
+
+        internal void AddPlayer(string name, int icon = 1)
+        {
+            _engine.CreatePlayer(name, icon);
         }
     }
 }
