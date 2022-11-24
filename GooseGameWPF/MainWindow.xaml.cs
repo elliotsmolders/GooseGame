@@ -77,6 +77,9 @@ namespace GooseGameWPF
             return vm.GetCurrentPlayerId();
         }
 
+
+        
+
         private int[,] StylelizeGridTiles()
 
         {
@@ -84,15 +87,20 @@ namespace GooseGameWPF
             IList<ITile> tiles = GameBoard.GetGameBoard().Tiles;
             ITile[] gameBoardTilesPosition = new ITile[tiles.Count];
 
+
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
-                    int id = (i * 8) + j;
-
+                    Image tileBackground = new();
                     Label tileLabel = new();
                     Border b = new();
                     ImageBrush brush = new ImageBrush();
+
+                    tileBackground.Width = 100;
+                    tileBackground.Height = 100;
+                    tileBackground.HorizontalAlignment = HorizontalAlignment.Center;
+                    tileBackground.VerticalAlignment = VerticalAlignment.Center;
 
                     b.BorderThickness = new Thickness(2);
                     tileLabel.HorizontalAlignment = HorizontalAlignment.Center;
@@ -106,8 +114,9 @@ namespace GooseGameWPF
                         generatedLabels[evenTiles] = (tileLabel);
                         generatedPoints[evenTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[evenTiles] = tiles[evenTiles];
-                        brush.ImageSource = new BitmapImage(new Uri(gameBoardTilesPosition[evenTiles].BackgroundImage, UriKind.Relative));
-                        tileLabel.Background = brush;
+                        ImageSource tileImage = new BitmapImage(new Uri(gameBoardTilesPosition[evenTiles].BackgroundImage, UriKind.Relative));
+
+                        tileBackground.Source = tileImage;
                     }
                     else
                     {
@@ -117,8 +126,9 @@ namespace GooseGameWPF
                         generatedLabels[oddTiles] = (tileLabel);
                         generatedPoints[oddTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[oddTiles] = tiles[oddTiles];
-                        brush.ImageSource = new BitmapImage(new Uri(gameBoardTilesPosition[oddTiles].BackgroundImage, UriKind.Relative));
-                        tileLabel.Background = brush;
+                        ImageSource tileImage = new BitmapImage(new Uri(gameBoardTilesPosition[oddTiles].BackgroundImage, UriKind.Relative));
+
+                        tileBackground.Source = tileImage;
                     }
 
                     foreach (int pos in tileGrid)
@@ -130,9 +140,12 @@ namespace GooseGameWPF
                     Grid.SetColumn(b, j);
                     Grid.SetRow(tileLabel, i);
                     Grid.SetColumn(tileLabel, j);
+                    Grid.SetRow(tileBackground, i);
+                    Grid.SetColumn(tileBackground, j);
 
                     GooseGrid.Children.Add(tileLabel);
                     GooseGrid.Children.Add(b);
+                    GooseGrid.Children.Add(tileBackground);
                 }
             }
             return tileGrid;

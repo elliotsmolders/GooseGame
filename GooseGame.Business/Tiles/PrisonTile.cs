@@ -8,7 +8,7 @@ namespace GooseGame.Business.Tiles
         public PrisonTile(int tileId) : base(tileId)
         {
             Name = "Prison";
-            //BackgroundImage = " ";
+            BackgroundImage = "C:\\Users\\arnob\\source\\repos\\GooseGame\\GooseGameWPF\\Resources\\Icons\\Prison.png";
         }
         public void HandlePlayer(Player player)
         {

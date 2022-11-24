@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 namespace GooseGameWPF
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Als ik dit venster verwijder werkt de rest niet meer :(
     /// </summary>
     public partial class Window1 : Window
     {
