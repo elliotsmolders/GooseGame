@@ -16,14 +16,15 @@ namespace GooseGameWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MainViewModel vm = new MainViewModel();
+        private MainViewModel vm;
 
-        public MainWindow()
+        public MainWindow(MainViewModel viewModel)
         {
             InitializeComponent();
+            this.vm = viewModel;
             GooseGrid.DataContext = vm;
-            GoToMenu(vm); // refactor?
             StylelizeGridTiles();
+            vm.Init();
         }
 
         private void GoToMenu(MainViewModel vm)
@@ -35,21 +36,22 @@ namespace GooseGameWPF
         }
 
         //buh
-        private void DisplayPlayerInfo()
-        {
-            string playerNamePos1 = vm.GetPlayerName(0) + " is on tile " + vm.GetPlayerPosition(0);
-            string playerNamePos2 = vm.GetPlayerName(1) + " is on tile " + vm.GetPlayerPosition(1);
-            string playerNamePos3 = vm.GetPlayerName(2) + " is on tile " + vm.GetPlayerPosition(2);
-            string playerNamePos4 = vm.GetPlayerName(3) + " is on tile " + vm.GetPlayerPosition(3);
-            PlayerLabel1.Content = playerNamePos1;
-            PlayerLabel2.Content = playerNamePos2;
-            PlayerLabel3.Content = playerNamePos3;
-            PlayerLabel4.Content = playerNamePos4;
-        }
+        //private void DisplayPlayerInfo()
+        //{
+        //    string playerNamePos1 = vm.GetPlayerName(0) + " is on tile " + vm.GetPlayerPosition(0);
+        //    string playerNamePos2 = vm.GetPlayerName(1) + " is on tile " + vm.GetPlayerPosition(1);
+        //    string playerNamePos3 = vm.GetPlayerName(2) + " is on tile " + vm.GetPlayerPosition(2);
+        //    string playerNamePos4 = vm.GetPlayerName(3) + " is on tile " + vm.GetPlayerPosition(3);
+        //    PlayerLabel1.Content = playerNamePos1;
+        //    PlayerLabel2.Content = playerNamePos2;
+        //    PlayerLabel3.Content = playerNamePos3;
+        //    PlayerLabel4.Content = playerNamePos4;
+        //}
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-            vm.SetNextPlayer();
+
+            
             int roll1 = vm.RollDice();
             int roll2 = vm.RollDice();
             int currentRoll = roll1 + roll2;
@@ -62,9 +64,10 @@ namespace GooseGameWPF
             //Debug.Content = vm.GetCurrentPlayerPositions();
             CurrentPlayerTile.Content = currentTile;
             vm.UpdateTurnLog();
-            updatePlayerPositions();
-            DisplayPlayerInfo();
+            updatePlayerPositions(vm.GetPlayerAmount());
+            //DisplayPlayerInfo();
             CheckForWinner();
+            vm.SetNextPlayer();
         }
 
         private void CheckForWinner()
@@ -143,12 +146,12 @@ namespace GooseGameWPF
 
         private System.Drawing.Rectangle vierkantje = new();
 
-        private void updatePlayerPositions()
+        private void updatePlayerPositions(int amountOfPlayers)
         {
             System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer1, RectPlayer2, RectPlayer3, RectPlayer4 };
             int playerPosition, xx, yy;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < amountOfPlayers; i++)
             {
                 playerPosition = vm.GetPlayerPosition(i);
                 RectPlayer[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);

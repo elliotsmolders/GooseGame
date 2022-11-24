@@ -22,7 +22,7 @@ namespace GooseGameWPF
     /// </summary>
     public partial class Menu : Page
     {
-        private MainViewModel vm = new MainViewModel();
+        MainViewModel vm = new MainViewModel();
 
         public Menu()
         {
@@ -44,7 +44,7 @@ namespace GooseGameWPF
             {
                 throw new ArgumentException("Invalid amount of players selected", nameof(PlayerAmount) + PlayerAmount);
             }
-            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+            MainWindow mainWindow =new MainWindow(vm);
             mainWindow.Visibility = Visibility.Visible;
             Window win = (Window)this.Parent;
             win.Close();

@@ -34,7 +34,10 @@ namespace GooseGameWPF.ViewModels
                 NotifyPropertyChanged(nameof(turnLog));
             }
         }
-
+        public void Init()
+        {
+            _engine.Init();
+        }
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); }
@@ -62,10 +65,7 @@ namespace GooseGameWPF.ViewModels
             _engine.SetNextPlayer();
         }
 
-        public void Init()
-        {
-            _engine.Init();
-        }
+
 
         public string GetCurrentPlayerPositions()
         {
@@ -111,6 +111,10 @@ namespace GooseGameWPF.ViewModels
         public string GetCurrentPlayerTile()
         {
             return _engine.CurrentPlayer.CurrentTile.ToString();
+        }
+        public int GetPlayerAmount()
+        {
+           return _engine.Players.Count;
         }
 
         public void PlayTurn(int roll1, int roll2)
