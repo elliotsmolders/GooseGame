@@ -68,11 +68,11 @@ namespace GooseGameWPF
             Roll1.Content = roll1;
             Roll2.Content = roll2;
             CurrentRoll.Content = currentRoll;
+            vm.PlayTurn(roll1, roll2);
             string currentTile = vm.GetCurrentPlayerTile();
             CurrentPlayerTile.Content = currentTile;
             vm.UpdateTurnLog();
             updatePlayerPositions(vm.GetPlayerAmount());
-            vm.PlayTurn(roll1, roll2);
             CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
             if (CheckForWinner())
             {
@@ -194,6 +194,36 @@ namespace GooseGameWPF
                 Player[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
                 Player[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
             }
+        }
+
+        private void Grid_Keydown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            string sanitizedString = e.Key.ToString().Replace("D", "");
+            if (!IsANumber(sanitizedString))
+            {
+                MessageBox.Show(e.Key.ToString());
+                e.Handled = true;
+            }
+            else
+            {
+                int roll1 = int.Parse(sanitizedString);
+                int roll2 = 0;
+                vm.PlayTurn(roll1, roll2);
+                string currentTile = vm.GetCurrentPlayerTile();
+                CurrentPlayerTile.Content = currentTile;
+                vm.UpdateTurnLog();
+                updatePlayerPositions(vm.GetPlayerAmount());
+                CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
+                CheckForWinner();
+                vm.SetNextPlayer();
+                MessageBox.Show(sanitizedString);
+            }
+
+        }
+        private bool IsANumber(string input)
+        {
+            int output;
+            return int.TryParse(input,out output);
         }
     }
 }
