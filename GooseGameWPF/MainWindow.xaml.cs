@@ -172,25 +172,6 @@ namespace GooseGameWPF
 
         }
 
-        private void animatePlayerIcon()
-        {
-            System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer0, RectPlayer1, RectPlayer2, RectPlayer3 };
-
-            int currentPlayer = vm.GetCurrentPlayerId();
-            int endPosition = vm.GetCurrentPlayerCurrentPosition();
-            int startPosition = vm.GetCurrentPlayerPreviousPosition();
-      
-
-            for (int i = endPosition; i < startPosition; i++)
-            {
-                updatePosition(i);
-                Thread.Sleep(20);
-            }
-
-            void updatePosition(int times) {
-                RectPlayer[currentPlayer].SetValue(Grid.RowProperty, (int)generatedPoints[times].X);
-                RectPlayer[currentPlayer].SetValue(Grid.ColumnProperty, (int)generatedPoints[times].Y);
-            }
-        }
+       
     }
 }
