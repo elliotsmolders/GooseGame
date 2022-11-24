@@ -7,6 +7,7 @@ namespace GooseGame.Business.Tiles
     {
         public EndTile(int tileId) : base(tileId)
         {
+            //moet nog een icoon hebben
             Name = "Winning Tile";
             //BackgroundImage = " ";
         }

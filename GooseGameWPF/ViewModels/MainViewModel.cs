@@ -1,6 +1,5 @@
 ﻿using GooseGame.Business;
 using GooseGame.Common;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -41,7 +40,7 @@ namespace GooseGameWPF.ViewModels
         }
 
         private GameEngine _engine;
-        public int ClickedRoll { get; set; }
+
 
         // public List<Rectangle> playerRectangles = new();
         public MainViewModel()
@@ -72,12 +71,15 @@ namespace GooseGameWPF.ViewModels
             return $"{_engine.CurrentPlayer.PreviousPosition} pos:{_engine.CurrentPlayer.CurrentPosition} coming from {_engine.CurrentPlayer.PreviousPosition}";
         }
 
+        public int GetCurrentPlayerId()
+        {
+            return _engine.CurrentPlayer.PlayerId;
+        }
+
         public string GetPlayerName(int num)
         {
             return _engine.Players[num].Name;
         }
-
-
 
         public bool CheckForWinner()
         {
@@ -89,16 +91,29 @@ namespace GooseGameWPF.ViewModels
             return _engine.Players[num].CurrentPosition;
         }
 
-
-
-        public int GetCurrentPlayerPosition()
+        public int GetCurrentPlayerCurrentPosition()
         {
             return _engine.CurrentPlayer.CurrentPosition;
+        }
+
+        public int GetCurrentPlayerPreviousPosition()
+        {
+            return _engine.CurrentPlayer.PreviousPosition;
         }
 
         public string GetCurrentPlayerName()
         {
             return _engine.CurrentPlayer.Name;
+        }
+
+        public string GetPlayerCurrentTileName(int num)
+        {
+            return _engine.Players[num].CurrentTile.Name;
+        }
+
+        public string GetCurrentPlayerTileName()
+        {
+            return _engine.CurrentPlayer.CurrentTile.Name;
         }
 
         public void UpdateLogList()
@@ -114,16 +129,11 @@ namespace GooseGameWPF.ViewModels
 
         public string GetCurrentPlayerTile()
         {
-            return _engine.CurrentPlayer.CurrentTile.ToString();
+            return _engine.CurrentPlayer.CurrentTile.Name;
         }
 
         public void PlayTurn(int roll1, int roll2)
         {
-            ClickedRoll++;
-            //if (ClickedRoll == 1)
-            //{
-            //    _engine.HandleFirstThrow(roll1, roll2);
-            //}
             _engine.PlayTurn(roll1, roll2);
         }
 

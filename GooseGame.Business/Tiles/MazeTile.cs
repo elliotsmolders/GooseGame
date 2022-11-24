@@ -7,6 +7,7 @@ namespace GooseGame.Business.Tiles
     {
         public MazeTile(int tileId) : base(tileId)
         {
+            //moet nog een image krijgen
             Name = "Maze";
             //BackgroundImage = " ";
         }
