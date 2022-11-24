@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GooseGame.Business;
+﻿using GooseGame.Business;
 using GooseGame.Business.Tiles;
 
 namespace GooseGame.Tests
@@ -14,6 +9,7 @@ namespace GooseGame.Tests
         public void Setup()
         {
         }
+
         [Test]
         public void WhenPlayerIsCreated_ThenInItialTileisStartTileAndPositionIs0()
         {
@@ -41,6 +37,7 @@ namespace GooseGame.Tests
             //assert
             Assert.That(player2, Is.EqualTo(engine.CurrentPlayer));
         }
+
         [Test]
         public void WhenPlayerTurnIsOverAndIsLastInList_ThenFirstPlayerInListIsNewCurrentPlayer()
         {

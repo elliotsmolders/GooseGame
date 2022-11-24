@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace GooseGameWPF
 {
     /// <summary>
-    /// Als ik dit venster verwijder werkt de rest niet meer :(
+    /// Interaction logic for H4x.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class H4x : Window
     {
-        public Window1()
+        public H4x()
         {
             InitializeComponent();
-        }
-
-        private void AddPlaya_Click(object sender, RoutedEventArgs e)
-        {
-            //ViewModels.AddPlaya
         }
     }
 }

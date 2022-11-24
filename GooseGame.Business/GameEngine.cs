@@ -1,53 +1,35 @@
-﻿using GooseGame.Business.Models;
-using GooseGame.Common;
+﻿using GooseGame.Common;
 using GooseGame.DAL.Entities;
 using GooseGame.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace GooseGame.Business
 {
-    /// <summary>
-    /// GameEngine mag singleton worden zodat deze zonder Depandancy injection overal oproepbaar is.
-    /// Nog een goede reden, bevat enkel logica en geen save states
-    ///
-    /// Dal rechtstreeks van business aanspreken mag zonder tussenlayer, Frtonend mag er nooit rechtstreeks aankunnen
-    /// Wich brings u to the following, Game als entity moet nog ingeladen worden in de engine zodat we de juiste properties kunnen bijhouden of opvragen.
-    ///
-    /// </summary>
     public class GameEngine
     {
+        private DateTime dateUpdated { get; set; } = DateTime.Now;
         private readonly GameRepository _gameRepo;
         private readonly PlayerRepository _playerRepo;
-        //private readonly IMapper _playerMap;
 
         public GameEngine()
         {
             _playerRepo = new PlayerRepository();
             _gameRepo = new GameRepository();
-            //var config = new MapperConfiguration
-            //    (
-            //        cfg =>
-            //        {
-            //            cfg.CreateMap<PlayerModel, PlayerEntity>()
-            //            .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
-            //            .ForMember(x => x.PlayerIcon, y => y.MapFrom(z => z.PlayerIcon))
-            //            ;
-            //        });
-            //_playerMap = new Mapper(config);
         }
 
         public Player CurrentPlayer { get; set; }
-        public List<Player> Players { get; set; } = new List<Player>(); // verhuisd naar Game instance
+        public List<Player> Players { get; set; } = new List<Player>();
 
         public int TotalNumberOfRolls { get; set; }
         public Player Winner { get; set; } = null!;
 
         public int AmountOfPlayers { get; set; } = 4;
-        public Dice DiceManager { get; set; } = new Dice(); // todo terug naar lijst idee
+        public Dice DiceManager { get; set; } = new Dice();
         public int Roll1 { get; set; }
 
         public void Init()
         {
-            CurrentPlayer = Players[0]; //nog logica achter steken voor speler met hoogste worp
+            CurrentPlayer = Players[0];
         }
 
         public void SetNextPlayer()
@@ -61,15 +43,13 @@ namespace GooseGame.Business
             return DiceManager.RollDice();
         }
 
-        //player as parameter for playturn?
         public void PlayTurn(int roll1, int roll2)
         {
             Logger.ClearString();
             if (CurrentPlayer.IsPlayerActive())
             {
                 int currentRoll = roll1 + roll2;
-                //nu tweede if statement,possible refactor
-                if (currentRoll == 9 && CurrentPlayer.isOnStartTile())
+                if (currentRoll == 9 && CurrentPlayer.isOnStartTile() && CurrentPlayer.NumberOfRolls < 2)
                 {
                     HandleFirstThrow(roll1, roll2);
                 }
@@ -95,7 +75,7 @@ namespace GooseGame.Business
             }
         }
 
-        public void HandleFirstThrow(int roll1, int roll2) // geld enkel op eerste worp of als speler op start staat? + terug implementeren, rename to throwfromstarttile or something?
+        public void HandleFirstThrow(int roll1, int roll2)
 
         {
             if ((roll1 == 5 && roll2 == 4) || (roll1 == 4 && roll2 == 5))
@@ -112,26 +92,23 @@ namespace GooseGame.Business
             }
         }
 
-
         public void CreatePlayer(string name, int icon)
         {
             Players.Add(new Player(name, icon));
-
         }
 
-        public void Restore()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task AddPlayerAsync(string name, int playerIcon)
+        public async Task AddPlayerAsync(Player player)
         {
             foreach (var item in Players)
             {
-                Player player = new Player(name, playerIcon);
                 PlayerEntity model = new PlayerEntity();
                 model.Name = player.Name;
                 model.PlayerIcon = player.PlayerIcon;
+                model.NumberOfThrows = player.NumberOfRolls;
+                if (player.CurrentPosition == 63)
+                {
+                    model.GameWon = true;
+                }
                 await _playerRepo.AddAsync(model);
             }
         }
@@ -144,8 +121,61 @@ namespace GooseGame.Business
             return player;
         }
 
-        public void WriteGameToDatabase()
+        private void GiveTempIdToPlayersInList()
         {
+            int i = 0;
+            foreach (Player player in Players)
+            {
+                player.Id = i;
+                i++;
+            }
+        }
+
+        public async Task WriteGameToDatabaseAsync()
+        {
+            GiveTempIdToPlayersInList();
+            List<PlayerEntity> gamePlayers = await PlayerPrep();
+            GameEntity game = await GamePrepAsync(gamePlayers);
+            await _gameRepo.AddAsync(game);
+        }
+
+        private async Task<GameEntity> GamePrepAsync(List<PlayerEntity> gamePlayers)
+        {
+            GameEntity game = new GameEntity();
+            game.Id = game.Id;
+            game.DateUpdated = dateUpdated;
+            game.Players = gamePlayers;
+            game.DatePlayed = DateTime.Now;
+            game.WinnerId = CurrentPlayer.Id;
+            game.ThrowsNeededToWin = TotalNumberOfRolls;
+            game.AmountOfPlayers = Players.Count;
+            await UpdatePlayers(gamePlayers, game);
+            return game;
+        }
+
+        private async Task UpdatePlayers(List<PlayerEntity> gamePlayers, GameEntity game)
+        {
+            foreach (PlayerEntity entity in gamePlayers)
+            {
+                entity.Game = game;
+                entity.GameId = game.Id;
+
+                if (entity.GameWon == null)
+                {
+                    entity.GameWon = false;
+                }
+                await _playerRepo.UpdateAsync(entity);
+            }
+        }
+
+        private async Task<List<PlayerEntity>> PlayerPrep()
+        {
+            List<PlayerEntity> gamePlayers;
+            foreach (Player player in Players)
+            {
+                await AddPlayerAsync(player);
+            }
+            return gamePlayers = _playerRepo._ctx.Players.OrderByDescending(p => p.Id).Take(Players.Count).ToList();
         }
 
         public void GetHighScore()

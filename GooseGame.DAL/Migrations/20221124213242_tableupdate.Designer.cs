@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GooseGame.DAL.Migrations
 {
     [DbContext(typeof(GooseGameDbContext))]
-    [Migration("20221123190749_test")]
-    partial class test
+    [Migration("20221124213242_tableupdate")]
+    partial class tableupdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

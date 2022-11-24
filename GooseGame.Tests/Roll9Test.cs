@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GooseGame.Business;
+﻿using GooseGame.Business;
 
 namespace GooseGame.Tests
 {
@@ -12,8 +7,8 @@ namespace GooseGame.Tests
         [SetUp]
         public void Setup()
         {
-
         }
+
         [Test]
         [TestCase(4, 5)]
         [TestCase(5, 4)]
@@ -31,6 +26,7 @@ namespace GooseGame.Tests
             //assert
             Assert.That(player.CurrentPosition, Is.EqualTo(53));
         }
+
         [Test]
         [TestCase(6, 3)]
         [TestCase(3, 6)]
@@ -48,6 +44,7 @@ namespace GooseGame.Tests
             //assert
             Assert.That(player.CurrentPosition, Is.EqualTo(26));
         }
+
         [Test]
         [TestCase(4, 5)]
         [TestCase(5, 4)]

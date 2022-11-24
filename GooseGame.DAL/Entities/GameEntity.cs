@@ -2,14 +2,12 @@
 
 namespace GooseGame.DAL.Entities
 {
-    public class GameEntity : BaseEntity,IEntity
+    public class GameEntity : BaseEntity, IEntity
     {
-
         [Required]
         public DateTime DatePlayed { get; set; }
 
         public ICollection<PlayerEntity> Players { get; set; } = new List<PlayerEntity>();
-
 
         [Required]
         public int WinnerId { get; set; }

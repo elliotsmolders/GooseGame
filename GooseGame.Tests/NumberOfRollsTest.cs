@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GooseGame.Business;
+﻿using GooseGame.Business;
 
 namespace GooseGame.Tests
 {
@@ -26,8 +21,8 @@ namespace GooseGame.Tests
             engine.PlayTurn(1, 1);
             //Assert
             Assert.That(player.NumberOfRolls, Is.EqualTo(1));
-
         }
+
         [Test]
         public void WhenPlayerPlaysTurn_ThenTotalNumberOfRollsIncreases()
         {
@@ -40,7 +35,6 @@ namespace GooseGame.Tests
             engine.PlayTurn(1, 1);
             //Assert
             Assert.That(engine.TotalNumberOfRolls, Is.EqualTo(1));
-
         }
 
         [Test]
@@ -56,8 +50,8 @@ namespace GooseGame.Tests
             engine.PlayTurn(1, 1);
             //Assert
             Assert.That(player.NumberOfRolls, Is.EqualTo(0));
-
         }
+
         [Test]
         public void WhenPlayerSkipsTurn_ThenTotalNumberOfRollsDoesntIncrease()
         {
@@ -71,8 +65,8 @@ namespace GooseGame.Tests
             engine.PlayTurn(1, 1);
             //Assert
             Assert.That(engine.TotalNumberOfRolls, Is.EqualTo(0));
-
         }
+
         public void WhenPlayerIsInWell_ThenNumberOfRollsAndEngineTotalRollsDoesntIncrease()
         {
             //arrange
@@ -87,8 +81,8 @@ namespace GooseGame.Tests
             //Assert
             Assert.That(player.NumberOfRolls, Is.EqualTo(0));
             Assert.That(engine.TotalNumberOfRolls, Is.EqualTo(0));
-
         }
+
         [Test]
         public void WhenPlayerSkipsTurn_ThenEngineTotalNumberOfRollsDoesntIncrease()
         {
@@ -103,6 +97,7 @@ namespace GooseGame.Tests
             //Assert
             Assert.That(engine.TotalNumberOfRolls, Is.EqualTo(0));
         }
+
         [Test]
         public void WhenPlayerHitsAGooseTile_ThenItDoesntFurtherIncreaseAmountOfRolls()
         {
@@ -118,6 +113,7 @@ namespace GooseGame.Tests
             //assert
             Assert.That(player.NumberOfRolls, Is.EqualTo(1));
         }
+
         [Test]
         public void WhenFirstRoll_AmountOfRollsUpdateProperly()
         {
@@ -132,6 +128,5 @@ namespace GooseGame.Tests
             Assert.That(player.NumberOfRolls, Is.EqualTo(1));
             Assert.That(engine.TotalNumberOfRolls, Is.EqualTo(1));
         }
-
     }
 }

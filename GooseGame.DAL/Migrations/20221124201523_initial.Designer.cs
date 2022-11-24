@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GooseGame.DAL.Migrations
 {
     [DbContext(typeof(GooseGameDbContext))]
-    [Migration("20221123190736_initial")]
+    [Migration("20221124201523_initial")]
     partial class initial
     {
         /// <inheritdoc />
