@@ -9,11 +9,16 @@
 
   <ItemGroup>
     <None Remove="Resources\Icons\Bridge.png" />
+    <None Remove="Resources\Icons\Death.png" />
+    <None Remove="Resources\Icons\End.png" />
     <None Remove="Resources\Icons\icon1.png" />
     <None Remove="Resources\Icons\icon2.png" />
     <None Remove="Resources\Icons\icon3.png" />
     <None Remove="Resources\Icons\icon4.png" />
     <None Remove="Resources\Icons\Inn.png" />
+    <None Remove="Resources\Icons\Maze.png" />
+    <None Remove="Resources\Icons\Prison.png" />
+    <None Remove="Resources\Icons\Start.png" />
     <None Remove="Resources\Icons\Well.png" />
   </ItemGroup>
 
@@ -75,10 +80,17 @@
     <Resource Include="Resources\Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\Death.png" />
     <Resource Include="Resources\Icons\Default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\End.png" />
     <Resource Include="Resources\Icons\Goose.png" />
+    <Resource Include="Resources\Icons\Maze.png" />
+    <Resource Include="Resources\Icons\Prison.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Start.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,9 +104,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Resources\Icons\icon4.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Icons\Prison.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

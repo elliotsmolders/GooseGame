@@ -14,8 +14,8 @@ namespace GooseGame.Business.Tiles
         //moet nog background hebben
         public DeathTile(int tileId) : base(tileId)
         {
-            Name = "Guillotine";
-            //BackgroundImage = "Resources/Icons/icon1.png";
+            Name = "Death";
+            BackgroundImage = "pack://application:,,,/Resources/Icons/Death.png";
         }
         public void HandlePlayer(Player player)
         {
