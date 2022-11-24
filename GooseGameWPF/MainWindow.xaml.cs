@@ -122,7 +122,7 @@ namespace GooseGameWPF
                     {
                         int oddTiles = 63 - (i * 8 + 7 - j);
                         tileLabel.Name = $"Tile{oddTiles}";
-                        tileLabel.Content = $"Tile{oddTiles}";
+                        tileLabel.Content = $"{oddTiles}";
                         generatedLabels[oddTiles] = (tileLabel);
                         generatedPoints[oddTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[oddTiles] = tiles[oddTiles];
