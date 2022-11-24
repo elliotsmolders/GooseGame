@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace GooseGameWPF.ViewModels
 {
@@ -33,10 +34,12 @@ namespace GooseGameWPF.ViewModels
                 NotifyPropertyChanged(nameof(turnLog));
             }
         }
+
         public void Init()
         {
             _engine.Init();
         }
+
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
         {
             if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs(propertyName)); }
@@ -44,8 +47,6 @@ namespace GooseGameWPF.ViewModels
 
         private GameEngine _engine;
 
-
-        // public List<Rectangle> playerRectangles = new();
         public MainViewModel()
         {
             _engine = new GameEngine();
@@ -64,8 +65,6 @@ namespace GooseGameWPF.ViewModels
             _engine.SetNextPlayer();
         }
 
-
-
         public string GetCurrentPlayerPositions()
         {
             return $"{_engine.CurrentPlayer.PreviousPosition} pos:{_engine.CurrentPlayer.CurrentPosition} coming from {_engine.CurrentPlayer.PreviousPosition}";
@@ -74,7 +73,6 @@ namespace GooseGameWPF.ViewModels
         public int GetCurrentPlayerId()
         {
             return _engine.Players.IndexOf(_engine.CurrentPlayer);
-            
         }
 
         public string GetPlayerName(int num)
@@ -132,9 +130,10 @@ namespace GooseGameWPF.ViewModels
         {
             return _engine.CurrentPlayer.CurrentTile.Name;
         }
+
         public int GetPlayerAmount()
         {
-           return _engine.Players.Count;
+            return _engine.Players.Count;
         }
 
         public void PlayTurn(int roll1, int roll2)
@@ -150,6 +149,11 @@ namespace GooseGameWPF.ViewModels
         internal void AddPlayer(string name, int icon = 1)
         {
             _engine.CreatePlayer(name, icon);
+        }
+
+        internal async Task WriteGameToDatabaseAsync()
+        {
+            await _engine.WriteGameToDatabaseAsync();
         }
     }
 }

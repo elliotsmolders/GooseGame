@@ -1,19 +1,8 @@
 ﻿using GooseGameWPF.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GooseGameWPF
 {
@@ -22,15 +11,15 @@ namespace GooseGameWPF
     /// </summary>
     public partial class Menu : Page
     {
-        MainViewModel vm = new MainViewModel();
+        private MainViewModel vm = new MainViewModel();
 
         public Menu()
         {
             InitializeComponent();
-            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon1.bmp", UriKind.Relative)),"icon 1"));
-            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon2.bmp", UriKind.Relative)),"icon 2"));
-            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon3.bmp", UriKind.Relative)),"icon 3"));
-            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon4.bmp", UriKind.Relative)),"icon 4"));
+            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon1.bmp", UriKind.Relative)), "icon 1"));
+            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon2.bmp", UriKind.Relative)), "icon 2"));
+            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon3.bmp", UriKind.Relative)), "icon 3"));
+            IconSelect.Items.Add(new IconBuilder(new BitmapImage(new Uri("Resources/Icons/icon4.bmp", UriKind.Relative)), "icon 4"));
         }
 
         private void StartGame_Click(object sender, RoutedEventArgs e)
@@ -44,7 +33,7 @@ namespace GooseGameWPF
             {
                 throw new ArgumentException("Invalid amount of players selected", nameof(PlayerAmount) + PlayerAmount);
             }
-            MainWindow mainWindow =new MainWindow(vm);
+            MainWindow mainWindow = new MainWindow(vm);
             mainWindow.Visibility = Visibility.Visible;
             Window win = (Window)this.Parent;
             win.Close();

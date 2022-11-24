@@ -1,20 +1,9 @@
 ﻿using GooseGame.Business.Factory;
 using GooseGame.Business.Interfaces;
 using GooseGame.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GooseGame.Business
 {
-    /// <summary>
-    /// + heel belangrijke reden , we komen in problemen bij het bijvoorbeeld restoren van een spel uit de DB
-    ///
-    /// GameBoard mag ook naar DAL als entity als we het board willen opslagen wat wel een goed idee is
-    /// als we meerdere soorten borden zouden maken versies.
-    /// </summary>
     public class GameBoard
     {
         private GameBoard()
@@ -42,7 +31,7 @@ namespace GooseGame.Business
         private int[] WellTilePositions = { 31 };
         private int[] MazeTilePositions = { 42 };
         private int[] DeathTilePositions = { 58 };
-        public const int EndTilePosition =  63 ;
+        public const int EndTilePosition = 63;
 
         private static GameBoard _gameBoard;
 
@@ -60,7 +49,8 @@ namespace GooseGame.Business
                 {
                     Tiles.Add(_factory.CreateTile(TileType.Goose, i));
                 }
-                else if(StartTilePositions.Contains(i)){
+                else if (StartTilePositions.Contains(i))
+                {
                     Tiles.Add(_factory.CreateTile(TileType.Start, i));
                 }
                 else if (PrisonTilePositions.Contains(i))

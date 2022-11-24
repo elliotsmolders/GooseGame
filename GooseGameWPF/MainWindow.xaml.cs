@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -44,10 +45,16 @@ namespace GooseGameWPF
 
             if (isWinner)
             {
+                WriteGameToDatabaseAsync();
                 string winnerName = vm.GetWinnerName();
                 MessageBox.Show($"{winnerName} has wonnered!");
                 GooseGrid.IsEnabled = false;
             }
+        }
+
+        private async Task WriteGameToDatabaseAsync()
+        {
+            await vm.WriteGameToDatabaseAsync();
         }
 
         private void DisplayPlayerInfo()
