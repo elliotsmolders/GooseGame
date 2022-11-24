@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GooseGame.Business.Interfaces;
+﻿using GooseGame.Business.Interfaces;
 using GooseGame.Common;
 
 namespace GooseGame.Business.Tiles
@@ -12,10 +7,10 @@ namespace GooseGame.Business.Tiles
     {
         public BridgeTile(int tileId) : base(tileId)
         {
-            
             Name = "Bridge";
             BackgroundImage = "pack://application:,,,/Resources/Icons/Bridge.png";
         }
+
         public override void HandlePlayer(Player player)
         {
             //TODO dit moet voor alle tiles gebeuren

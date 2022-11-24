@@ -6,7 +6,7 @@ namespace GooseGame.DAL.Repositories
 {
     public class BaseRepository<T> where T : BaseEntity
     {
-        private GooseGameDbContext _ctx;
+        public GooseGameDbContext _ctx;
 
         public BaseRepository()
         {

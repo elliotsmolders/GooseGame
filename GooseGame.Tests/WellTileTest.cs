@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GooseGame.Business;
+﻿using GooseGame.Business;
 
 namespace GooseGame.Tests
 {
@@ -13,6 +8,7 @@ namespace GooseGame.Tests
         public void Setup()
         {
         }
+
         [Test]
         public void WhenPlayerLandsOnWell_ThenPlayerIsInWellIsTrue()
         {
@@ -25,8 +21,8 @@ namespace GooseGame.Tests
             //Assert
             Assert.That(player.IsInWell, Is.EqualTo(true));
             //Assert.That(board.Tiles[30].playerInWell, Is.EqualTo(player)); kan niet aan de welltile want board.Tiles is een ilist van itiles, itiles hebben geen prop 'playerinwell'
-
         }
+
         [Test]
         public void WhenPlayerIsInWell_ThenPlayerWillNotMoveDuringTurn()
         {
@@ -43,6 +39,7 @@ namespace GooseGame.Tests
             Assert.That(player.IsInWell, Is.EqualTo(true));
             Assert.That(player.CurrentPosition, Is.EqualTo(31));
         }
+
         [Test]
         public void WhenPlayer1IsInWellAndPlayer2LandsOnWell_ThenPlayer1WillMoveDuringTurn()
         {
@@ -56,7 +53,7 @@ namespace GooseGame.Tests
             engine.CurrentPlayer = player2;
 
             //act
-            engine.PlayTurn(1,1); //player 2 moves 2 tiles
+            engine.PlayTurn(1, 1); //player 2 moves 2 tiles
             engine.CurrentPlayer = player1;
             engine.PlayTurn(1, 1);
             //Assert
@@ -65,6 +62,7 @@ namespace GooseGame.Tests
             Assert.That(player1.CurrentPosition, Is.EqualTo(33));
             Assert.That(player2.CurrentPosition, Is.EqualTo(31));
         }
+
         [Test]
         public void WhenPlayer1IsInWellAndPlayer2LandsOnWell_ThenPlayer2WillNotMoveDuringTurn()
         {
@@ -86,6 +84,5 @@ namespace GooseGame.Tests
             Assert.That(player2.IsInWell, Is.EqualTo(true));
             Assert.That(player2.CurrentPosition, Is.EqualTo(31));
         }
-
     }
 }

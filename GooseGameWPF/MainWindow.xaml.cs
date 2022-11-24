@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -38,16 +41,14 @@ namespace GooseGameWPF
             this.Visibility = Visibility.Hidden;
         }
 
-        private void CheckForWinner()
+        private bool CheckForWinner()
         {
-            bool isWinner = vm.CheckForWinner();
+            return vm.CheckForWinner();
+        }
 
-            if (isWinner)
-            {
-                string winnerName = vm.GetWinnerName();
-                MessageBox.Show($"{winnerName} has wonnered!");
-                GooseGrid.IsEnabled = false;
-            }
+        private async Task WriteGameToDatabaseAsync()
+        {
+            await vm.WriteGameToDatabaseAsync();
         }
 
         private void DisplayPlayerInfo()
@@ -73,8 +74,22 @@ namespace GooseGameWPF
             vm.UpdateTurnLog();
             updatePlayerPositions(vm.GetPlayerAmount());
             CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
-            CheckForWinner();
-            vm.SetNextPlayer();
+            if (CheckForWinner())
+            {
+                FinalizeGame();
+            }
+            else
+            {
+                vm.SetNextPlayer();
+            }
+        }
+
+        private async void FinalizeGame() //Needed to end the async chain for the event handler Upwards
+        {
+            string winnerName = vm.GetWinnerName();
+            MessageBox.Show($"{winnerName} has wonnered!");
+            GooseGrid.IsEnabled = false;
+            await WriteGameToDatabaseAsync();
         }
 
         private int DisplayCurrentPlayer()
@@ -111,7 +126,7 @@ namespace GooseGameWPF
                     {
                         int evenTiles = 63 - (i * 8 + j);
                         tileLabel.Name = $"Tile{evenTiles}";
-                        tileLabel.Content = $"{evenTiles}";
+                        //tileLabel.Content = $"{evenTiles}";
                         generatedLabels[evenTiles] = (tileLabel);
                         generatedPoints[evenTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[evenTiles] = tiles[evenTiles];
@@ -123,7 +138,7 @@ namespace GooseGameWPF
                     {
                         int oddTiles = 63 - (i * 8 + 7 - j);
                         tileLabel.Name = $"Tile{oddTiles}";
-                        tileLabel.Content = $"{oddTiles}";
+                        //tileLabel.Content = $"{oddTiles}";
                         generatedLabels[oddTiles] = (tileLabel);
                         generatedPoints[oddTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[oddTiles] = tiles[oddTiles];
@@ -151,33 +166,33 @@ namespace GooseGameWPF
             return tileGrid;
         }
 
-        private void updatePlayerPosition()
-        {
-            System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer0, RectPlayer1, RectPlayer2, RectPlayer3 };
-            int playerPosition, xx, yy;
-            int currentPlayer = 0;
-            int playerPreviousPosition;
-            int difference;
+        //private void updatePlayerPosition()
+        //{
+        //    System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer0, RectPlayer1, RectPlayer2, RectPlayer3 };
+        //    int playerPosition, xx, yy;
+        //    int currentPlayer = 0;
+        //    int playerPreviousPosition;
+        //    int difference;
 
-            currentPlayer = vm.GetCurrentPlayerId();
-            playerPosition = vm.GetCurrentPlayerCurrentPosition();
-            playerPreviousPosition = vm.GetCurrentPlayerPreviousPosition();
-            difference = playerPosition - playerPreviousPosition;
+        //    currentPlayer = vm.GetCurrentPlayerId();
+        //    playerPosition = vm.GetCurrentPlayerCurrentPosition();
+        //    playerPreviousPosition = vm.GetCurrentPlayerPreviousPosition();
+        //    difference = playerPosition - playerPreviousPosition;
 
-            RectPlayer[currentPlayer].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
-            RectPlayer[currentPlayer].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
-        }
+        //    RectPlayer[currentPlayer].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
+        //    RectPlayer[currentPlayer].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+        //}
 
         private void updatePlayerPositions(int amountOfPlayers)
         {
-            System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer0, RectPlayer1, RectPlayer2, RectPlayer3 };
+            Image[] Player = new Image[] { Player0, Player1, Player2, Player3 };
             int playerPosition, xx, yy;
 
             for (int i = 0; i < amountOfPlayers; i++)
             {
                 playerPosition = vm.GetPlayerPosition(i);
-                RectPlayer[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
-                RectPlayer[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+                Player[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
+                Player[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
             }
         }
 
