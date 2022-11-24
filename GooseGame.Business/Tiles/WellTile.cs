@@ -7,7 +7,7 @@ namespace GooseGame.Business.Tiles
     {
         public WellTile(int tileId) : base(tileId)
         {
-            BackgroundImage = "C:\\Users\\arnob\\source\\repos\\GooseGame\\GooseGameWPF\\Resources\\Icons\\Well.png";
+            BackgroundImage = "pack://application:,,,/Resources/Icons/Goose.png";
         }
         public Player playerInWell { get; private set; }
 
