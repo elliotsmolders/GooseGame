@@ -1,10 +1,12 @@
 ﻿using GooseGameWPF.Entities;
 using GooseGameWPF.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace GooseGameWPF
@@ -20,8 +22,16 @@ namespace GooseGameWPF
         {
             InitializeComponent();
             GooseGrid.DataContext = vm;
-            vm.Init();
+            GoToMenu(vm); // refactor?
             StylelizeGridTiles();
+        }
+
+        private void GoToMenu(MainViewModel vm)
+        {
+            NavigationWindow window = new NavigationWindow();
+            window.Source = new Uri("Menu.xaml", UriKind.Relative);
+            window.Show();
+            this.Visibility = Visibility.Hidden;
         }
 
         //buh
@@ -144,16 +154,6 @@ namespace GooseGameWPF
                 RectPlayer[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
                 RectPlayer[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
             }
-        }
-
-        public void AddPlayer()
-        {
-        }
-
-        private void AddPlayer(object sender, RoutedEventArgs e)
-        {
-            vm.AddPlayer(PlayerNameInput.Text);
-            PlayerNameInput.Text = "";
         }
     }
 }

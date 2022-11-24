@@ -8,6 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\menu.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\menu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GooseGame.Business\GooseGame.Business.csproj" />
   </ItemGroup>
 

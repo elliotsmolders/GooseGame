@@ -13,8 +13,8 @@ namespace GooseGame.DAL.Entities
         [Required]
         public int NumberOfThrows { get; set; }
 
-        public GameEntity Game { get; set; } = new GameEntity();
-        public int GameId { get; set; }
-        public bool GameWon { get; set; }
+        public GameEntity? Game { get; set; } = new GameEntity();
+        public int? GameId { get; set; }
+        public bool? GameWon { get; set; }
     }
 }

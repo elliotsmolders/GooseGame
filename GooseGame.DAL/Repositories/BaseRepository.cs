@@ -1,5 +1,6 @@
 ﻿using GooseGame.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GooseGame.DAL.Repositories
 {

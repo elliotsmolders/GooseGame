@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GooseGame.Business.Models;
 using GooseGame.Common;
 using GooseGame.DAL.Entities;
 using GooseGame.DAL.Repositories;
@@ -17,20 +18,22 @@ namespace GooseGame.Business
     {
         private readonly GameRepository _gameRepo;
         private readonly PlayerRepository _playerRepo;
-        private readonly IMapper _playerMap;
+        //private readonly IMapper _playerMap;
 
         public GameEngine()
         {
             _playerRepo = new PlayerRepository();
             _gameRepo = new GameRepository();
-            var config = new MapperConfiguration
-                (
-                    cfg =>
-                    {
-                        cfg.CreateMap<Player, PlayerEntity>()
-                                .ForMember(x => x.NumberOfThrows, y => y.MapFrom(z => z.NumberOfRolls));
-                    });
-            _playerMap = new Mapper(config);
+            //var config = new MapperConfiguration
+            //    (
+            //        cfg =>
+            //        {
+            //            cfg.CreateMap<PlayerModel, PlayerEntity>()
+            //            .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+            //            .ForMember(x => x.PlayerIcon, y => y.MapFrom(z => z.PlayerIcon))
+            //            ;
+            //        });
+            //_playerMap = new Mapper(config);
         }
 
         public Player CurrentPlayer { get; set; }
@@ -117,7 +120,8 @@ namespace GooseGame.Business
 
         private void CreatePlayer(string name, int icon)
         {
-            Players.Add(new Player(name, icon));
+            Players.Add(new Player(name));
+            Players.Last().PlayerIcon = icon;
         }
 
         public void Restore()
@@ -127,10 +131,22 @@ namespace GooseGame.Business
 
         public async Task AddPlayerAsync(string name, int playerIcon)
         {
-            Player player = new Player(name, playerIcon);
-            Players.Add(player);
-            PlayerEntity model = _playerMap.Map<PlayerEntity>(player);
-            await _playerRepo.AddAsync(model);
+            foreach (var item in Players)
+            {
+                Player player = new Player(name, playerIcon);
+                PlayerEntity model = new PlayerEntity();
+                model.Name = player.Name;
+                model.PlayerIcon = player.PlayerIcon;
+                await _playerRepo.AddAsync(model);
+            }
+        }
+
+        public async Task<Player> GetPlayerAsync(int id)
+        {
+            PlayerEntity entity = await _playerRepo.GetAsync(id);
+            Player player = new Player(entity.Name);
+            player.PlayerIcon = entity.PlayerIcon;
+            return player;
         }
 
         public void WriteGameToDatabase()

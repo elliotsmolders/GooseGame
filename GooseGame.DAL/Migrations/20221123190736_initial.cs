@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GooseGame.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,13 +15,13 @@ namespace GooseGame.DAL.Migrations
                 name: "Games",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    DatePlayed = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    WinnerId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ThrowsNeededToWin = table.Column<int>(type: "INTEGER", nullable: false),
-                    AmountOfPlayers = table.Column<int>(type: "INTEGER", nullable: false),
-                    DateUpdated = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DatePlayed = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    WinnerId = table.Column<int>(type: "int", nullable: false),
+                    ThrowsNeededToWin = table.Column<int>(type: "int", nullable: false),
+                    AmountOfPlayers = table.Column<int>(type: "int", nullable: false),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,13 +32,14 @@ namespace GooseGame.DAL.Migrations
                 name: "Players",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    NumberOfThrows = table.Column<int>(type: "INTEGER", nullable: false),
-                    GameId = table.Column<int>(type: "INTEGER", nullable: false),
-                    GameWon = table.Column<bool>(type: "INTEGER", nullable: false),
-                    DateUpdated = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PlayerIcon = table.Column<int>(type: "int", nullable: false),
+                    NumberOfThrows = table.Column<int>(type: "int", nullable: false),
+                    GameId = table.Column<int>(type: "int", nullable: true),
+                    GameWon = table.Column<bool>(type: "bit", nullable: true),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,8 +48,7 @@ namespace GooseGame.DAL.Migrations
                         name: "FK_Players_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
