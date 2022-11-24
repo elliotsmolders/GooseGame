@@ -73,7 +73,8 @@ namespace GooseGameWPF.ViewModels
 
         public int GetCurrentPlayerId()
         {
-            return _engine.CurrentPlayer.PlayerId;
+            return _engine.Players.IndexOf(_engine.CurrentPlayer);
+            
         }
 
         public string GetPlayerName(int num)

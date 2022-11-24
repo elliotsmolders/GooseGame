@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using GooseGame.Business.Models;
+﻿using GooseGame.Business.Models;
 using GooseGame.Common;
 using GooseGame.DAL.Entities;
 using GooseGame.DAL.Repositories;
@@ -114,9 +113,9 @@ namespace GooseGame.Business
         }
 
 
-        private void CreatePlayer(string name, int playerID, int icon)
+        public void CreatePlayer(string name, int icon)
         {
-            Players.Add(new Player(name, playerID, icon));
+            Players.Add(new Player(name, icon));
 
         }
 

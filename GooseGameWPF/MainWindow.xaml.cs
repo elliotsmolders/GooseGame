@@ -1,15 +1,13 @@
-﻿using GooseGame.Business;
-using GooseGame.Business.Interfaces;
-using GooseGameWPF.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using GooseGame.Business;
+using GooseGame.Business.Interfaces;
+using GooseGameWPF.ViewModels;
 
 namespace GooseGameWPF
 {
@@ -38,6 +36,8 @@ namespace GooseGameWPF
             window.Source = new Uri("Menu.xaml", UriKind.Relative);
             window.Show();
             this.Visibility = Visibility.Hidden;
+        }
+
         private void CheckForWinner()
         {
             bool isWinner = vm.CheckForWinner();
@@ -59,11 +59,8 @@ namespace GooseGameWPF
             }
         }
 
-
-
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-
             int roll1 = vm.RollDice();
             int roll2 = vm.RollDice();
             int currentRoll = roll1 + roll2;
@@ -85,16 +82,12 @@ namespace GooseGameWPF
             return vm.GetCurrentPlayerId();
         }
 
-
-        
-
         private int[,] StylelizeGridTiles()
 
         {
             int[,] tileGrid = new int[8, 8];
             IList<ITile> tiles = GameBoard.GetGameBoard().Tiles;
             ITile[] gameBoardTilesPosition = new ITile[tiles.Count];
-
 
             for (int i = 0; i < 8; i++)
             {
@@ -153,7 +146,6 @@ namespace GooseGameWPF
                     GooseGrid.Children.Add(tileBackground);
                     GooseGrid.Children.Add(tileLabel);
                     GooseGrid.Children.Add(b);
-
                 }
             }
             return tileGrid;
@@ -170,15 +162,15 @@ namespace GooseGameWPF
             currentPlayer = vm.GetCurrentPlayerId();
             playerPosition = vm.GetCurrentPlayerCurrentPosition();
             playerPreviousPosition = vm.GetCurrentPlayerPreviousPosition();
-            difference = playerPosition- playerPreviousPosition;
+            difference = playerPosition - playerPreviousPosition;
 
- 
-             RectPlayer[currentPlayer].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
-             RectPlayer[currentPlayer].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+            RectPlayer[currentPlayer].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
+            RectPlayer[currentPlayer].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+        }
 
         private void updatePlayerPositions(int amountOfPlayers)
         {
-            System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer1, RectPlayer2, RectPlayer3, RectPlayer4 };
+            System.Windows.Shapes.Rectangle[] RectPlayer = new System.Windows.Shapes.Rectangle[] { RectPlayer0, RectPlayer1, RectPlayer2, RectPlayer3 };
             int playerPosition, xx, yy;
 
             for (int i = 0; i < amountOfPlayers; i++)
@@ -187,9 +179,6 @@ namespace GooseGameWPF
                 RectPlayer[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
                 RectPlayer[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
             }
-
         }
-
-       
     }
 }

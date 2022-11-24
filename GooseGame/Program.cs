@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using GooseGame.Business;
+﻿using GooseGame.Business;
 using GooseGame.DAL;
 using GooseGame.DAL.Entities;
 using GooseGame.DAL.Repositories;

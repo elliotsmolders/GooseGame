@@ -23,7 +23,7 @@ namespace GooseGame.Business
             return this.GetType().Name;
         }
 
-\
+
         private void LogPlayerPosition(Player player)
         {
             Logger.AddToCurrentTurnLog($"{player.Name} has landed on {Name} on position {TileId}");
