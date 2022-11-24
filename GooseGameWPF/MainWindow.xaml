@@ -4,8 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600">
-
+        Title="MainWindow" Height="1080" Width="1920" FontSize="18">
+        
     <Window.Background>
         <ImageBrush ImageSource="/Resources/Background.png" />
     </Window.Background>
@@ -32,31 +32,38 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel  Margin="227,27,-228,111" Grid.RowSpan="4" Grid.Column="7">
+        <StackPanel  Margin="227,27,-228,23" Grid.RowSpan="3" Grid.Column="7">
 
-            <Label x:Name="Roll1" Height="27"  />
-            <Label x:Name="Roll2" Height="38"/>
-            <Label x:Name="CurrentRoll" Height="38"/>
+            <Label x:Name="Roll1" Height="45"  />
+            <Label x:Name="Roll2" Height="56"/>
+            <Label x:Name="CurrentRoll" Height="63"/>
 
             <Label x:Name="CurrentPlayerTile" />
 
             <Button x:Name="RollDice" Content="play a turn" Click="RollDice_Click" Height="73" />
         </StackPanel>
 
-        <Rectangle x:Name="RectPlayer0" Fill="DeepSkyBlue" Grid.Column="0" Grid.Row="7" Margin="85,50,0,4"></Rectangle>
-        <Rectangle x:Name="RectPlayer1" Fill="OrangeRed" Grid.Column="0" Grid.Row="7" Margin="0,51,82,4" ></Rectangle>
-        <Rectangle x:Name="RectPlayer2" Fill="ForestGreen" Grid.Column="0" Grid.Row="7" Margin="83,0,0,56" ></Rectangle>
-        <Rectangle x:Name="RectPlayer3" Fill="Yellow" Grid.Column="0" Grid.Row="7" Margin="0,0,82,56" ></Rectangle>
-        <StackPanel Grid.Column="7" Grid.Row="2" Margin="189,40,-245,0" Grid.RowSpan="3">
+        <!--<Rectangle x:Name="RectPlayer0" Fill="DeepSkyBlue" Grid.Column="0" Grid.Row="7" Margin="104,67,0,4"></Rectangle>
+        <Rectangle x:Name="RectPlayer1" Fill="OrangeRed" Grid.Column="0" Grid.Row="7" Margin="0,67,103,4" ></Rectangle>
+        <Rectangle x:Name="RectPlayer2" Fill="ForestGreen" Grid.Column="0" Grid.Row="6" Margin="104,133,0,67" Grid.RowSpan="2" ></Rectangle>
+        <Rectangle x:Name="RectPlayer3" Fill="Yellow" Grid.Column="0" Grid.Row="6" Margin="0,133,103,67" Grid.RowSpan="2" ></Rectangle>-->
+        <StackPanel Grid.Column="7" Grid.Row="2" Margin="227,93,-245,58" Grid.RowSpan="4">
 
-            <Label x:Name="PlayerLabel0" Background="DeepSkyBlue" Content="Player 1"/>
-            <Label x:Name="PlayerLabel1" Background="OrangeRed"  Content="Player 2"/>
-            <Label x:Name="PlayerLabel2" Background="ForestGreen"  Content="Player 3"/>
-            <Label x:Name="PlayerLabel3" Background="Yellow"  Content="Player 4"/>
             <Label x:Name="CurrentPlayerLabel" Background="HotPink"  Content="---------"/>
+            <Label x:Name="PlayerLabel0" Background="OrangeRed"  Content="Player 0"/>
+            <Label x:Name="PlayerLabel1" Background="LightGreen"  Content="Player 1"/>
+            <Label x:Name="PlayerLabel2" Background="DeepSkyBlue" Content="Player 2"/>
+
+
+            <Label x:Name="PlayerLabel3" Background="Yellow"  Content="Player 3 "/>
         </StackPanel>
-        <StackPanel Grid.Column="7" Grid.Row="4" Margin="217,111,-217,49" Grid.RowSpan="2">
-            <TextBlock x:Name="TotalLogTextBlock"  TextWrapping="Wrap" Text="{Binding TurnLog}" Height="179" />
+        <StackPanel Grid.Column="7" Grid.Row="4" Margin="217,111,-217,35" Grid.RowSpan="4">
+            <TextBlock x:Name="TotalLogTextBlock"  TextWrapping="Wrap" Text="{Binding TurnLog}" Height="272" Width="190" />
         </StackPanel>
+        <Image x:Name="Player0" Margin="16,2,124,65" Grid.Row="7" Source="/Resources/Icons/icon1.png" Stretch="Fill"/>
+        <Image x:Name="Player1"  Margin="118,1,17,65" Grid.Row="7" Source="/Resources/Icons/icon2.png" Stretch="Fill"/>
+        <Image x:Name="Player2" Margin="16,69,130,0" Grid.Row="7" Source="/Resources/Icons/icon3.png" Stretch="Fill"/>
+        <Image x:Name="Player3" Margin="118,67,22,0" Grid.Row="7" Source="/Resources/Icons/icon4.png" Stretch="Fill"/>
+
     </Grid>
 </Window>

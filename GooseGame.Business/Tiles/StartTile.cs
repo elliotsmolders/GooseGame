@@ -7,6 +7,7 @@ namespace GooseGame.Business.Tiles
     {
         public StartTile(int tileId) : base(tileId)
         {
+            BackgroundImage = "pack://application:,,,/Resources/Icons/Start.png";
         }
 
         public void HandlePlayer(Player player)

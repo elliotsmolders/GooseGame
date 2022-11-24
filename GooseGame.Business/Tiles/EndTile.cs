@@ -9,7 +9,7 @@ namespace GooseGame.Business.Tiles
         {
             //moet nog een icoon hebben
             Name = "Winning Tile";
-            //BackgroundImage = " ";
+            BackgroundImage = "pack://application:,,,/Resources/Icons/End.png";
         }
         public void HandlePlayer(Player player)
         {
