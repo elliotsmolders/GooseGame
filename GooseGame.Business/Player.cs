@@ -55,6 +55,10 @@ namespace GooseGame.Business
 
         public bool IsMovingBackwards { get; set; } = false;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="roll"></param>
         public void MovePlayer(int roll) //splitsen naar twee methodes
         {
             CurrentRoll = roll;
@@ -71,16 +75,28 @@ namespace GooseGame.Business
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="tileNumber"></param>
         public void SetPlayerPosition(int tileNumber)
         {
             CurrentPosition = tileNumber;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
         private int MoveBackWards()
         {
             return (GameBoard.GetGameBoard().AmountOfTiles - 1) + ((GameBoard.GetGameBoard().AmountOfTiles - 1) - (CurrentPosition + CurrentRoll));
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
         public bool IsPlayerActive()
         {
             if (IsInWell)
@@ -97,6 +113,10 @@ namespace GooseGame.Business
             return true;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
         public bool isOnStartTile()
         {
             return CurrentTile.GetType() == typeof(StartTile);

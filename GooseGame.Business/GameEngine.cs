@@ -81,6 +81,9 @@ namespace GooseGame.Business
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public void CheckForWinner()
         {
             if (CurrentPlayer.CurrentPosition == 63)
@@ -89,6 +92,12 @@ namespace GooseGame.Business
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="roll1"></param>
+        /// <param name="roll2"></param>
+        /// <exception cref="Exception"></exception>
         public void HandleFirstThrow(int roll1, int roll2)
 
         {
@@ -108,6 +117,11 @@ namespace GooseGame.Business
 
         public int SequenceTracker { get; set; }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="icon"></param>
         public void CreatePlayer(string name, int icon)
         {
             Player player = new Player(name, icon);
@@ -116,6 +130,11 @@ namespace GooseGame.Business
             Players.Add(player);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
         public async Task AddPlayerAsync(Player player)
         {
             foreach (var item in Players)
@@ -132,6 +151,11 @@ namespace GooseGame.Business
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Player> GetPlayerAsync(int id)
         {
             PlayerEntity entity = await _playerRepo.GetAsync(id);
@@ -140,6 +164,9 @@ namespace GooseGame.Business
             return player;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         private void GiveTempIdToPlayersInList()
         {
             int i = 0;
@@ -150,6 +177,10 @@ namespace GooseGame.Business
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
         public async Task WriteGameToDatabaseAsync()
         {
             GiveTempIdToPlayersInList();
@@ -158,6 +189,11 @@ namespace GooseGame.Business
             await _gameRepo.AddAsync(game);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="gamePlayers"></param>
+        /// <returns></returns>
         private async Task<GameEntity> GamePrepAsync(List<PlayerEntity> gamePlayers)
         {
             GameEntity game = new GameEntity();
@@ -172,6 +208,12 @@ namespace GooseGame.Business
             return game;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="gamePlayers"></param>
+        /// <param name="game"></param>
+        /// <returns></returns>
         private async Task UpdatePlayers(List<PlayerEntity> gamePlayers, GameEntity game)
         {
             foreach (PlayerEntity entity in gamePlayers)
@@ -187,6 +229,10 @@ namespace GooseGame.Business
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
         private async Task<List<PlayerEntity>> PlayerPrep()
         {
             List<PlayerEntity> gamePlayers;
@@ -197,6 +243,9 @@ namespace GooseGame.Business
             return gamePlayers = _playerRepo._ctx.Players.OrderByDescending(p => p.Id).Take(Players.Count).ToList();
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public void GetHighScore()
         {
         }
