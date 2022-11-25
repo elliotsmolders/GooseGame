@@ -97,9 +97,9 @@ namespace GooseGame.Business
         ///
         /// </summary>
         /// <returns></returns>
-        public bool IsPlayerActive()
+        public bool IsPlayerActive(int count)
         {
-            if (IsInWell)
+            if (IsInWell && count > 1)
             {
                 Logger.AddToCurrentTurnLog($"{Name} is in well, turn is skipped");
                 return false;

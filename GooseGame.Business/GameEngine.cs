@@ -61,7 +61,7 @@ namespace GooseGame.Business
         {
             int totalRoll = Roll1 + Roll2;
             Logger.ClearString();
-            if (CurrentPlayer.IsPlayerActive())
+            if (CurrentPlayer.IsPlayerActive(Players.Count))
             {
                 if (totalRoll == 9 && CurrentPlayer.isOnStartTile() && CurrentPlayer.NumberOfRolls < 2)
                 {

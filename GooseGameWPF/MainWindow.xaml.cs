@@ -46,14 +46,6 @@ namespace GooseGameWPF
             vm.Init();
         }
 
-        private void GoToMenu(MainViewModel vm)
-        {
-            NavigationWindow window = new NavigationWindow();
-            window.Source = new Uri("Menu.xaml", UriKind.Relative);
-            window.Show();
-            this.Visibility = Visibility.Hidden;
-        }
-
         private bool CheckForWinner()
         {
             return vm.CheckForWinner();
@@ -96,7 +88,7 @@ namespace GooseGameWPF
             }
         }
 
-        private async void FinalizeGame() //Needed to end the async chain for the event handler Upwards
+        private async void FinalizeGame() //Needed 'void' to end the async chain for the event handler Upwards
         {
             string winnerName = vm.GetWinnerName();
             MessageBox.Show($"{winnerName} has wonnered!");
@@ -195,19 +187,6 @@ namespace GooseGameWPF
         //    RectPlayer[currentPlayer].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
         //}
 
-        private void updatePlayerPositions(int amountOfPlayers)
-        {
-            Image[] Player = new Image[] { Player0, Player1, Player2, Player3 };
-            int playerPosition, xx, yy;
-
-            for (int i = 0; i < amountOfPlayers; i++)
-            {
-                playerPosition = vm.GetPlayerPosition(i);
-                Player[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
-                Player[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
-            }
-        }
-
         private void Grid_Keydown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             string sanitizedString = e.Key.ToString().Replace("D", "");
@@ -236,6 +215,19 @@ namespace GooseGameWPF
         {
             int output;
             return int.TryParse(input, out output);
+        }
+
+        private void updatePlayerPositions(int amountOfPlayers)
+        {
+            Image[] Player = new Image[] { Player0, Player1, Player2, Player3 };
+            int playerPosition, xx, yy;
+
+            for (int i = 0; i < amountOfPlayers; i++)
+            {
+                playerPosition = vm.GetPlayerPosition(i);
+                Player[i].SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
+                Player[i].SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+            }
         }
 
         private void UpdatePositionsAsync()
