@@ -15,6 +15,28 @@ namespace GooseGameWPF.ViewModels
 
         private List<string> totalLog;
         private string turnLog;
+        private string dice1String;
+        private string dice2String;
+
+        public string Dice1String
+        {
+            get { return dice1String; }
+            set
+            {
+                dice1String = value;
+                NotifyPropertyChanged(nameof(dice1String));
+            }
+        }
+
+        public string Dice2String
+        {
+            get { return dice2String; }
+            set
+            {
+                dice2String = value;
+                NotifyPropertyChanged(nameof(dice2String));
+            }
+        }
 
         public List<string> TotalLog
         {

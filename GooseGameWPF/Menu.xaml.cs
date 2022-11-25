@@ -1,4 +1,5 @@
-﻿using GooseGameWPF.ViewModels;
+﻿using GooseGameWPF.Enums;
+using GooseGameWPF.ViewModels;
 using System;
 using System.Windows;
 using System.Windows.Controls;

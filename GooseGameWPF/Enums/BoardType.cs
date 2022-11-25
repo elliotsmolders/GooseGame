@@ -1,4 +1,4 @@
-﻿namespace GooseGameWPF
+﻿namespace GooseGameWPF.Enums
 {
     public enum BoardType
     {

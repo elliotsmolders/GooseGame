@@ -13,7 +13,7 @@
         {
             try
             {
-                TurnLog += $"{message},";
+                TurnLog += $"{message}";
             }
             catch (Exception)
             {

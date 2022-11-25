@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using GooseGame.Business;
 using GooseGame.Business.Interfaces;
+using GooseGameWPF.Enums;
 using GooseGameWPF.ViewModels;
 
 namespace GooseGameWPF
@@ -23,8 +24,6 @@ namespace GooseGameWPF
         private Label[] generatedLabels = new Label[64];
         private System.Windows.Point[] generatedPoints = new System.Windows.Point[64];
         private System.Drawing.Rectangle vierkantje = new();
-
-        private string dobbel = "Resources/Dice/Eye1.png";
 
         public MainWindow(MainViewModel viewModel, BoardType boardType)
         {
@@ -67,17 +66,22 @@ namespace GooseGameWPF
             }
         }
 
+        public int Roll { get; set; }
+
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-            Roll1.Content = vm.RollDice();
-            Roll2.Content = vm.RollDice();
-            CurrentRoll.Content = (int)Roll1.Content + (int)Roll2.Content;
-            vm.PlayTurn((int)Roll1.Content, (int)Roll2.Content);
+            int roll1 = vm.RollDice();
+            int roll2 = vm.RollDice();
+            Roll = roll1 + roll2;
+            vm.Dice1String = $"Resources/Dice/Eye{roll1.ToString()}.png";
+            vm.Dice2String = $"Resources/Dice/Eye{roll2.ToString()}.png";
+            CurrentRoll.Content = $"Roll = {roll1 + roll2} ";
+            vm.PlayTurn(roll1, roll2);
             string currentTile = vm.GetCurrentPlayerTile();
             vm.UpdateTurnLog();
-            updatePlayerPositions(vm.GetPlayerAmount());
-            //UpdatePositionsAsync();
-            CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
+            //updatePlayerPositions(vm.GetPlayerAmount());
+            UpdatePositionsAsync();
+            CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()}'s turn";
             if (CheckForWinner())
             {
                 FinalizeGame();
@@ -91,14 +95,14 @@ namespace GooseGameWPF
         private async void FinalizeGame() //Needed 'void' to end the async chain for the event handler Upwards
         {
             string winnerName = vm.GetWinnerName();
-            MessageBox.Show($"{winnerName} has wonnered!");
+            MessageBox.Show($"{winnerName} has wonnered! ");
             GooseGrid.IsEnabled = false;
-            await WriteGameToDatabaseAsync();
+            // await WriteGameToDatabaseAsync();
         }
 
-        private int DisplayCurrentPlayer()
+        private string DisplayCurrentPlayer()
         {
-            return vm.GetCurrentPlayerId();
+            return vm.GetCurrentPlayerName();
         }
 
         private int[,] BoustrophedonBoard()
@@ -237,8 +241,9 @@ namespace GooseGameWPF
         private void UpdatePositionsAsync()
         {
             var bw = new BackgroundWorker();
-            int iMin = vm.GetCurrentPlayerCurrentPosition();
-            int iMax = vm.GetCurrentPlayerCurrentPosition() + (int)CurrentRoll.Content;
+            int iMin = vm.GetCurrentPlayerPreviousPosition();
+            int iMax = vm.GetCurrentPlayerCurrentPosition();
+            stepCounter = iMax - iMin;
             var xamlPlayer = Player0;
             switch (vm.CurrentSequence())
             {
@@ -302,7 +307,7 @@ namespace GooseGameWPF
             }
 
             stepCounter++;
-            var currentPosition = vm.GetCurrentPlayerCurrentPosition();
+            var currentPosition = vm.GetCurrentPlayerPreviousPosition();
             Player.SetValue(Grid.RowProperty, (int)generatedPoints[currentPosition + stepCounter].X);
             Player.SetValue(Grid.ColumnProperty, (int)generatedPoints[currentPosition + stepCounter].Y);
         }
@@ -311,18 +316,6 @@ namespace GooseGameWPF
 
         public void SpiralBoard()
         {
-            //for (int x = 0; x < 8; x++)
-            //{
-            //    for (int y = 0; y < 8; y++)
-            //    {
-            //        Label tilelabel = new();
-            //        Grid.SetRow(tilelabel, y);
-            //        Grid.SetColumn(tilelabel, x);
-            //        tilelabel.Content += $"x:{x} - y:{y}";
-            //        GooseGrid.Children.Add(tilelabel);
-            //    }
-            //}
-
             FillPointsLR(8, 7);
             FillPointsDU(7, 8, -1);
             FillPointsRL(7, 0);
@@ -348,7 +341,7 @@ namespace GooseGameWPF
             for (int j = y + offSet - 1; j > 0 + offSet; j--)
             {
                 generatedPoints[pointCounter] = new System.Windows.Point(x, j);
-                MakeGrid(x, j);
+                MakeGrid(x, j, BorderChoice.Left);
             }
         }
 
@@ -357,7 +350,7 @@ namespace GooseGameWPF
             for (int j = 0 + offSet; j < y + offSet; j++)
             {
                 generatedPoints[pointCounter] = new System.Windows.Point(x, j);
-                MakeGrid(x, j);
+                MakeGrid(x, j, BorderChoice.Right);
             }
         }
 
@@ -366,7 +359,7 @@ namespace GooseGameWPF
             for (int i = x + offSet - 1; i > 0 + offSet; i--)
             {
                 generatedPoints[pointCounter] = new System.Windows.Point(i, y);
-                MakeGrid(i, y);
+                MakeGrid(i, y, BorderChoice.Bottom);
             }
         }
 
@@ -375,17 +368,61 @@ namespace GooseGameWPF
             for (int i = 0 + offSet; i < x + offSet; i++)
             {
                 generatedPoints[pointCounter] = new System.Windows.Point(i, y);
-                MakeGrid(i, y);
+                MakeGrid(i, y, BorderChoice.top);
             }
         }
 
-        private void MakeGrid(int x, int y)
+        private void MakeGrid(int x, int y, BorderChoice borderChoice)
         {
+            Border b = new();
+            switch (borderChoice)
+            {
+                case BorderChoice.top:
+                    b.BorderThickness = new Thickness(0, 0, 0, 2);
+                    break;
+
+                case BorderChoice.Right:
+                    b.BorderThickness = new Thickness(2, 0, 0, 0);
+                    break;
+
+                case BorderChoice.Bottom:
+                    b.BorderThickness = new Thickness(0, 2, 0, 0);
+                    break;
+
+                case BorderChoice.Left:
+                    b.BorderThickness = new Thickness(0, 0, 2, 0);
+                    break;
+
+                default:
+                    break;
+            }
+            IList<ITile> tiles = GameBoard.GetGameBoard().Tiles;
+            //ITile[] gameBoardTilesPosition = new ITile[64];
+
+            Image tileBackground = new();
+
+            b.BorderBrush = new SolidColorBrush(Colors.Chocolate);
+
             Label tileLabel = new();
+            tileBackground.Width = 100;
+            tileBackground.Height = 100;
+            tileBackground.HorizontalAlignment = HorizontalAlignment.Center;
+            tileBackground.VerticalAlignment = VerticalAlignment.Center;
+            tileLabel.HorizontalAlignment = HorizontalAlignment.Center;
+            tileLabel.VerticalAlignment = VerticalAlignment.Center;
+            tileLabel.Content = pointCounter;
+            ImageSource tileImage = new BitmapImage(new Uri(tiles[pointCounter].BackgroundImage, UriKind.RelativeOrAbsolute));
+            tileBackground.Source = tileImage;
+            Grid.SetRow(tileBackground, y);
+            Grid.SetColumn(tileBackground, x);
             Grid.SetRow(tileLabel, y);
             Grid.SetColumn(tileLabel, x);
-            tileLabel.Content += $"Vak {pointCounter}";
+            Grid.SetRow(b, y);
+            Grid.SetColumn(b, x);
+            GooseGrid.Children.Add(tileBackground);
             GooseGrid.Children.Add(tileLabel);
+            GooseGrid.Children.Add(b);
+
             pointCounter++;
         }
     }

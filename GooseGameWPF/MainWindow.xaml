@@ -6,7 +6,7 @@
         mc:Ignorable="d"
 
         KeyDown="Grid_Keydown"
-        Title="MainWindow" Height="1080" Width="1920" FontSize="20" FontFamily="Comic-Sans">
+        Title="MainWindow" Height="1080" Width="1920" FontSize="20" FontFamily="Comic Sans MS">
 
     <Window.Background>
         <ImageBrush ImageSource="/Resources/Background.png" />
@@ -33,13 +33,11 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <StackPanel  Margin="227,27,-228,23" Grid.RowSpan="3" Grid.Column="7">
-
-            <Label x:Name="Roll1" Height="45" />
-            <Label x:Name="Roll2" Height="56" />
+        <Image x:Name="Dice1" Source="{Binding Dice1String}" Stretch="Fill"  Grid.Column="7" Margin="231,69,-124,68" Grid.RowSpan="2" />
+        <Image x:Name="Dice2" Source="{Binding Dice2String}" Stretch="Fill"  Grid.Column="7" Margin="330,69,-223,70" Grid.RowSpan="2" />
+        <StackPanel  Margin="227,56,-228,23" Grid.RowSpan="2" Grid.Column="7" Grid.Row="1">
             <Label x:Name="CurrentRoll" Height="63" />
-            <Button x:Name="RollDice" Content="play a turn" Click="RollDice_Click" Height="73" />
+            <Button x:Name="RollDice" Content="Roll Dice" Click="RollDice_Click" Height="73" />
         </StackPanel>
 
         <!--<Rectangle x:Name="RectPlayer0" Fill="DeepSkyBlue" Grid.Column="0" Grid.Row="7" Margin="104,67,0,4"></Rectangle>
@@ -49,11 +47,10 @@
         <StackPanel Grid.Column="7" Grid.Row="2" Margin="227,93,-245,58" Grid.RowSpan="4">
 
             <Label x:Name="CurrentPlayerLabel" Background="HotPink"  Content="---------" />
-            <Label x:Name="PlayerLabel0" Background="OrangeRed"  Content="Player 0" />
-            <Label x:Name="PlayerLabel1" Background="LightGreen"  Content="Player 1" />
-            <Label x:Name="PlayerLabel2" Background="DeepSkyBlue" Content="Player 2" />
-
-            <Label x:Name="PlayerLabel3" Background="Yellow"  Content="Player 3 " />
+            <Label x:Name="PlayerLabel0" Background="OrangeRed" Visibility="Hidden"  Content="Player 0" />
+            <Label x:Name="PlayerLabel1" Background="LightGreen" Visibility="Hidden" Content="Player 1" />
+            <Label x:Name="PlayerLabel2" Background="DeepSkyBlue" Visibility="Hidden" Content="Player 2" />
+            <Label x:Name="PlayerLabel3" Background="Yellow" Visibility="Hidden"  Content="Player 3 " />
         </StackPanel>
         <StackPanel Grid.Column="7" Grid.Row="4" Margin="217,111,-217,46" Grid.RowSpan="3">
             <TextBlock x:Name="TotalLogTextBlock"  TextWrapping="Wrap" Text="{Binding TurnLog}" Height="202" Width="190" />
