@@ -33,7 +33,8 @@ namespace GooseGameWPF
             {
                 throw new ArgumentException("Invalid amount of players selected", nameof(PlayerAmount) + PlayerAmount);
             }
-            MainWindow mainWindow = new MainWindow(vm);
+
+            MainWindow mainWindow = new MainWindow(vm, GetBoardType());
             mainWindow.Visibility = Visibility.Visible;
             Window win = (Window)this.Parent;
             win.Close();
@@ -43,6 +44,23 @@ namespace GooseGameWPF
         {
             vm.AddPlayer(PlayerNameInput.Text, IconSelect.SelectedIndex + 1);
             PlayerNameInput.Text = "";
+        }
+
+        private BoardType GetBoardType()
+        {
+            if ((bool)bboard.IsChecked)
+            {
+                return BoardType.Boustrophedon;
+            }
+            if ((bool)sboard.IsChecked)
+            {
+                return BoardType.Spiral;
+            }
+            if (((bool)bboard.IsChecked && (bool)sboard.IsChecked) || !((bool)bboard.IsChecked && (bool)sboard.IsChecked))
+            {
+                return BoardType.Boustrophedon;
+            }
+            return BoardType.Boustrophedon;
         }
     }
 }

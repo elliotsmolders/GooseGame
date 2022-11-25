@@ -24,12 +24,25 @@ namespace GooseGameWPF
         private System.Windows.Point[] generatedPoints = new System.Windows.Point[64];
         private System.Drawing.Rectangle vierkantje = new();
 
-        public MainWindow(MainViewModel viewModel)
+        public MainWindow(MainViewModel viewModel, BoardType boardType)
         {
             InitializeComponent();
             this.vm = viewModel;
             GooseGrid.DataContext = vm;
-            StylelizeGridTiles();
+            switch (boardType)
+            {
+                case BoardType.Boustrophedon:
+                    BoustrophedonBoard();
+                    break;
+
+                case BoardType.Spiral:
+                    SpiralBoard();
+                    break;
+
+                default:
+                    BoustrophedonBoard();
+                    break;
+            }
             vm.Init();
         }
 
@@ -98,7 +111,7 @@ namespace GooseGameWPF
             return vm.GetCurrentPlayerId();
         }
 
-        private int[,] StylelizeGridTiles()
+        private int[,] BoustrophedonBoard()
 
         {
             int[,] tileGrid = new int[8, 8];
@@ -293,6 +306,88 @@ namespace GooseGameWPF
             int playerPosition = vm.GetCurrentPlayerCurrentPosition();
             Player.SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
             Player.SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+        }
+
+        private int pointCounter { get; set; }
+
+        public void SpiralBoard()
+        {
+            //for (int x = 0; x < 8; x++)
+            //{
+            //    for (int y = 0; y < 8; y++)
+            //    {
+            //        Label tilelabel = new();
+            //        Grid.SetRow(tilelabel, y);
+            //        Grid.SetColumn(tilelabel, x);
+            //        tilelabel.Content += $"x:{x} - y:{y}";
+            //        GooseGrid.Children.Add(tilelabel);
+            //    }
+            //}
+
+            FillPointsLR(8, 7);
+            FillPointsDU(7, 8, -1);
+            FillPointsRL(7, 0);
+            FillPointsUD(0, 7);
+
+            FillPointsLR(6, 6, 1);
+            FillPointsDU(6, 5, 1);
+            FillPointsRL(7, 1);
+            FillPointsUD(1, 4, 2);
+
+            FillPointsLR(4, 5, 2);
+            FillPointsDU(5, 4, 1);
+            FillPointsRL(4, 2, 1);
+            FillPointsUD(2, 2, 3);
+
+            FillPointsLR(2, 4, 3);
+            FillPointsLR(1, 3, 4);
+            FillPointsLR(1, 3, 3);
+        }
+
+        private void FillPointsDU(int x, int y, int offSet = 0)
+        {
+            for (int j = y + offSet - 1; j > 0 + offSet; j--)
+            {
+                generatedPoints[pointCounter] = new System.Windows.Point(x, j);
+                MakeGrid(x, j);
+            }
+        }
+
+        private void FillPointsUD(int x, int y, int offSet = 0)
+        {
+            for (int j = 0 + offSet; j < y + offSet; j++)
+            {
+                generatedPoints[pointCounter] = new System.Windows.Point(x, j);
+                MakeGrid(x, j);
+            }
+        }
+
+        private void FillPointsRL(int x, int y, int offSet = 0)
+        {
+            for (int i = x + offSet - 1; i > 0 + offSet; i--)
+            {
+                generatedPoints[pointCounter] = new System.Windows.Point(i, y);
+                MakeGrid(i, y);
+            }
+        }
+
+        private void FillPointsLR(int x, int y, int offSet = 0)
+        {
+            for (int i = 0 + offSet; i < x + offSet; i++)
+            {
+                generatedPoints[pointCounter] = new System.Windows.Point(i, y);
+                MakeGrid(i, y);
+            }
+        }
+
+        private void MakeGrid(int x, int y)
+        {
+            Label tileLabel = new();
+            Grid.SetRow(tileLabel, y);
+            Grid.SetColumn(tileLabel, x);
+            tileLabel.Content += $"Vak {pointCounter}";
+            GooseGrid.Children.Add(tileLabel);
+            pointCounter++;
         }
     }
 }

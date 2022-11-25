@@ -31,7 +31,7 @@
         <Button x:Name="StartGame" Click="StartGame_Click" Grid.Column="1" Content="ToGame" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Height="46" Width="140" />
         <Button x:Name="PlayerAdd" Content="Add Player" IsEnabled="{Binding ElementName=PlayerNameInput, Path=Text.Length}" Click="AddPlayer" Grid.Column="1" Margin="162,18,162,18" Grid.Row="3" />
         <TextBox x:Name="PlayerNameInput" Text="" Background="AliceBlue" Margin="158,25,158,25" Grid.Column="1" Grid.Row="1" />
-        <Label Content="Kies Spelers" Margin="0,75,592,313" FontSize="40" FontFamily="Gothic" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <Label Content="Kies Spelers" Margin="0,75,592,313" FontSize="40" FontFamily="Gothic" Grid.Row="1" Grid.ColumnSpan="2" />
         <ComboBox x:Name="PlayerAmount" SelectedIndex="0" Margin="176,14,176,14" Grid.Column="1">
             <ComboBoxItem Content="1" FontSize="20" />
             <ComboBoxItem Content="2" FontSize="20" />
@@ -44,10 +44,12 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding IconImage}"  Width="30" Height="30" />
-                        <TextBlock Text="{Binding IconDescription}" VerticalAlignment="Center" Padding="10 0 0 0"/>
+                        <TextBlock Text="{Binding IconDescription}" VerticalAlignment="Center" Padding="10 0 0 0" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <CheckBox x:Name="bboard" Content="BoustrophedonBoard" HorizontalAlignment="Left" Margin="113,0,0,0" Grid.Row="1" VerticalAlignment="Center" />
+        <CheckBox x:Name="sboard" Content="SpiralBoard" HorizontalAlignment="Left" Margin="113,48,0,0" Grid.Row="1" VerticalAlignment="Top" />
     </Grid>
 </Page>
