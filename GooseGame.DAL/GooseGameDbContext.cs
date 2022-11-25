@@ -1,5 +1,6 @@
 ﻿using GooseGame.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace GooseGame.DAL
 {
@@ -14,6 +15,10 @@ namespace GooseGame.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PlayerEntity>()
+                .HasOne(gp => gp.Game)
+                .WithMany(g => g.Players)
+                .HasForeignKey(gp => gp.GameId);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

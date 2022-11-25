@@ -5,21 +5,17 @@ namespace GooseGame.DAL.Entities
 {
     public class GameEntity : BaseEntity, IEntity
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public override int Id { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //public int Id { get; set; }
+
+        public DateTime UpdatedOn { get; set; }
 
         [Required]
-        public DateTime DatePlayed { get; set; }
+        public DateTime CreatedOn { get; set; }
 
-        public ICollection<PlayerEntity> Players { get; set; }
-
-        [Required]
-        public int WinnerId { get; set; }
+        public virtual ICollection<PlayerEntity> Players { get; set; }
 
         [Required]
         public int ThrowsNeededToWin { get; set; }
-
-        [Range(1, 4)]
-        public int AmountOfPlayers { get; set; }
     }
 }

@@ -6,11 +6,12 @@ namespace GooseGame.DAL.Repositories
 {
     public class BaseRepository<T> where T : BaseEntity
     {
-        public GooseGameDbContext _ctx;
-
         public BaseRepository()
         {
-            _ctx = new GooseGameDbContext();
+        }
+
+        public async Task SaveGameAsync()
+        {
         }
 
         /// <summary>
@@ -18,10 +19,11 @@ namespace GooseGame.DAL.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task AddAsync(T entity)
+        public async Task<T> AddAsync(T entity, GooseGameDbContext ctx)
         {
-            _ctx.Add(entity);
-            await _ctx.SaveChangesAsync();
+            ctx.Add(entity);
+            //await ctx.SaveChangesAsync();
+            return entity;
         }
 
         /// <summary>
@@ -29,9 +31,9 @@ namespace GooseGame.DAL.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<T?> GetAsync(int id)
+        public async Task<T?> GetAsync(int id, GooseGameDbContext ctx)
         {
-            return await _ctx.Set<T>().FindAsync(id);
+            return await ctx.Set<T>().FindAsync(id);
         }
 
         /// <summary>
@@ -39,10 +41,11 @@ namespace GooseGame.DAL.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public async Task UpdateAsync(T entity)
+        public async Task<T> UpdateAsync(T entity, GooseGameDbContext ctx)
         {
-            _ctx.Update(entity);
-            await _ctx.SaveChangesAsync();
+            ctx.Update(entity);
+            //await ctx.SaveChangesAsync();
+            return entity;
         }
 
         /// <summary>
@@ -50,19 +53,19 @@ namespace GooseGame.DAL.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id, GooseGameDbContext ctx)
         {
-            _ctx.Remove(id);
-            await _ctx.SaveChangesAsync();
+            ctx.Remove(id);
+            //await ctx.SaveChangesAsync();
         }
 
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        public async Task<IList<T>> GetAllPlayersFromGameAsync()
+        public async Task<IList<T>> GetAllPlayersFromGameAsync(GooseGameDbContext ctx)
         {
-            return await _ctx.Set<T>().ToListAsync(); //
+            return await ctx.Set<T>().ToListAsync();
         }
     }
 }

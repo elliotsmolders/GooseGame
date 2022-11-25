@@ -1,8 +1,10 @@
-﻿namespace GooseGame.DAL.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GooseGame.DAL.Entities
 {
     public class BaseEntity : IEntity
     {
-        public virtual int Id { get; set; }
-        public DateTime DateUpdated { get; set; }
+        [Key]
+        public int Id { get; set; }
     }
 }

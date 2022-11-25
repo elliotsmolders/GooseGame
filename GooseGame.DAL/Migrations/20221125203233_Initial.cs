@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GooseGame.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,8 @@ namespace GooseGame.DAL.Migrations
                 name: "Games",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DatePlayed = table.Column<DateTime>(type: "datetime2", nullable: false),
                     WinnerId = table.Column<int>(type: "int", nullable: false),
                     ThrowsNeededToWin = table.Column<int>(type: "int", nullable: false),
@@ -51,14 +52,31 @@ namespace GooseGame.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Games_WinnerId",
+                table: "Games",
+                column: "WinnerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Players_GameId",
                 table: "Players",
                 column: "GameId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Games_Players_WinnerId",
+                table: "Games",
+                column: "WinnerId",
+                principalTable: "Players",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Games_Players_WinnerId",
+                table: "Games");
+
             migrationBuilder.DropTable(
                 name: "Players");
 

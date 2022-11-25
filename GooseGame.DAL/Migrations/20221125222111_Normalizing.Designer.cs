@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GooseGame.DAL.Migrations
 {
     [DbContext(typeof(GooseGameDbContext))]
-    [Migration("20221125093335_initial")]
-    partial class initial
+    [Migration("20221125222111_Normalizing")]
+    partial class Normalizing
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,24 +28,26 @@ namespace GooseGame.DAL.Migrations
             modelBuilder.Entity("GooseGame.DAL.Entities.GameEntity", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AmountOfPlayers")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DatePlayed")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ThrowsNeededToWin")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("WinnerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("WinnerId");
 
                     b.ToTable("Games");
                 });
@@ -58,14 +60,8 @@ namespace GooseGame.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("GameId")
                         .HasColumnType("int");
-
-                    b.Property<bool?>("GameWon")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -83,6 +79,17 @@ namespace GooseGame.DAL.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("GooseGame.DAL.Entities.GameEntity", b =>
+                {
+                    b.HasOne("GooseGame.DAL.Entities.PlayerEntity", "Winner")
+                        .WithMany()
+                        .HasForeignKey("WinnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Winner");
                 });
 
             modelBuilder.Entity("GooseGame.DAL.Entities.PlayerEntity", b =>

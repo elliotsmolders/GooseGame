@@ -79,8 +79,8 @@ namespace GooseGameWPF
             vm.PlayTurn(roll1, roll2);
             string currentTile = vm.GetCurrentPlayerTile();
             vm.UpdateTurnLog();
-            //updatePlayerPositions(vm.GetPlayerAmount());
-            UpdatePositionsAsync();
+            updatePlayerPositions(vm.GetPlayerAmount());
+            //UpdatePositionsAsync();
             CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()}'s turn";
             if (CheckForWinner())
             {
@@ -92,12 +92,13 @@ namespace GooseGameWPF
             }
         }
 
-        private async void FinalizeGame() //Needed 'void' to end the async chain for the event handler Upwards
+        private void FinalizeGame()
         {
             string winnerName = vm.GetWinnerName();
             MessageBox.Show($"{winnerName} has wonnered! ");
             GooseGrid.IsEnabled = false;
-            // await WriteGameToDatabaseAsync();
+            var t = Task.Run(() => WriteGameToDatabaseAsync());
+            t.Wait();
         }
 
         private string DisplayCurrentPlayer()
@@ -402,7 +403,6 @@ namespace GooseGameWPF
             Image tileBackground = new();
 
             b.BorderBrush = new SolidColorBrush(Colors.Chocolate);
-
             Label tileLabel = new();
             tileBackground.Width = 100;
             tileBackground.Height = 100;

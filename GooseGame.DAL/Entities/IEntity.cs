@@ -6,7 +6,5 @@ namespace GooseGame.DAL.Entities
     {
         [Key]
         public int Id { get; set; }
-
-        public DateTime DateUpdated { get; set; }
     }
 }
