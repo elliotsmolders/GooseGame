@@ -75,8 +75,8 @@ namespace GooseGameWPF
             string currentTile = vm.GetCurrentPlayerTile();
             CurrentPlayerTile.Content = currentTile;
             vm.UpdateTurnLog();
-            updatePlayerPositions(vm.GetPlayerAmount());
-            //UpdatePositionsAsync();
+            //updatePlayerPositions(vm.GetPlayerAmount());
+            UpdatePositionsAsync();
             CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
             if (CheckForWinner())
             {
@@ -262,6 +262,7 @@ namespace GooseGameWPF
             };
             bw.DoWork += Bw_DoWork;
             bw.RunWorkerAsync(arguments);
+            stepCounter = 0;
         }
 
         private void Bw_DoWork(object? sender, DoWorkEventArgs e)
@@ -271,6 +272,7 @@ namespace GooseGameWPF
             Image Player = (Image)genericlist[0];
             int iMin = (int)genericlist[1];
             int iMax = (int)genericlist[2];
+
             for (int i = iMin; i < iMax; i++)
             {
                 SetLocation(Player);
@@ -285,6 +287,8 @@ namespace GooseGameWPF
         /// <param name="p"></param>
         private delegate void ParametrizedMethodInvoker5(Image Player);
 
+        public int stepCounter { get; set; }
+
         private void SetLocation(Image Player)
         {
             if (!Dispatcher.CheckAccess()) // CheckAccess returns true if you're on the dispatcher thread
@@ -293,9 +297,10 @@ namespace GooseGameWPF
                 return;
             }
 
-            int playerPosition = vm.GetCurrentPlayerCurrentPosition();
-            Player.SetValue(Grid.RowProperty, (int)generatedPoints[playerPosition].X);
-            Player.SetValue(Grid.ColumnProperty, (int)generatedPoints[playerPosition].Y);
+            stepCounter++;
+            var currentPosition = vm.GetCurrentPlayerCurrentPosition();
+            Player.SetValue(Grid.RowProperty, (int)generatedPoints[currentPosition + stepCounter].X);
+            Player.SetValue(Grid.ColumnProperty, (int)generatedPoints[currentPosition + stepCounter].Y);
         }
 
         private int pointCounter { get; set; }
