@@ -25,37 +25,51 @@ namespace GooseGame.Business
 
         public int AmountOfPlayers { get; set; } = 4;
         public Dice DiceManager { get; set; } = new Dice();
-        public int Roll1 { get; set; }
+        public static int Roll1 { get; set; }
+        public static int Roll2 { get; set; }
 
+        /// <summary>
+        ///
+        /// </summary>
         public void Init()
         {
             CurrentPlayer = Players[0];
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public void SetNextPlayer()
         {
             int index = Players.IndexOf(CurrentPlayer);
             CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
         }
 
-        public int RollDice()
+        public Tuple<int, int> RollDice()
         {
-            return DiceManager.RollDice();
+            Roll1 = DiceManager.RollDice();
+            Roll2 = DiceManager.RollDice();
+            return new Tuple<int, int>(Roll1, Roll2);
         }
 
-        public void PlayTurn(int roll1, int roll2)
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="roll1"></param>
+        /// <param name="roll2"></param>
+        public void PlayTurn()
         {
+            int totalRoll = Roll1 + Roll2;
             Logger.ClearString();
             if (CurrentPlayer.IsPlayerActive())
             {
-                int currentRoll = roll1 + roll2;
-                if (currentRoll == 9 && CurrentPlayer.isOnStartTile() && CurrentPlayer.NumberOfRolls < 2)
+                if (totalRoll == 9 && CurrentPlayer.isOnStartTile() && CurrentPlayer.NumberOfRolls < 2)
                 {
-                    HandleFirstThrow(roll1, roll2);
+                    HandleFirstThrow(Roll1, Roll2);
                 }
                 else
                 {
-                    CurrentPlayer.MovePlayer(currentRoll);
+                    CurrentPlayer.MovePlayer(totalRoll);
                 }
 
                 CurrentPlayer.NumberOfRolls++;

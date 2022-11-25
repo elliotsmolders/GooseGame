@@ -5,15 +5,19 @@ namespace GooseGame.Business.Tiles
 {
     public class WellTile : Tile, ITile
     {
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="tileId"></param>
         public WellTile(int tileId) : base(tileId)
         {
             BackgroundImage = "pack://application:,,,/Resources/Icons/Well.png";
         }
+
         public Player playerInWell { get; private set; }
 
         public void HandlePlayer(Player player)
         {
-
             //TODO refactor later
             if (playerInWell == null)
             {
@@ -27,7 +31,6 @@ namespace GooseGame.Business.Tiles
                 playerInWell = player;
             }
             player.IsInWell = true;
-
         }
     }
 }

@@ -75,13 +75,11 @@ namespace GooseGameWPF
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-            int roll1 = vm.RollDice();
-            int roll2 = vm.RollDice();
-            int currentRoll = roll1 + roll2;
-            Roll1.Content = roll1;
-            Roll2.Content = roll2;
-            CurrentRoll.Content = currentRoll;
-            vm.PlayTurn(roll1, roll2);
+            var totalRoll = vm.RollDice();
+            Roll1.Content = totalRoll.Item1;
+            Roll2.Content = totalRoll.Item2;
+            CurrentRoll.Content = totalRoll.Item1 + totalRoll.Item2;
+            vm.PlayTurn();
             string currentTile = vm.GetCurrentPlayerTile();
             CurrentPlayerTile.Content = currentTile;
             vm.UpdateTurnLog();
@@ -220,9 +218,9 @@ namespace GooseGameWPF
             }
             else
             {
-                int roll1 = int.Parse(sanitizedString);
-                int roll2 = 0;
-                vm.PlayTurn(roll1, roll2);
+                GameEngine.Roll1 = int.Parse(sanitizedString);
+                GameEngine.Roll2 = 0;
+                vm.PlayTurn();
                 string currentTile = vm.GetCurrentPlayerTile();
                 CurrentPlayerTile.Content = currentTile;
                 vm.UpdateTurnLog();

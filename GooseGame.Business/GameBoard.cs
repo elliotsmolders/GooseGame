@@ -11,6 +11,10 @@ namespace GooseGame.Business
             FillTileList();
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
         public static GameBoard GetGameBoard()
         {
             if (_gameBoard == null)
@@ -20,6 +24,9 @@ namespace GooseGame.Business
             return _gameBoard;
         }
 
+        /// <summary>
+        ///
+        /// </summary>
         public IList<ITile> Tiles { get; set; } = new List<ITile>(); // ListOf doen we niet meer
 
         public int AmountOfTiles = 64;
@@ -41,6 +48,9 @@ namespace GooseGame.Business
         /// </summary>
         private TileFactory _factory = new();
 
+        /// <summary>
+        ///
+        /// </summary>
         private void FillTileList()
         {
             for (int i = 0; i < AmountOfTiles; i++)

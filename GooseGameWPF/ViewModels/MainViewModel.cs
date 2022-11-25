@@ -56,7 +56,7 @@ namespace GooseGameWPF.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public int RollDice()
+        public Tuple<int, int> RollDice()
         {
             return _engine.RollDice();
         }
@@ -142,9 +142,9 @@ namespace GooseGameWPF.ViewModels
             return _engine.Players.Count;
         }
 
-        public void PlayTurn(int roll1, int roll2)
+        public void PlayTurn()
         {
-            _engine.PlayTurn(roll1, roll2);
+            _engine.PlayTurn();
         }
 
         public string GetWinnerName()

@@ -6,6 +6,13 @@ namespace GooseGame.Business.Factory
 {
     public class TileFactory
     {
+        /// <summary>
+        /// Creates a predefined type of tile
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="tileId"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public ITile CreateTile(TileType type, int tileId)
         {
             switch (type)
