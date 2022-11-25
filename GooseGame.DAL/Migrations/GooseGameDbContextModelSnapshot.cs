@@ -25,10 +25,7 @@ namespace GooseGame.DAL.Migrations
             modelBuilder.Entity("GooseGame.DAL.Entities.GameEntity", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AmountOfPlayers")
                         .HasColumnType("int");

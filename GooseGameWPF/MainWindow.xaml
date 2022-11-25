@@ -6,7 +6,7 @@
         mc:Ignorable="d"
 
         KeyDown="Grid_Keydown"
-        Title="MainWindow" Height="1080" Width="1920" FontSize="18">
+        Title="MainWindow" Height="1080" Width="1920" FontSize="20" FontFamily="Comic-Sans">
 
     <Window.Background>
         <ImageBrush ImageSource="/Resources/Background.png" />
@@ -39,9 +39,6 @@
             <Label x:Name="Roll1" Height="45" />
             <Label x:Name="Roll2" Height="56" />
             <Label x:Name="CurrentRoll" Height="63" />
-
-            <Label x:Name="CurrentPlayerTile" />
-
             <Button x:Name="RollDice" Content="play a turn" Click="RollDice_Click" Height="73" />
         </StackPanel>
 
@@ -58,8 +55,8 @@
 
             <Label x:Name="PlayerLabel3" Background="Yellow"  Content="Player 3 " />
         </StackPanel>
-        <StackPanel Grid.Column="7" Grid.Row="4" Margin="217,111,-217,35" Grid.RowSpan="4">
-            <TextBlock x:Name="TotalLogTextBlock"  TextWrapping="Wrap" Text="{Binding TurnLog}" Height="272" Width="190" />
+        <StackPanel Grid.Column="7" Grid.Row="4" Margin="217,111,-217,46" Grid.RowSpan="3">
+            <TextBlock x:Name="TotalLogTextBlock"  TextWrapping="Wrap" Text="{Binding TurnLog}" Height="202" Width="190" />
         </StackPanel>
         <Image x:Name="Player0" Margin="16,2,124,65" Grid.Row="7" Source="/Resources/Icons/icon1.png" Stretch="Fill" />
         <Image x:Name="Player1"  Margin="118,1,17,65" Grid.Row="7" Source="/Resources/Icons/icon2.png" Stretch="Fill" />

@@ -24,6 +24,8 @@ namespace GooseGameWPF
         private System.Windows.Point[] generatedPoints = new System.Windows.Point[64];
         private System.Drawing.Rectangle vierkantje = new();
 
+        private string dobbel = "Resources/Dice/Eye1.png";
+
         public MainWindow(MainViewModel viewModel, BoardType boardType)
         {
             InitializeComponent();
@@ -67,16 +69,14 @@ namespace GooseGameWPF
 
         private void RollDice_Click(object sender, RoutedEventArgs e)
         {
-            var totalRoll = vm.RollDice();
-            Roll1.Content = totalRoll.Item1;
-            Roll2.Content = totalRoll.Item2;
-            CurrentRoll.Content = totalRoll.Item1 + totalRoll.Item2;
-            vm.PlayTurn();
+            Roll1.Content = vm.RollDice();
+            Roll2.Content = vm.RollDice();
+            CurrentRoll.Content = (int)Roll1.Content + (int)Roll2.Content;
+            vm.PlayTurn((int)Roll1.Content, (int)Roll2.Content);
             string currentTile = vm.GetCurrentPlayerTile();
-            CurrentPlayerTile.Content = currentTile;
             vm.UpdateTurnLog();
-            //updatePlayerPositions(vm.GetPlayerAmount());
-            UpdatePositionsAsync();
+            updatePlayerPositions(vm.GetPlayerAmount());
+            //UpdatePositionsAsync();
             CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
             if (CheckForWinner())
             {
@@ -130,7 +130,7 @@ namespace GooseGameWPF
                     {
                         int evenTiles = 63 - (i * 8 + j);
                         tileLabel.Name = $"Tile{evenTiles}";
-                        //tileLabel.Content = $"{evenTiles}";
+                        tileLabel.Content = $"{evenTiles}";
                         generatedLabels[evenTiles] = (tileLabel);
                         generatedPoints[evenTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[evenTiles] = tiles[evenTiles];
@@ -142,7 +142,7 @@ namespace GooseGameWPF
                     {
                         int oddTiles = 63 - (i * 8 + 7 - j);
                         tileLabel.Name = $"Tile{oddTiles}";
-                        //tileLabel.Content = $"{oddTiles}";
+                        tileLabel.Content = $"{oddTiles}";
                         generatedLabels[oddTiles] = (tileLabel);
                         generatedPoints[oddTiles] = new System.Windows.Point(i, j);
                         gameBoardTilesPosition[oddTiles] = tiles[oddTiles];
@@ -197,15 +197,19 @@ namespace GooseGameWPF
             }
             else
             {
-                GameEngine.Roll1 = int.Parse(sanitizedString);
-                GameEngine.Roll2 = 0;
-                vm.PlayTurn();
+                vm.PlayTurn(int.Parse(sanitizedString), 0);
                 string currentTile = vm.GetCurrentPlayerTile();
-                CurrentPlayerTile.Content = currentTile;
                 vm.UpdateTurnLog();
                 updatePlayerPositions(vm.GetPlayerAmount());
                 CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
-                CheckForWinner();
+                if (CheckForWinner())
+                {
+                    FinalizeGame();
+                }
+                else
+                {
+                    vm.SetNextPlayer();
+                }
                 vm.SetNextPlayer();
                 //MessageBox.Show(sanitizedString);
             }

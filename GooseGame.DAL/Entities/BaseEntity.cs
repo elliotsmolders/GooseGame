@@ -2,7 +2,7 @@
 {
     public class BaseEntity : IEntity
     {
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
         public DateTime DateUpdated { get; set; }
     }
 }

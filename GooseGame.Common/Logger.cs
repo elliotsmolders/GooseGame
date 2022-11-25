@@ -11,7 +11,13 @@
         /// <param name="message"></param>
         public static void AddToCurrentTurnLog(string message)
         {
-            TurnLog += $"{message},";
+            try
+            {
+                TurnLog += $"{message},";
+            }
+            catch (Exception)
+            {
+            }
         }
 
         /// <summary>

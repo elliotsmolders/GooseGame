@@ -112,6 +112,7 @@ namespace GooseGame.Tests
             engine.PlayTurn(1, 1);
             //assert
             Assert.That(player.NumberOfRolls, Is.EqualTo(1));
+            Assert.That(player.CurrentPosition, Is.EqualTo(11));
         }
 
         [Test]

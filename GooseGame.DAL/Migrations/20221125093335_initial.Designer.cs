@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GooseGame.DAL.Migrations
 {
     [DbContext(typeof(GooseGameDbContext))]
-    [Migration("20221124201523_initial")]
+    [Migration("20221125093335_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -28,10 +28,7 @@ namespace GooseGame.DAL.Migrations
             modelBuilder.Entity("GooseGame.DAL.Entities.GameEntity", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AmountOfPlayers")
                         .HasColumnType("int");

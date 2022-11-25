@@ -45,11 +45,9 @@ namespace GooseGame.Business
             CurrentPlayer = index >= Players.Count() - 1 ? Players[0] : Players[index + 1];
         }
 
-        public Tuple<int, int> RollDice()
+        public int RollDice()
         {
-            Roll1 = DiceManager.RollDice();
-            Roll2 = DiceManager.RollDice();
-            return new Tuple<int, int>(Roll1, Roll2);
+            return DiceManager.RollDice();
         }
 
         /// <summary>
@@ -57,15 +55,15 @@ namespace GooseGame.Business
         /// </summary>
         /// <param name="roll1"></param>
         /// <param name="roll2"></param>
-        public void PlayTurn()
+        public void PlayTurn(int roll1, int roll2)
         {
-            int totalRoll = Roll1 + Roll2;
+            int totalRoll = roll1 + roll2;
             Logger.ClearString();
             if (CurrentPlayer.IsPlayerActive(Players.Count))
             {
-                if (totalRoll == 9 && CurrentPlayer.isOnStartTile() && CurrentPlayer.NumberOfRolls < 2)
+                if (totalRoll == 9 && CurrentPlayer.isOnStartTile())
                 {
-                    HandleFirstThrow(Roll1, Roll2);
+                    HandleFirstThrow(roll1, roll2);
                 }
                 else
                 {
@@ -186,6 +184,7 @@ namespace GooseGame.Business
             GiveTempIdToPlayersInList();
             List<PlayerEntity> gamePlayers = await PlayerPrep();
             GameEntity game = await GamePrepAsync(gamePlayers);
+
             await _gameRepo.AddAsync(game);
         }
 
@@ -197,7 +196,7 @@ namespace GooseGame.Business
         private async Task<GameEntity> GamePrepAsync(List<PlayerEntity> gamePlayers)
         {
             GameEntity game = new GameEntity();
-            game.Id = game.Id;
+
             game.DateUpdated = dateUpdated;
             game.Players = gamePlayers;
             game.DatePlayed = DateTime.Now;

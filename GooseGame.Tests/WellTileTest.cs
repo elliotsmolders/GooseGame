@@ -28,16 +28,19 @@ namespace GooseGame.Tests
         {
             //arrange
             GameEngine engine = new GameEngine();
-            Player player = new Player("TestJos");
-            engine.CurrentPlayer = player;
-            player.CurrentPosition = 29;
-            player.MovePlayer(2);
+            Player player1 = new Player("TestJos");
+            Player player2 = new Player("player2");
+            engine.Players.Add(player1);
+            engine.Players.Add(player2);
+            engine.CurrentPlayer = player1;
+            player1.CurrentPosition = 29;
+            player1.MovePlayer(2);
 
             //act
             engine.PlayTurn(2, 3);
             //Assert
-            Assert.That(player.IsInWell, Is.EqualTo(true));
-            Assert.That(player.CurrentPosition, Is.EqualTo(31));
+            Assert.That(player1.IsInWell, Is.EqualTo(true));
+            Assert.That(player1.CurrentPosition, Is.EqualTo(31));
         }
 
         [Test]
@@ -47,6 +50,8 @@ namespace GooseGame.Tests
             GameEngine engine = new GameEngine();
             Player player1 = new Player("player1");
             Player player2 = new Player("player2");
+            engine.Players.Add(player1);
+            engine.Players.Add(player2);
             player1.CurrentPosition = 29;
             player1.MovePlayer(2);
             player2.CurrentPosition = 29;
@@ -70,6 +75,8 @@ namespace GooseGame.Tests
             GameEngine engine = new GameEngine();
             Player player1 = new Player("player1");
             Player player2 = new Player("player2");
+            engine.Players.Add(player1);
+            engine.Players.Add(player2);
             player1.CurrentPosition = 29;
             player1.MovePlayer(2);
             player2.CurrentPosition = 29;
