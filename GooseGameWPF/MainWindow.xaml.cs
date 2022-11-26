@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -45,6 +46,9 @@ namespace GooseGameWPF
                     break;
             }
             vm.Init();
+
+            bw.DoWork += Bw_DoWork;
+            bw.ProgressChanged += Bw_ProgressChanged;
         }
 
         private bool CheckForWinner()
@@ -205,7 +209,8 @@ namespace GooseGameWPF
                 vm.PlayTurn(int.Parse(sanitizedString), 0);
                 string currentTile = vm.GetCurrentPlayerTile();
                 vm.UpdateTurnLog();
-                updatePlayerPositions(vm.GetPlayerAmount());
+                UpdatePositionsAsync();
+                //updatePlayerPositions(vm.GetPlayerAmount());
                 CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()} is now playing";
                 if (CheckForWinner())
                 {
@@ -239,9 +244,10 @@ namespace GooseGameWPF
             }
         }
 
+        private BackgroundWorker bw = new BackgroundWorker();
+
         private void UpdatePositionsAsync()
         {
-            var bw = new BackgroundWorker();
             int iMin = vm.GetCurrentPlayerPreviousPosition();
             int iMax = vm.GetCurrentPlayerCurrentPosition();
             stepCounter = iMax - iMin;
@@ -270,9 +276,13 @@ namespace GooseGameWPF
                 iMin,
                 iMax
             };
-            bw.DoWork += Bw_DoWork;
             bw.RunWorkerAsync(arguments);
             stepCounter = 0;
+        }
+
+        private void Bw_ProgressChanged(object? sender, ProgressChangedEventArgs e)
+        {
+            Debug.WriteLine(e.ProgressPercentage);
         }
 
         private void Bw_DoWork(object? sender, DoWorkEventArgs e)
@@ -285,6 +295,11 @@ namespace GooseGameWPF
 
             for (int i = iMin; i < iMax; i++)
             {
+                if (bw.CancellationPending)
+                    break;
+                bw.WorkerReportsProgress = true;
+                bw.ReportProgress(100 * (i - iMin + 1) / (iMax - iMin));
+
                 SetLocation(Player);
                 System.Threading.Thread.Sleep(300);
             }
@@ -424,6 +439,17 @@ namespace GooseGameWPF
             GooseGrid.Children.Add(b);
 
             pointCounter++;
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            bw.CancelAsync();
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            bw.WorkerSupportsCancellation = true;
+            bw.CancelAsync();
         }
     }
 }
