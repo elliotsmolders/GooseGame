@@ -6,7 +6,7 @@
         mc:Ignorable="d"
 
         KeyDown="Grid_Keydown"
-        Title="MainWindow" Height="1080" Width="1920" FontSize="20" FontFamily="Comic Sans MS" Closing="Window_Closing" SizeChanged="Window_SizeChanged">
+        Title="MainWindow" Height="1080" Width="1920" FontSize="20" FontFamily="Comic Sans MS">
 
     <Window.Background>
         <ImageBrush ImageSource="/Resources/Background.png" />
