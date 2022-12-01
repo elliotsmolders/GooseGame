@@ -79,8 +79,8 @@ namespace GooseGameWPF
             vm.PlayTurn(roll1, roll2);
             string currentTile = vm.GetCurrentPlayerTile();
             vm.UpdateTurnLog();
-            updatePlayerPositions(vm.GetPlayerAmount());
-            //UpdatePositionsAsync();
+            //updatePlayerPositions(vm.GetPlayerAmount());
+            UpdatePositionsAsync();
             CurrentPlayerLabel.Content = $"Player {DisplayCurrentPlayer()}'s turn";
             if (CheckForWinner())
             {
@@ -260,7 +260,7 @@ namespace GooseGameWPF
                     xamlPlayer = Player2;
                     break;
 
-                case 4:
+                case 3:
                     xamlPlayer = Player3;
                     break;
             }
@@ -270,12 +270,12 @@ namespace GooseGameWPF
                 iMin,
                 iMax
             };
-            bw.DoWork += Bw_DoWork;
+            bw.DoWork += Bw_MovePlayer;
             bw.RunWorkerAsync(arguments);
             stepCounter = 0;
         }
 
-        private void Bw_DoWork(object? sender, DoWorkEventArgs e)
+        private void Bw_MovePlayer(object? sender, DoWorkEventArgs e)
         {
             List<object> genericlist = e.Argument as List<object>;
 
